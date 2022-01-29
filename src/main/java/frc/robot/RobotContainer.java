@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -35,6 +36,7 @@ public class RobotContainer {
   //motors 
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
+  public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
 
   //sensors
   private static RelativeEncoder shooterRightEnc;
@@ -49,8 +51,13 @@ public class RobotContainer {
   public static PowerDistribution pdp;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
+  shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
   shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+
+  topLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
+  topRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+  bottomLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
+  bottomRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
 
   pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
   pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
@@ -80,7 +87,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    shooterTeleop = new JoystickButton(joy, 1);
+
+    shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
+  }
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

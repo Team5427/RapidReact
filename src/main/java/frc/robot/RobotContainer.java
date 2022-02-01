@@ -1,97 +1,196 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot;
 
 
+import edu.wpi.first.cscore.UsbCamera;
+
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.MoveElevator;
+import frc.robot.commands.MoveIntake;
+import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.commands.MoveTransport;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Transport;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj2.command.Command;
-
-import frc.robot.commands.MoveShooterTeleop;
+import edu.wpi.first.wpilibj.SPI;
 import frc.robot.subsystems.Shooter;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
+ * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer 
+{
   // The robot's subsystems and commands are defined here...
+
+  //numbers
+
+  //joystick
   private static Joystick joy;
+  private static Button intakeButton;
+  private static Button transportButton;
   private static Button shooterTeleop;
+  private static Button moveElevatorUp;
+  private static Button moveElevatorDown;
 
   //motors 
-  public static CANSparkMax shooterMotorRight;
-  public static CANSparkMax shooterMotorLeft;
+  private final CANSparkMax frontLeft, rearLeft;
+  private final CANSparkMax frontRight,rearRight;
+  private static MotorControllerGroup leftDrive;
+  private static MotorControllerGroup rightDrive;
+  private static CANSparkMax transportMotor;
+  private static CANSparkMax intakeMotor;
+  private static CANSparkMax shooterMotorTop;
+  private static CANSparkMax shooterMotorBtm;
+  private static CANSparkMax elevatorLeft, elevatorRight;
 
   //sensors
-  private static RelativeEncoder shooterRightEnc;
-  private static RelativeEncoder shooterLeftEnc;
+  private static RelativeEncoder frontLeftEnc;
+  private static RelativeEncoder rearLeftEnc;
+  private static RelativeEncoder frontRightEnc;
+  private static RelativeEncoder rearRightEnc;
+  private static RelativeEncoder transportEnc;
+  private static RelativeEncoder intakeEnc;
+  private static RelativeEncoder shooterMotorEncTop;
+  private static RelativeEncoder shooterMotorEncBtm;
+  private static RelativeEncoder elevatorEncLeft;
+  private static RelativeEncoder elevatorEncRight;
+  private static Ultrasonic ultra;
+  private static AHRS ahrs;
 
   //subsystems
+  private static DifferentialDrive drive;
+  private static DriveTrain driveTrain;
+  private static Transport transport;
+  private static Intake intake;
   private static Shooter shooter;
+  private static Elevator elevator;
 
-  private static SparkMaxPIDController pidcontrol_shooter_Right;
-  private static SparkMaxPIDController pidcontrol_shooter_Left;
-
-  public static PowerDistribution pdp;
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
-
-  pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
-  pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
-  // Configure the button bindings
-
-  shooterRightEnc = shooterMotorRight.getEncoder();
-  shooterLeftEnc = shooterMotorLeft.getEncoder();
-
-  pdp = new PowerDistribution(0, ModuleType.kCTRE);
-
-
+  //camera
   
 
-  shooterMotorLeft.setInverted(false);
+  /**
+   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   */
+  public RobotContainer() 
+  {
+    
 
-  
-  shooterMotorRight.setInverted(true);
 
-  shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
+
+    frontLeft = new CANSparkMax(Constants.LEFT_TOP_MOTOR, MotorType.kBrushless);
+    rearLeft = new CANSparkMax(Constants.LEFT_BOTTOM_MOTOR, MotorType.kBrushless);
+    leftDrive = new MotorControllerGroup(frontLeft, rearLeft);
+    frontRight = new CANSparkMax(Constants.RIGHT_BOTTOM_MOTOR, MotorType.kBrushless);
+    rearRight = new CANSparkMax(Constants.RIGHT_TOP_MOTOR, MotorType.kBrushless);
+    rightDrive = new MotorControllerGroup(frontRight, rearRight);
+    frontLeftEnc = frontLeft.getEncoder();
+    rearLeftEnc = rearLeft.getEncoder();
+    frontRightEnc = frontRight.getEncoder();
+    rearRightEnc = rearRight.getEncoder();
+    drive = new DifferentialDrive(leftDrive, rightDrive);
+    drive.setSafetyEnabled(false);
+    driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
+    driveTrain.setDefaultCommand(new DriveWithJoystick());
+
+    intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushless);
+    intakeEnc = intakeMotor.getEncoder();
+    intake = new Intake(intakeMotor);
+
+    transportMotor = new CANSparkMax(Constants.TRANSPORT_MOTOR, MotorType.kBrushless);
+    transportEnc = transportMotor.getEncoder();
+    transport = new Transport(transportMotor);
+
+    shooterMotorTop = new CANSparkMax(Constants.SHOOTER_MOTOR_TOP, MotorType.kBrushless);
+    shooterMotorBtm = new CANSparkMax(Constants.SHOOTER_MOTOR_BOTTOM, MotorType.kBrushless);
+    shooterMotorEncTop = shooterMotorTop.getEncoder();
+    shooterMotorEncBtm = shooterMotorBtm.getEncoder();
+    shooter = new Shooter(shooterMotorTop, shooterMotorBtm);
+
+    elevatorLeft = new CANSparkMax(Constants.ELEVATOR_LEFT_MOTOR, MotorType.kBrushless);
+    elevatorRight = new CANSparkMax(Constants.ELEVATOR_RIGHT_MOTOR, MotorType.kBrushless);
+    elevatorEncLeft = elevatorLeft.getEncoder();
+    elevatorEncRight = elevatorRight.getEncoder();
+    elevator = new Elevator(elevatorLeft, elevatorRight);
+
+    ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
+    Ultrasonic.setAutomaticMode(true);
+
+    ahrs = new AHRS(SPI.Port.kMXP);
+
     // Configure the button bindings
     configureButtonBindings();
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() 
+  {
+    joy = new Joystick(0);
+
+    intakeButton = new JoystickButton(joy, Constants.INTAKE_BUTTON);
+    transportButton = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
+    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
+    moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
+    moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
   
+
+    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
+    transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
+    shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
+    moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public static Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
+  public static Command getAutonomousCommand() 
+  {
+    return new AethiaRightThreeCells();
   }
 
-  public static Shooter getShooter(){return shooter;}
+  public static DriveTrain getDriveTrain(){return driveTrain;}
+  public static MotorControllerGroup getLeftSCG(){return leftDrive;}
+  public static MotorControllerGroup getRightSCG(){return rightDrive;}
+  public static DifferentialDrive getDiffDrive(){return drive;}
+  public static AHRS getAHRS(){return ahrs;}
   public static Joystick getJoy(){return joy;}
+  public static Intake getIntake(){return intake;}
+  public static Transport getTransport(){return transport;}
+  public static Shooter getShooter(){return shooter;}
+  public static Ultrasonic getUltrasonic(){return ultra;}
+  public static Elevator getElevator(){return elevator;}
 }

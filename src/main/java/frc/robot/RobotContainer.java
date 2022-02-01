@@ -13,6 +13,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -66,9 +67,13 @@ public class RobotContainer
   private static MotorControllerGroup rightDrive;
   private static CANSparkMax transportMotor;
   private static CANSparkMax intakeMotor;
-  private static CANSparkMax shooterMotorTop;
-  private static CANSparkMax shooterMotorBtm;
+  private static CANSparkMax shooterMotorLeft;
+  private static CANSparkMax shooterMotorRight;
   private static CANSparkMax elevatorLeft, elevatorRight;
+
+  //PID controllers
+  private final SparkMaxPIDController leftDrivePID;
+  private final SparkMaxPIDController rightDrivePID;
 
   //sensors
   private static RelativeEncoder frontLeftEnc;
@@ -77,8 +82,8 @@ public class RobotContainer
   private static RelativeEncoder rearRightEnc;
   private static RelativeEncoder transportEnc;
   private static RelativeEncoder intakeEnc;
-  private static RelativeEncoder shooterMotorEncTop;
-  private static RelativeEncoder shooterMotorEncBtm;
+  private static RelativeEncoder shooterMotorEncLeft;
+  private static RelativeEncoder shooterMotorEncRight;
   private static RelativeEncoder elevatorEncLeft;
   private static RelativeEncoder elevatorEncRight;
   private static Ultrasonic ultra;
@@ -114,30 +119,32 @@ public class RobotContainer
     rearLeftEnc = rearLeft.getEncoder();
     frontRightEnc = frontRight.getEncoder();
     rearRightEnc = rearRight.getEncoder();
+    leftDrivePID = frontLeft.getPIDController();
+    rightDrivePID = frontRight.getPIDController();
     drive = new DifferentialDrive(leftDrive, rightDrive);
     drive.setSafetyEnabled(false);
-    driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
+    driveTrain = new DriveTrain(leftDrive, rightDrive, drive, frontLeftEnc, rearLeftEnc, frontRightEnc, rearRightEnc, leftDrivePID, rightDrivePID);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushless);
     intakeEnc = intakeMotor.getEncoder();
-    intake = new Intake(intakeMotor);
+    intake = new Intake(intakeMotor, intakeEnc);
 
     transportMotor = new CANSparkMax(Constants.TRANSPORT_MOTOR, MotorType.kBrushless);
     transportEnc = transportMotor.getEncoder();
-    transport = new Transport(transportMotor);
+    transport = new Transport(transportMotor, transportEnc);
 
-    shooterMotorTop = new CANSparkMax(Constants.SHOOTER_MOTOR_TOP, MotorType.kBrushless);
-    shooterMotorBtm = new CANSparkMax(Constants.SHOOTER_MOTOR_BOTTOM, MotorType.kBrushless);
-    shooterMotorEncTop = shooterMotorTop.getEncoder();
-    shooterMotorEncBtm = shooterMotorBtm.getEncoder();
-    shooter = new Shooter(shooterMotorTop, shooterMotorBtm);
+    shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_TOP, MotorType.kBrushless);
+    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_BOTTOM, MotorType.kBrushless);
+    shooterMotorEncLeft = shooterMotorLeft.getEncoder();
+    shooterMotorEncRight = shooterMotorRight.getEncoder();
+    shooter = new Shooter(shooterMotorLeft, shooterMotorRight, shooterMotorEncLeft, shooterMotorEncRight);
 
     elevatorLeft = new CANSparkMax(Constants.ELEVATOR_LEFT_MOTOR, MotorType.kBrushless);
     elevatorRight = new CANSparkMax(Constants.ELEVATOR_RIGHT_MOTOR, MotorType.kBrushless);
     elevatorEncLeft = elevatorLeft.getEncoder();
     elevatorEncRight = elevatorRight.getEncoder();
-    elevator = new Elevator(elevatorLeft, elevatorRight);
+    elevator = new Elevator(elevatorLeft, elevatorRight, elevatorEncLeft, elevatorEncRight);
 
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
     Ultrasonic.setAutomaticMode(true);
@@ -164,7 +171,6 @@ public class RobotContainer
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
   
-
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));

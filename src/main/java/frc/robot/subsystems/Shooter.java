@@ -1,41 +1,55 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase
 {
-    private MotorController shooterMotorTop;
-    private MotorController shooterMotorBottom;
+    private CANSparkMax shooterMotorLeft;
+    private CANSparkMax shooterMotorRight;
+    private RelativeEncoder lEnc;
+    private RelativeEncoder rEnc;
     
-    public Shooter(MotorController shooterMotorTop, MotorController shooterMotorBottom)
+    public Shooter(CANSparkMax shooterMotorLeft, CANSparkMax shooterMotorRight, RelativeEncoder lEnc, RelativeEncoder rEnc)
     {
-        this.shooterMotorTop = shooterMotorTop;
-        this.shooterMotorBottom = shooterMotorBottom;
+        this.shooterMotorLeft = shooterMotorLeft;
+        this.shooterMotorRight = shooterMotorRight;
+        this.lEnc = lEnc;
+        this.rEnc = rEnc;
     }
 
-    public MotorController getShooterMotorTop()
+    public CANSparkMax getShooterMotorLeft()
     {
-        return shooterMotorTop;
+        return shooterMotorLeft;
     }
 
-    public MotorController getShooterMotorBottom()
+    public CANSparkMax getShooterMotorRight()
     {
-        return shooterMotorBottom;
+        return shooterMotorRight;
     }
 
     public void moveShooter(double speed)
     {
-        shooterMotorBottom.set(-speed);
-        shooterMotorTop.set(speed);
+        shooterMotorRight.set(-speed);
+        shooterMotorLeft.set(speed);
     }
 
     public void stop()
     {
-        shooterMotorBottom.set(0);
-        shooterMotorTop.set(0);
+        shooterMotorRight.stopMotor();
+        shooterMotorLeft.stopMotor();
+    }
+
+    public RelativeEncoder getShooterLeftEnc()
+    {
+        return lEnc;
+    }
+
+    public RelativeEncoder getShooterRightENc()
+    {
+        return rEnc;
     }
 
 }

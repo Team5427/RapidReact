@@ -1,19 +1,20 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.MoveTransportIntake;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
 public class Transport extends SubsystemBase
 {
 
-    private MotorController transportMotor;  
+    private CANSparkMax transportMotor;
+    private RelativeEncoder enc;
        
-    public Transport (MotorController transportMotor) 
+    public Transport (CANSparkMax transportMotor, RelativeEncoder enc) 
     {
         this.transportMotor = transportMotor;
+        this.enc = enc;
     }
 
     public void stop()
@@ -24,6 +25,16 @@ public class Transport extends SubsystemBase
     public void moveTransport(double speed)
     {
         transportMotor.set(speed);
+    }
+
+    public CANSparkMax getTransportMotor()
+    {
+        return transportMotor;
+    }
+
+    public RelativeEncoder getTransportEnc()
+    {
+        return enc;
     }
 
 }

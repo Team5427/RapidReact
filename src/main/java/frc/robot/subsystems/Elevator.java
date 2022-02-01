@@ -1,20 +1,22 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase
 {
 
-    private MotorController left, right;
+    private CANSparkMax left, right;
+    private RelativeEncoder leftEnc, rightEnc;
 
-    public Elevator(MotorController left, MotorController right)
+    public Elevator(CANSparkMax left, CANSparkMax right, RelativeEncoder leftEnc, RelativeEncoder rightEnc)
     {
         this.left = left;
         this.right = right;
+        this.leftEnc = leftEnc;
+        this.rightEnc = rightEnc;
     }
 
     public void setSpeed(double speed) 
@@ -32,6 +34,26 @@ public class Elevator extends SubsystemBase
     {
         right.set(speed);
     }
+
+    public CANSparkMax getElevatorLeft() 
+    {
+        return left;
+    }
+
+    public CANSparkMax getElevatorRight() 
+    {
+        return right;
+    }
+
+    public RelativeEncoder getElevatorEncLeft()
+    {
+        return leftEnc;
+    } 
+
+    public RelativeEncoder getElevatorEncRight()
+    {
+        return rightEnc;
+    } 
 
     public void stop() 
     {

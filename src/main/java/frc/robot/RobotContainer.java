@@ -23,6 +23,8 @@ import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.VisionTurnRight;
+import frc.robot.commands.auto.IntakeVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -52,6 +54,8 @@ public class RobotContainer
   private static Button shooterTeleop;
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
+  private static Button visionIntake;
+  private static Button visionShoot;
 
   //motors 
   private final CANSparkMax frontLeft, rearLeft;
@@ -99,10 +103,6 @@ public class RobotContainer
    */
   public RobotContainer() 
   {
-    
-
-
-
     frontLeft = new CANSparkMax(Constants.LEFT_TOP_MOTOR, MotorType.kBrushless);
     rearLeft = new CANSparkMax(Constants.LEFT_BOTTOM_MOTOR, MotorType.kBrushless);
     leftDrive = new MotorControllerGroup(frontLeft, rearLeft);
@@ -165,12 +165,16 @@ public class RobotContainer
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
+    visionIntake = new JoystickButton(joy, Constants.VISION_INTAKE_BTN);
+    visionShoot = new JoystickButton(joy, Constants.VISION_SHOOTER_BTN);
   
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    visionIntake.whenPressed(new IntakeVision(0));
+    visionShoot.whileHeld(new VisionTurnRight(0));
   }
 
   /**

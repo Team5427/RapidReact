@@ -111,6 +111,8 @@ public class Robot extends TimedRobot
 
     SmartDashboard.putNumber("Shooter Setpoint", setPointShooter);
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getShooterLeftEnc().getVelocity());
+    SmartDashboard.putBoolean("Hoop Visible", target_hasTarget);
+    SmartDashboard.putBoolean("Ball Visible", ball_hasTarget);
   }
 
   /**

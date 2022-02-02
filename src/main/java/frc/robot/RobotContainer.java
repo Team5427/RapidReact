@@ -7,18 +7,11 @@
 
 package frc.robot;
 
-
-import edu.wpi.first.cscore.UsbCamera;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -74,6 +67,7 @@ public class RobotContainer
   //PID controllers
   private final SparkMaxPIDController leftDrivePID;
   private final SparkMaxPIDController rightDrivePID;
+  private final SparkMaxPIDController shooterPID;
 
   //sensors
   private static RelativeEncoder frontLeftEnc;
@@ -138,7 +132,8 @@ public class RobotContainer
     shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_BOTTOM, MotorType.kBrushless);
     shooterMotorEncLeft = shooterMotorLeft.getEncoder();
     shooterMotorEncRight = shooterMotorRight.getEncoder();
-    shooter = new Shooter(shooterMotorLeft, shooterMotorRight, shooterMotorEncLeft, shooterMotorEncRight);
+    shooterPID = shooterMotorLeft.getPIDController();
+    shooter = new Shooter(shooterMotorLeft, shooterMotorRight, shooterMotorEncLeft, shooterMotorEncRight, shooterPID);
 
     elevatorLeft = new CANSparkMax(Constants.ELEVATOR_LEFT_MOTOR, MotorType.kBrushless);
     elevatorRight = new CANSparkMax(Constants.ELEVATOR_RIGHT_MOTOR, MotorType.kBrushless);
@@ -185,7 +180,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaRightThreeCells();
+    return null;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

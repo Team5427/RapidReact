@@ -23,8 +23,8 @@ public class DriveTrain extends SubsystemBase
     private SparkMaxPIDController PID_left;
     private SparkMaxPIDController PID_right;
 
-    public double kP_Left, kI_Left, kD_Left, kIz_Left, kFF_Left, kMaxOutput_Left, kMinOutput_Left, maxRPM_Left;
-    public double kP_Right, kI_Right, kD_Right, kIz_Right, kFF_Right, kMaxOutput_Right, kMinOutput_Right, maxRPM_Right;
+    private double kP_Left, kI_Left, kD_Left, kIz_Left, kFF_Left, kMaxOutput_Left, kMinOutput_Left;
+    private double kP_Right, kI_Right, kD_Right, kIz_Right, kFF_Right, kMaxOutput_Right, kMinOutput_Right;
 
     public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive driveBase, RelativeEncoder enc_fl, RelativeEncoder enc_bl, RelativeEncoder enc_fr, RelativeEncoder enc_br, SparkMaxPIDController PID_left, SparkMaxPIDController PID_right)
     {
@@ -103,7 +103,6 @@ public class DriveTrain extends SubsystemBase
         kFF_Left = 0.000015; 
         kMaxOutput_Left = 1; 
         kMinOutput_Left = -1;
-        maxRPM_Left = 5700;
     
         // set PID coefficients
         PID_left.setP(kP_Left);
@@ -123,7 +122,6 @@ public class DriveTrain extends SubsystemBase
         kFF_Right = 0.000015; 
         kMaxOutput_Right = 1; 
         kMinOutput_Right = -1;
-        maxRPM_Right = 5700;
     
         // set PID coefficients
         PID_right.setP(kP_Right);

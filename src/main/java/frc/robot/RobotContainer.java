@@ -5,6 +5,7 @@
 package frc.robot;
 
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -14,12 +15,17 @@ import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.SPI;
+
 
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -37,13 +43,19 @@ public class RobotContainer {
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
+  public static MotorControllerGroup left, right;
+
+  public static DifferentialDrive drive;
 
   //sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
 
+  private static AHRS ahrs;
+
   //subsystems
   private static Shooter shooter;
+  private static DriveTrain driveTrain;
 
   private static SparkMaxPIDController pidcontrol_shooter_Right;
   private static SparkMaxPIDController pidcontrol_shooter_Left;
@@ -54,10 +66,18 @@ public class RobotContainer {
   shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
   shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
 
-  topLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  topRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
-  bottomLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  bottomRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+  topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+  topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+  bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+  bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
+
+  drive = new DifferentialDrive(left, right);
+  driveTrain = new DriveTrain(left, right, drive, topLeft);
+
+  left = new MotorControllerGroup(topLeft, bottomLeft);
+  right = new MotorControllerGroup(topRight, bottomRight);
+
+  ahrs = new AHRS(SPI.Port.kMXP);
 
   pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
   pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
@@ -88,10 +108,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    joy = new Joystick(0);
 
     shooterTeleop = new JoystickButton(joy, 1);
 
-    shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
+    shooterTeleop.whileHeld(new MoveShooterTeleop(.5));
   }
   
   /**
@@ -106,4 +127,6 @@ public class RobotContainer {
 
   public static Shooter getShooter(){return shooter;}
   public static Joystick getJoy(){return joy;}
+  public static DriveTrain getDriveTrain(){return driveTrain;}
+  public static AHRS getAHRS(){return ahrs;}
 }

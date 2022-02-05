@@ -5,22 +5,28 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.hal.DigitalGlitchFilterJNI;
 import edu.wpi.first.wpilibj.CAN;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.commands.MoveTilt;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Tilt;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,18 +38,23 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static Joystick joy;
   private static Button shooterTeleop;
+  private static Button tiltUp;
+  private static Button tiltDown;
 
   //motors 
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
+  public static MotorController tiltMotor;
 
   //sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
+  private static DigitalInput tilt_limit;
 
   //subsystems
   private static Shooter shooter;
+  private static Tilt tilt;
 
   private static SparkMaxPIDController pidcontrol_shooter_Right;
   private static SparkMaxPIDController pidcontrol_shooter_Left;
@@ -58,9 +69,12 @@ public class RobotContainer {
   topRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
   bottomLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
   bottomRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+  tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
+  tilt_limit = new DigitalInput(Constants.TILT_SWITCH);
 
   pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
   pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
+
   // Configure the button bindings
 
   shooterRightEnc = shooterMotorRight.getEncoder();
@@ -77,6 +91,7 @@ public class RobotContainer {
   shooterMotorRight.setInverted(true);
 
   shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
+  tilt = new Tilt(tiltMotor, tilt_limit);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -90,8 +105,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     shooterTeleop = new JoystickButton(joy, 1);
+    tiltUp = new JoystickButton(joy, 2);
+    tiltDown = new JoystickButton(joy, 3);
 
     shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
+    tiltUp.whenPressed(new MoveTilt(0.5));
+    tiltDown.whenPressed(new MoveTilt(-0.5));
   }
   
   /**
@@ -106,4 +125,7 @@ public class RobotContainer {
 
   public static Shooter getShooter(){return shooter;}
   public static Joystick getJoy(){return joy;}
+  public static  Tilt getTilt() {
+    return tilt;
+  }
 }

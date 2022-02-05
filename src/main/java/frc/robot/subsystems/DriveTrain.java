@@ -39,6 +39,8 @@ public class DriveTrain extends SubsystemBase{
     }
 
     public void drivePIDInit(){
+        leftTop.getEncoder().setPositionConversionFactor(.479);
+
         kP = 0.00000; 
         kI = 0.0000000;
         kD = 0; 
@@ -58,6 +60,10 @@ public class DriveTrain extends SubsystemBase{
     }
     public SparkMaxPIDController getPIDController(){
         return leftTop.getPIDController();
+    }
+
+    public double getDistance(){
+        return leftTop.getEncoder().getPosition();
     }
     
 }

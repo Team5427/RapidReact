@@ -11,14 +11,10 @@ public class IntakeVision extends CommandBase {
 
     double bias = 0;
     double err;
-    double setSpeedLeft = -0.2;
-    double setSpeedRight = 0.2;
+    double setSpeedLeft;
+    double setSpeedRight;
     boolean locked;
-    /**
-     * Creates a new MoveStraight.
-     */
-  
-    //bias based on distance model in case it is needed
+
     public IntakeVision(double bias)
     {
       addRequirements(RobotContainer.getDriveTrain());
@@ -26,25 +22,22 @@ public class IntakeVision extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        //locked = false;
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
+        
         err = Robot.ball_yaw;
         
-        
         if(!Robot.ball_hasTarget){
-            driveTrain.getRight().set(-0.2);
-            driveTrain.getLeft().set(-0.2);
+            driveTrain.getRight().set(-0.3);
+            driveTrain.getLeft().set(-0.3);
         } else {
 
-            //locked = true;
-            if (err < -3) {
+            if (err < -2) {
                 setSpeedLeft = -0.3;
                 setSpeedRight = 0.4;
-            } if (err > 3) {
+            } if (err > 2) {
                 setSpeedRight = 0.3;
                 setSpeedLeft = -0.4;
             }
@@ -56,10 +49,9 @@ public class IntakeVision extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (Robot.ball_pitch <= -12 && (Robot.ball_yaw >= -3 || Robot.ball_yaw <= 3)) {
+        if (Robot.ball_pitch <= -14 && (Robot.ball_yaw >= -2 || Robot.ball_yaw <= 2)) {
             return true;
         }
-        //return !(RobotContainer.getJoy().getRawButton(1));
         return false;
     }
 

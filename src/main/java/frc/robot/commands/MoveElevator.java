@@ -25,8 +25,6 @@ public class MoveElevator extends CommandBase
     @Override
     public void execute() 
     {
-        //right: -5383.0
-        //left: 5390.5
         RobotContainer.getElevator().setSpeed(speed);
     }
 

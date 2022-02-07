@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
-import java.util.Timer;
 
 public class ShootVision extends CommandBase {
 
@@ -12,13 +11,6 @@ public class ShootVision extends CommandBase {
 
     double bias = 0;
 
-    Timer timer;
-
-    /**
-     * Creates a new MoveStraight.
-     */
-  
-    //bias based on distance model in case it is needed
     public ShootVision(double bias)
     {
       addRequirements(RobotContainer.getDriveTrain());
@@ -26,12 +18,11 @@ public class ShootVision extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
+
         if (!Robot.target_hasTarget) {
             driveTrain.getLeft().set(0.5);
             driveTrain.getRight().set(0.5);
@@ -58,12 +49,12 @@ public class ShootVision extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        
         if (driveTrain.getDriveEncBL().getVelocity() >= -5 && driveTrain.getDriveEncBL().getVelocity() >= -5) {
             return true;
         } else {
             return false;
         }
-    
     }
 
     @Override

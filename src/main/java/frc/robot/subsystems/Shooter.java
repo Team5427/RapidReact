@@ -73,7 +73,6 @@ public class Shooter extends SubsystemBase
         kFF_Left = 0.000015; 
         kMaxOutput_Left = 1; 
         kMinOutput_Left = -1;    
-        // set PID coefficients
         controllerPID.setP(kP_Left);
         controllerPID.setI(kI_Left);
         controllerPID.setD(kD_Left);

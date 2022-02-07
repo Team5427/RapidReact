@@ -11,11 +11,7 @@ public class VisionTurnLeft extends CommandBase
   private DriveTrain driveTrain = RobotContainer.getDriveTrain();
 
   double bias = 0;
-  /**
-   * Creates a new MoveStraight.
-   */
 
-  //bias based on distance model in case it is needed
   public VisionTurnLeft(double bias)
   {
     addRequirements(RobotContainer.getDriveTrain(), RobotContainer.getShooter());
@@ -24,17 +20,12 @@ public class VisionTurnLeft extends CommandBase
 
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize()
-  {
-
-  }
+  public void initialize() {}
 
   @Override
   public void execute()
   {
-
 
     if(!Robot.target_hasTarget){
       driveTrain.getRight().set(0.5);
@@ -58,16 +49,12 @@ public class VisionTurnLeft extends CommandBase
     }
   }
 
-
-
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted)
   {
     driveTrain.stop();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished()
   {
@@ -76,5 +63,4 @@ public class VisionTurnLeft extends CommandBase
 
     return true;
   }
-
 }

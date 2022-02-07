@@ -12,10 +12,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.commands.DriveWithJoystick;
@@ -35,19 +33,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.subsystems.Shooter;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer 
 {
-  // The robot's subsystems and commands are defined here...
-
-  //numbers
-
-  //joystick
   private static Joystick joy;
   private static Button intakeButton;
   private static Button transportButton;
@@ -57,7 +44,6 @@ public class RobotContainer
   private static Button visionIntake;
   private static Button visionShoot;
 
-  //motors 
   private final CANSparkMax frontLeft, rearLeft;
   private final CANSparkMax frontRight,rearRight;
   private static MotorControllerGroup leftDrive;
@@ -68,12 +54,10 @@ public class RobotContainer
   private static CANSparkMax shooterMotorRight;
   private static CANSparkMax elevatorLeft, elevatorRight;
 
-  //PID controllers
   private final SparkMaxPIDController leftDrivePID;
   private final SparkMaxPIDController rightDrivePID;
   private final SparkMaxPIDController shooterPID;
 
-  //sensors
   private static RelativeEncoder frontLeftEnc;
   private static RelativeEncoder rearLeftEnc;
   private static RelativeEncoder frontRightEnc;
@@ -87,7 +71,6 @@ public class RobotContainer
   private static Ultrasonic ultra;
   private static AHRS ahrs;
 
-  //subsystems
   private static DifferentialDrive drive;
   private static DriveTrain driveTrain;
   private static Transport transport;
@@ -95,12 +78,6 @@ public class RobotContainer
   private static Shooter shooter;
   private static Elevator elevator;
 
-  //camera
-  
-
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
   public RobotContainer() 
   {
     frontLeft = new CANSparkMax(Constants.LEFT_TOP_MOTOR, MotorType.kBrushless);
@@ -146,16 +123,9 @@ public class RobotContainer
 
     ahrs = new AHRS(SPI.Port.kMXP);
 
-    // Configure the button bindings
     configureButtonBindings();
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() 
   {
     joy = new Joystick(0);
@@ -174,14 +144,9 @@ public class RobotContainer
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     visionIntake.whenPressed(new IntakeVision(0));
-    visionShoot.whileHeld(new VisionTurnRight(0));
+    visionShoot.whenPressed(new VisionTurnRight(0));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public static Command getAutonomousCommand() 
   {
     return null;

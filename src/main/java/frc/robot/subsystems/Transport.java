@@ -1,17 +1,16 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 
 public class Transport extends SubsystemBase
 {
 
-    private CANSparkMax transportMotor;
-    private RelativeEncoder enc;
+    private MotorController transportMotor;
+    private Encoder enc;
        
-    public Transport (CANSparkMax transportMotor, RelativeEncoder enc) 
+    public Transport (MotorController transportMotor, Encoder enc) 
     {
         this.transportMotor = transportMotor;
         this.enc = enc;
@@ -27,12 +26,12 @@ public class Transport extends SubsystemBase
         transportMotor.set(speed);
     }
 
-    public CANSparkMax getTransportMotor()
+    public MotorController getTransportMotor()
     {
         return transportMotor;
     }
 
-    public RelativeEncoder getTransportEnc()
+    public Encoder getTransportEnc()
     {
         return enc;
     }

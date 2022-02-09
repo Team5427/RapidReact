@@ -1,64 +1,63 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase
 {
 
-    private CANSparkMax left, right;
-    private RelativeEncoder leftEnc, rightEnc;
+    private MotorControllerGroup inner, outer;
+    private Encoder innerEnc, outerEnc;
 
-    public Elevator(CANSparkMax left, CANSparkMax right, RelativeEncoder leftEnc, RelativeEncoder rightEnc)
+    public Elevator(MotorControllerGroup inner, MotorControllerGroup outer, Encoder innerEnc, Encoder outerEnc)
     {
-        this.left = left;
-        this.right = right;
-        this.leftEnc = leftEnc;
-        this.rightEnc = rightEnc;
+        this.inner = inner;
+        this.outer = outer;
+        this.innerEnc = innerEnc;
+        this.outerEnc = outerEnc;
     }
 
     public void setSpeed(double speed) 
     {
-        left.set(speed);
-        right.set(speed);
+        inner.set(speed);
+        outer.set(speed);
     }
 
-    public void setLeft(double speed)
+    public void setInner(double speed)
     {
-        left.set(speed);
+        inner.set(speed);
     }
 
-    public void setRight(double speed)
+    public void setouter(double speed)
     {
-        right.set(speed);
+        outer.set(speed);
     }
 
-    public CANSparkMax getElevatorLeft() 
+    public MotorControllerGroup getElevatorInner() 
     {
-        return left;
+        return inner;
     }
 
-    public CANSparkMax getElevatorRight() 
+    public MotorControllerGroup getElevatorOuter() 
     {
-        return right;
+        return outer;
     }
 
-    public RelativeEncoder getElevatorEncLeft()
+    public Encoder getElevatorEncInner()
     {
-        return leftEnc;
+        return innerEnc;
     } 
 
-    public RelativeEncoder getElevatorEncRight()
+    public Encoder getElevatorEncOuter()
     {
-        return rightEnc;
+        return outerEnc;
     } 
 
     public void stop() 
     {
-        left.stopMotor();
-        right.stopMotor();
+        inner.stopMotor();
+        outer.stopMotor();
     }
     
 }

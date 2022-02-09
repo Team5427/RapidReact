@@ -7,14 +7,18 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
@@ -48,11 +52,13 @@ public class RobotContainer
   private final CANSparkMax frontRight,rearRight;
   private static MotorControllerGroup leftDrive;
   private static MotorControllerGroup rightDrive;
-  private static CANSparkMax transportMotor;
-  private static CANSparkMax intakeMotor;
+  private static MotorController transportMotor;
+  private static MotorController intakeMotor;
   private static CANSparkMax shooterMotorLeft;
   private static CANSparkMax shooterMotorRight;
-  private static CANSparkMax elevatorLeft, elevatorRight;
+  private static MotorController elevatorInner1, elevatorOuter1, elevatorInner2, elevatorOuter2;
+  private static MotorControllerGroup innerElevator;
+  private static MotorControllerGroup outerElevator;
 
   private final SparkMaxPIDController leftDrivePID;
   private final SparkMaxPIDController rightDrivePID;
@@ -62,12 +68,12 @@ public class RobotContainer
   private static RelativeEncoder rearLeftEnc;
   private static RelativeEncoder frontRightEnc;
   private static RelativeEncoder rearRightEnc;
-  private static RelativeEncoder transportEnc;
-  private static RelativeEncoder intakeEnc;
+  private static Encoder transportEnc;
+  private static Encoder intakeEnc;
   private static RelativeEncoder shooterMotorEncLeft;
   private static RelativeEncoder shooterMotorEncRight;
-  private static RelativeEncoder elevatorEncLeft;
-  private static RelativeEncoder elevatorEncRight;
+  private static Encoder elevatorEncInner;
+  private static Encoder elevatorEncOuter;
   private static Ultrasonic ultra;
   private static AHRS ahrs;
 
@@ -97,12 +103,12 @@ public class RobotContainer
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive, frontLeftEnc, rearLeftEnc, frontRightEnc, rearRightEnc, leftDrivePID, rightDrivePID);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
-    intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR, MotorType.kBrushless);
-    intakeEnc = intakeMotor.getEncoder();
+    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
+    intakeEnc = new Encoder(1, 1);
     intake = new Intake(intakeMotor, intakeEnc);
 
-    transportMotor = new CANSparkMax(Constants.TRANSPORT_MOTOR, MotorType.kBrushless);
-    transportEnc = transportMotor.getEncoder();
+    transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
+    transportEnc = new Encoder(1, 1);
     transport = new Transport(transportMotor, transportEnc);
 
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_TOP, MotorType.kBrushless);
@@ -112,11 +118,15 @@ public class RobotContainer
     shooterPID = shooterMotorLeft.getPIDController();
     shooter = new Shooter(shooterMotorLeft, shooterMotorRight, shooterMotorEncLeft, shooterMotorEncRight, shooterPID);
 
-    elevatorLeft = new CANSparkMax(Constants.ELEVATOR_LEFT_MOTOR, MotorType.kBrushless);
-    elevatorRight = new CANSparkMax(Constants.ELEVATOR_RIGHT_MOTOR, MotorType.kBrushless);
-    elevatorEncLeft = elevatorLeft.getEncoder();
-    elevatorEncRight = elevatorRight.getEncoder();
-    elevator = new Elevator(elevatorLeft, elevatorRight, elevatorEncLeft, elevatorEncRight);
+    elevatorInner1 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
+    elevatorOuter1 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
+    elevatorInner2 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
+    elevatorOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
+    innerElevator = new MotorControllerGroup(elevatorInner1, elevatorInner2);
+    outerElevator = new MotorControllerGroup(elevatorOuter1, elevatorOuter2);
+    elevatorEncInner = new Encoder(1, 1);
+    elevatorEncInner = new Encoder(1, 1);
+    elevator = new Elevator(innerElevator, outerElevator, elevatorEncInner, elevatorEncOuter);
 
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
     Ultrasonic.setAutomaticMode(true);

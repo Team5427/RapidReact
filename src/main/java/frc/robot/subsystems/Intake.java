@@ -1,17 +1,16 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Intake extends SubsystemBase
 { 
-    private CANSparkMax intake;  
-    private RelativeEncoder enc;
+    private MotorController intake;  
+    private Encoder enc;
 
-    public Intake(CANSparkMax intake, RelativeEncoder enc) 
+    public Intake(MotorController intake, Encoder enc) 
     {
          this.intake = intake;
          this.enc = enc;
@@ -22,12 +21,12 @@ public class Intake extends SubsystemBase
         intake.set(speed);
     }
 
-    public CANSparkMax getIntakeMotor()
+    public MotorController getIntakeMotor()
     {
         return intake;
     }
 
-    public RelativeEncoder getIntakeEnc()
+    public Encoder getIntakeEnc()
     {
         return enc;
     }

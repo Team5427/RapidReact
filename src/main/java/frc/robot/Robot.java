@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,9 +19,6 @@ public class Robot extends TimedRobot
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-
-  String trajectoryJSON = "paths/YourPath.wpilib.json";
-  Trajectory trajectory = new Trajectory();
 
   private NetworkTable ballTable;
   private NetworkTable targetTable;

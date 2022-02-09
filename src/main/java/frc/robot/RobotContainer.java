@@ -104,11 +104,11 @@ public class RobotContainer
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
-    intakeEnc = new Encoder(1, 1);
+    intakeEnc = new Encoder(Constants.INTAKE_ENC_1, Constants.INTAKE_ENC_2);
     intake = new Intake(intakeMotor, intakeEnc);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
-    transportEnc = new Encoder(1, 1);
+    transportEnc = new Encoder(Constants.TRANSPORT_ENC_1, Constants.TRANSPORT_ENC_2);
     transport = new Transport(transportMotor, transportEnc);
 
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_TOP, MotorType.kBrushless);
@@ -124,8 +124,8 @@ public class RobotContainer
     elevatorOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
     innerElevator = new MotorControllerGroup(elevatorInner1, elevatorInner2);
     outerElevator = new MotorControllerGroup(elevatorOuter1, elevatorOuter2);
-    elevatorEncInner = new Encoder(1, 1);
-    elevatorEncInner = new Encoder(1, 1);
+    elevatorEncInner = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
+    elevatorEncInner = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
     elevator = new Elevator(innerElevator, outerElevator, elevatorEncInner, elevatorEncOuter);
 
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);

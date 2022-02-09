@@ -56,4 +56,14 @@ public final class Constants
     /*******************Sensors*******************/
     public static final int ULTRASONIC_PING = 22;
     public static final int ULTRASONIC_ECHO = 23;
+
+    /*******************Encoder Ports*******************/
+    public static final int ELEVATOR_INNER_ENC_1 = 0;
+    public static final int ELEVATOR_INNER_ENC_2 = 1;
+    public static final int ELEVATOR_OUTER_ENC_1 = 2;
+    public static final int ELEVATOR_OUTER_ENC_2 = 3;
+    public static final int TRANSPORT_ENC_1 = 4;
+    public static final int TRANSPORT_ENC_2 = 5;
+    public static final int INTAKE_ENC_1 = 6;
+    public static final int INTAKE_ENC_2 = 7;
 }

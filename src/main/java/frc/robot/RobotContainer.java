@@ -109,8 +109,8 @@ public class RobotContainer {
     tiltDown = new JoystickButton(joy, 3);
 
     shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
-    tiltUp.whenPressed(new MoveTilt(0.5));
-    tiltDown.whenPressed(new MoveTilt(-0.5));
+    tiltUp.whenPressed(new MoveTilt(Constants.TILT_UP_SPEED));
+    tiltDown.whenPressed(new MoveTilt(Constants.TILT_DOWN_SPEED));
   }
   
   /**

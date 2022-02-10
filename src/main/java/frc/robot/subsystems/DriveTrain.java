@@ -88,17 +88,35 @@ public class DriveTrain extends SubsystemBase
 
     public void tankDrive(double leftSpeed, double rightSpeed)
     {
-        tankSpeedLeft = Math.pow(leftSpeed, 3);
-        tankSpeedRight = Math.pow(rightSpeed, 3);
-        left.set(-tankSpeedLeft);
+        tankSpeedLeft = -leftSpeed;
+        tankSpeedRight = rightSpeed;
+        left.set(tankSpeedLeft);
         right.set(tankSpeedRight);
     }
+
+    /**
+    * Stops the drivetrain.
+    * <p>
+    * EX: stop();
+    * <p>
+    * ↑ Will stop the robot.
+    * <p>
+    */
 
     public void stop()
     {
         left.stopMotor();
         right.stopMotor();
     }
+
+    /**
+    * Makes drivetrain correspond to Joystick.
+    * <p>
+    * EX: takeJoystickInputs();
+    * <p>
+    * ↑ Will drive bot according to Joystick inputs.
+    * <p>
+    */
 
     public void takeJoystickInputs(Joystick joy)
     {

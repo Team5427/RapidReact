@@ -13,27 +13,33 @@ public class IntakeVision extends CommandBase {
     double err;
     double setSpeedLeft;
     double setSpeedRight;
+
+    boolean isOnRight;
     boolean locked;
 
-    public IntakeVision(double bias)
+    public IntakeVision(double bias, boolean isOnRight)
     {
       addRequirements(RobotContainer.getDriveTrain());
       this.bias = bias;
+      this.isOnRight = isOnRight;
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
 
     @Override
     public void execute() {
         
         err = Robot.ball_yaw;
         
-        if(!Robot.ball_hasTarget){
-            driveTrain.getRight().set(-0.3);
-            driveTrain.getLeft().set(-0.3);
-        } else {
-
+        if(!Robot.ball_hasTarget && isOnRight){
+            driveTrain.getRight().set(0.5);
+            driveTrain.getLeft().set(0.5);
+        } else if(!Robot.ball_hasTarget && !isOnRight) {
+            driveTrain.getRight().set(-0.5);
+            driveTrain.getLeft().set(-0.5);
+        } else if(Robot.ball_hasTarget) {
             if (err < -2) {
                 setSpeedLeft = -0.3;
                 setSpeedRight = 0.4;

@@ -25,8 +25,8 @@ import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.VisionTurnRight;
 import frc.robot.commands.auto.IntakeVision;
+import frc.robot.commands.auto.ShootVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -74,6 +74,7 @@ public class RobotContainer
   private static RelativeEncoder shooterMotorEncRight;
   private static Encoder elevatorEncInner;
   private static Encoder elevatorEncOuter;
+
   private static Ultrasonic ultra;
   private static AHRS ahrs;
 
@@ -153,8 +154,8 @@ public class RobotContainer
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    visionIntake.whenPressed(new IntakeVision(0));
-    visionShoot.whenPressed(new VisionTurnRight(0));
+    visionIntake.whenPressed(new IntakeVision(0, true));
+    visionShoot.whenPressed(new ShootVision(0, true));
   }
 
   public static Command getAutonomousCommand() 

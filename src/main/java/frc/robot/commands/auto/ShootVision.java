@@ -48,8 +48,8 @@ public class ShootVision extends CommandBase {
             driveTrain.getLeft().set(0.5);
             driveTrain.getRight().set(0.5);
         } else if (!Robot.target_hasTarget && !autoTurnIsRight) {
-            driveTrain.getLeft().set(0.5);
-            driveTrain.getRight().set(0.5);
+            driveTrain.getLeft().set(-0.5);
+            driveTrain.getRight().set(-0.5);
         }
     }
 

@@ -83,7 +83,7 @@ public class Robot extends TimedRobot
     ball_PixelX = ballTable.getEntry("targetPixelsX").getDouble(default_all);
     ball_PixelY = ballTable.getEntry("targetPixelsY").getDouble(default_all);
 
-    setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(4) * 3000) + 3000);
+    setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
 
     SmartDashboard.putNumber("Shooter Setpoint", setPointShooter);
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getShooterLeftEnc().getVelocity());

@@ -25,6 +25,7 @@ public class DriveTrain extends SubsystemBase
 
     private double kP_Left, kI_Left, kD_Left, kIz_Left, kFF_Left, kMaxOutput_Left, kMinOutput_Left;
     private double kP_Right, kI_Right, kD_Right, kIz_Right, kFF_Right, kMaxOutput_Right, kMinOutput_Right;
+    private double tankSpeedLeft, tankSpeedRight;
 
     public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive driveBase, RelativeEncoder enc_fl, RelativeEncoder enc_bl, RelativeEncoder enc_fr, RelativeEncoder enc_br, SparkMaxPIDController PID_left, SparkMaxPIDController PID_right)
     {
@@ -73,9 +74,24 @@ public class DriveTrain extends SubsystemBase
         return enc_br;
     }
 
+    /**
+    * Easiest way to utilize the drivetrain. Inversing done in advance. 
+    * <p>
+    * EX: tankDrive(1, 1);
+    * <p>
+    * ↑ Will move the robot forward at max speed.
+    * <p>
+    * @param leftSpeed : The speed to run the left side of the drivetrain. (-1 ... 1)
+    * @param rightSpeed : The speed to run the right side of the drivetrain. (-1 ... 1)
+    * @return void
+    */
+
     public void tankDrive(double leftSpeed, double rightSpeed)
     {
-        driveBase.tankDrive(leftSpeed, rightSpeed);
+        tankSpeedLeft = Math.pow(leftSpeed, 3);
+        tankSpeedRight = Math.pow(rightSpeed, 3);
+        left.set(-tankSpeedLeft);
+        right.set(tankSpeedRight);
     }
 
     public void stop()
@@ -86,12 +102,60 @@ public class DriveTrain extends SubsystemBase
 
     public void takeJoystickInputs(Joystick joy)
     {
-        driveBase.arcadeDrive(joy.getY(), -joy.getZ() * 0.65);
+        driveBase.arcadeDrive(joy.getY(), -joy.getZ());
     }
 
     public DifferentialDrive getDriveBase()
     {
         return driveBase;
+    }
+
+    public void driveGoForward(double speed) 
+    {
+        left.set(-speed);
+        right.set(speed);
+    }
+
+    public void driveGoBack(double speed)
+    {
+        left.set(speed);
+        right.set(-speed);
+    }
+    
+    public void drivePointTurnLeft(double speed)
+    {
+        left.set(speed);
+        right.set(speed);
+    }
+
+    public void drivePointTurnRight(double speed)
+    {
+        left.set(-speed);
+        right.set(-speed);
+    }
+
+    public void driveTurnLeftPivotLeft(double speed)
+    {
+        left.set(0);
+        right.set(speed);
+    }
+
+    public void driveTurnLeftPivotRight(double speed)
+    {
+        left.set(-speed);
+        right.set(0);
+    }
+
+    public void driveTurnRightPivotLeft(double speed)
+    {
+        left.set(0);
+        right.set(-speed);
+    }
+
+    public void driveTurnRightPivotRight(double speed)
+    {
+        left.set(speed);
+        right.set(0);
     }
 
     public void driveLeftInit()

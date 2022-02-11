@@ -24,4 +24,5 @@ public final class Constants {
     public static final int BOTTOM_RIGHT_MOTOR = 0;
     public static final int TOP_RIGHT_MOTOR = 0;
     public static final int TOP_LEFT_MOTOR = 0;
+    public static final double AUTONOMOUS_DRIVE_SPEED = .3;
 }

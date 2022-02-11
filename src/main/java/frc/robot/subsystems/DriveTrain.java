@@ -65,5 +65,13 @@ public class DriveTrain extends SubsystemBase{
     public double getDistance(){
         return leftTop.getEncoder().getPosition();
     }
+
+    public MotorControllerGroup getLeft(){
+        return left;
+    }
+
+    public MotorControllerGroup getRight(){
+        return right;
+    }
     
 }

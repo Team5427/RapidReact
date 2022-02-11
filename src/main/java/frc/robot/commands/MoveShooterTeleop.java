@@ -46,17 +46,17 @@ public class MoveShooterTeleop extends CommandBase
         // } else if (!RobotContainer.getJoy().getRawButton(1)) {
         //     lsetPoint = 0;
         // }
-        if (RobotContainer.getShooter().getLeftEnc().getVelocity() <= setPointFinal && RobotContainer.getJoy().getRawButton(1) && rsetPoint < setPointFinal) {
-            rsetPoint = rsetPoint + setPointFinal/75;
-        } else if (rsetPoint >= setPointFinal && RobotContainer.getJoy().getRawButton(1)) {
-            rsetPoint = setPointFinal;
-        } else if (!RobotContainer.getJoy().getRawButton(1)) {
-            rsetPoint = 0;
-        }
+        // if (RobotContainer.getShooter().getLeftEnc().getVelocity() <= setPointFinal && RobotContainer.getJoy().getRawButton(1) && rsetPoint < setPointFinal) {
+        //     rsetPoint = rsetPoint + setPointFinal/75;
+        // } else if (rsetPoint >= setPointFinal && RobotContainer.getJoy().getRawButton(1)) {
+        //     rsetPoint = setPointFinal;
+        // } else if (!RobotContainer.getJoy().getRawButton(1)) {
+        //     rsetPoint = 0;
+        // }
         
-        RobotContainer.getShooter().moveShooter(lsetPoint, rsetPoint);
+        // RobotContainer.getShooter().moveShooter(lsetPoint, rsetPoint);
         
-        // RobotContainer.getShooter().movePercent(.9);
+        RobotContainer.getShooter().movePercent(.9);
 
         System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }

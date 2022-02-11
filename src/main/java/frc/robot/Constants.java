@@ -29,4 +29,8 @@ public final class Constants {
     public static final double INTAKE_IN_SPEED = 0.5;
 
     public static final double INTAKE_OUT_SPEED = -0.8;
+    public static final int BOTTOM_LEFT_MOTOR = 0;
+    public static final int BOTTOM_RIGHT_MOTOR = 0;
+    public static final int TOP_RIGHT_MOTOR = 0;
+    public static final int TOP_LEFT_MOTOR = 0;
 }

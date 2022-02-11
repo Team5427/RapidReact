@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,21 +23,19 @@ public class Robot extends TimedRobot
 
   private RobotContainer m_robotContainer;
 
-  private NetworkTable ballTable;
-  private NetworkTable targetTable;
+  PhotonCamera ballCamera;
+  PhotonTrackedTarget ballTarget;
+  PhotonCamera targetCamera;
+  PhotonTrackedTarget targetTarget;
   public static double ball_pitch;
   public static double ball_yaw;
   public static double ball_skew;
   public static double ball_area;
-  public static double ball_PixelX;
-  public static double ball_PixelY;
   public static boolean ball_hasTarget;
   public static double target_pitch;
   public static double target_yaw;
   public static double target_skew;
   public static double target_area;
-  public static double target_PixelX;
-  public static double target_PixelY;
   public static boolean target_hasTarget;
 
   public static int setPointShooter;
@@ -53,15 +54,10 @@ public class Robot extends TimedRobot
     RobotContainer.getShooter().shooterInit();
 
     RobotContainer.getAHRS().reset();
-    NetworkTableInstance PIInstance = NetworkTableInstance.create();
-    PIInstance.setServer("targetvision");
-    PIInstance.startClient();
-    targetTable = PIInstance.getTable("photonvision").getSubTable("photoncam");
-    NetworkTableInstance PI2Instance = NetworkTableInstance.create();
-    PI2Instance.setServer("ballvision");
-    PI2Instance.startClient();
-    ballTable = PI2Instance.getTable("photonvision").getSubTable("photoncam2");
 
+    ballCamera = new PhotonCamera("photoncam2");
+
+    targetCamera = new PhotonCamera("photoncam");
   }
 
   @Override
@@ -69,21 +65,28 @@ public class Robot extends TimedRobot
   {
     CommandScheduler.getInstance().run();
 
-    target_hasTarget = targetTable.getEntry("hasTarget").getBoolean(true);
-    target_pitch = ballTable.getEntry("targetPitch").getDouble(default_all);
-    target_yaw = ballTable.getEntry("targetYaw").getDouble(default_all);
-    target_skew = ballTable.getEntry("targetSkew").getDouble(default_all);
-    target_area = ballTable.getEntry("targetArea").getDouble(default_all);
-    target_PixelX = ballTable.getEntry("targetPixelsX").getDouble(default_all);
-    target_PixelY = ballTable.getEntry("targetPixelsY").getDouble(default_all);
+    ball_hasTarget = ballCamera.getLatestResult().hasTargets();
 
-    ball_hasTarget = ballTable.getEntry("hasTarget").getBoolean(true);
-    ball_pitch = ballTable.getEntry("targetPitch").getDouble(default_all);
-    ball_yaw = ballTable.getEntry("targetYaw").getDouble(default_all);
-    ball_skew = ballTable.getEntry("targetSkew").getDouble(default_all);
-    ball_area = ballTable.getEntry("targetArea").getDouble(default_all);
-    ball_PixelX = ballTable.getEntry("targetPixelsX").getDouble(default_all);
-    ball_PixelY = ballTable.getEntry("targetPixelsY").getDouble(default_all);
+    if(ball_hasTarget){
+      ballTarget = ballCamera.getLatestResult().getBestTarget();
+
+      ball_pitch = ballTarget.getPitch();
+      ball_yaw = ballTarget.getYaw();
+      ball_skew = ballTarget.getSkew();
+      ball_area = ballTarget.getArea();
+    }
+
+    target_hasTarget = targetCamera.getLatestResult().hasTargets();
+    SmartDashboard.putBoolean("has target taret", target_hasTarget);
+
+    if(target_hasTarget){
+      targetTarget = targetCamera.getLatestResult().getBestTarget();
+
+      target_pitch = targetTarget.getPitch();
+      target_yaw = targetTarget.getYaw();
+      target_skew = targetTarget.getSkew();
+      target_area = targetTarget.getArea();
+    }
 
     setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
     lidarVoltage = RobotContainer.getLIDAR().getVoltage();

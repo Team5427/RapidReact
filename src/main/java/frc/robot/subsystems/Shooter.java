@@ -48,6 +48,12 @@ public class Shooter extends SubsystemBase
         shooterMotorRight.set(shooterMotorLeft.get());
     }
 
+    public void moveShooterAutonPID()
+    {
+        controllerPID.setReference(Robot.setPointShooter, CANSparkMax.ControlType.kVelocity);
+        shooterMotorRight.set(shooterMotorLeft.get());
+    }
+
     public void stop()
     {
         shooterMotorRight.stopMotor();

@@ -20,6 +20,8 @@ package frc.robot;
 public final class Constants 
 {
     //****** NUMBERS *******/
+    public static final double LIDAR_COEFFICIENT = 1000;
+    //↑ Undecided as of 2/10/22.
 
 
     //Joystick buttons

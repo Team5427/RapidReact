@@ -14,6 +14,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -77,6 +78,7 @@ public class RobotContainer
 
   private static Ultrasonic ultra;
   private static AHRS ahrs;
+  private static AnalogInput lidar;
 
   private static DifferentialDrive drive;
   private static DriveTrain driveTrain;
@@ -134,6 +136,8 @@ public class RobotContainer
 
     ahrs = new AHRS(SPI.Port.kMXP);
 
+    lidar = new AnalogInput(0);
+
     configureButtonBindings();
   }
 
@@ -174,4 +178,5 @@ public class RobotContainer
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
   public static Elevator getElevator(){return elevator;}
+  public static AnalogInput getLIDAR(){return lidar;}
 }

@@ -38,6 +38,8 @@ public class Robot extends TimedRobot
   public static boolean target_hasTarget;
 
   public static int setPointShooter;
+  public static int autoSetPointShooter;
+  public static double lidarVoltage;
 
   private double default_all = 0.0;
 
@@ -84,6 +86,8 @@ public class Robot extends TimedRobot
     ball_PixelY = ballTable.getEntry("targetPixelsY").getDouble(default_all);
 
     setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
+    lidarVoltage = RobotContainer.getLIDAR().getVoltage();
+    autoSetPointShooter = (int)(lidarVoltage * Constants.LIDAR_COEFFICIENT);
 
     SmartDashboard.putNumber("Shooter Setpoint", setPointShooter);
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getShooterLeftEnc().getVelocity());

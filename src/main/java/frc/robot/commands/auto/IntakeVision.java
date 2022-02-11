@@ -46,7 +46,6 @@ public class IntakeVision extends CommandBase {
             } if (err > 2) {
                 setSpeedLeft = -0.4;
                 setSpeedRight = 0.3;
-
             }
             
             driveTrain.getLeft().set(setSpeedLeft);

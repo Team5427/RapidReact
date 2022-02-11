@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -106,4 +107,9 @@ public class RobotContainer {
 
   public static Shooter getShooter(){return shooter;}
   public static Joystick getJoy(){return joy;}
+
+public Intake getIntake() {
+    return null;
+}
+
 }

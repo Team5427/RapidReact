@@ -69,7 +69,6 @@ public class Robot extends TimedRobot
 
     if(ball_hasTarget){
       ballTarget = ballCamera.getLatestResult().getBestTarget();
-
       ball_pitch = ballTarget.getPitch();
       ball_yaw = ballTarget.getYaw();
       ball_skew = ballTarget.getSkew();
@@ -77,11 +76,9 @@ public class Robot extends TimedRobot
     }
 
     target_hasTarget = targetCamera.getLatestResult().hasTargets();
-    SmartDashboard.putBoolean("has target taret", target_hasTarget);
 
     if(target_hasTarget){
       targetTarget = targetCamera.getLatestResult().getBestTarget();
-
       target_pitch = targetTarget.getPitch();
       target_yaw = targetTarget.getYaw();
       target_skew = targetTarget.getSkew();

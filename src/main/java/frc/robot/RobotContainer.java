@@ -15,6 +15,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -57,9 +58,10 @@ public class RobotContainer
   private static MotorController intakeMotor;
   private static CANSparkMax shooterMotorLeft;
   private static CANSparkMax shooterMotorRight;
-  private static MotorController elevatorInner1, elevatorOuter1, elevatorInner2, elevatorOuter2;
+  private static MotorController elevatorInner1, elevatorOuter1, elevatorInner2, elevatorOuter2, elevatorTele1, elevatorTele2;
   private static MotorControllerGroup innerElevator;
   private static MotorControllerGroup outerElevator;
+  private static MotorControllerGroup teleElevator;
 
   private final SparkMaxPIDController leftDrivePID;
   private final SparkMaxPIDController rightDrivePID;
@@ -75,10 +77,17 @@ public class RobotContainer
   private static RelativeEncoder shooterMotorEncRight;
   private static Encoder elevatorEncInner;
   private static Encoder elevatorEncOuter;
+  private static Encoder elevatorEncTele;
 
   private static Ultrasonic ultra;
   private static AHRS ahrs;
   private static AnalogInput lidar;
+  private static DigitalInput limit_elevator_inner_1;
+  private static DigitalInput limit_elevator_inner_2;
+  private static DigitalInput limit_elevator_outer_1;
+  private static DigitalInput limit_elevator_outer_2;
+  private static DigitalInput limit_elevator_tele_1;
+  private static DigitalInput limit_elevator_tele_2;
 
   private static DifferentialDrive drive;
   private static DriveTrain driveTrain;
@@ -125,14 +134,24 @@ public class RobotContainer
     elevatorOuter1 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
     elevatorInner2 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     elevatorOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
+    elevatorTele1 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_1);
+    elevatorTele2 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_2);
+    elevatorInner1.setInverted(true);
+    elevatorOuter1.setInverted(true);
+    elevatorTele1.setInverted(true);
     innerElevator = new MotorControllerGroup(elevatorInner1, elevatorInner2);
     outerElevator = new MotorControllerGroup(elevatorOuter1, elevatorOuter2);
+    teleElevator = new MotorControllerGroup(elevatorTele1, elevatorTele2);
     elevatorEncInner = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     elevatorEncInner = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
-    elevator = new Elevator(innerElevator, outerElevator, elevatorEncInner, elevatorEncOuter);
-
-    ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
-    Ultrasonic.setAutomaticMode(true);
+    elevatorEncTele = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
+    limit_elevator_inner_1 = new DigitalInput(0);
+    limit_elevator_inner_2 = new DigitalInput(0);
+    limit_elevator_outer_1 = new DigitalInput(0);
+    limit_elevator_outer_2 = new DigitalInput(0);
+    limit_elevator_tele_1 = new DigitalInput(0);
+    limit_elevator_tele_2 = new DigitalInput(0);
+    elevator = new Elevator(innerElevator, outerElevator, teleElevator, elevatorEncInner, elevatorEncOuter, elevatorEncTele, limit_elevator_inner_1, limit_elevator_inner_2, limit_elevator_outer_1, limit_elevator_outer_2, limit_elevator_tele_1, limit_elevator_tele_2);
 
     ahrs = new AHRS(SPI.Port.kMXP);
 

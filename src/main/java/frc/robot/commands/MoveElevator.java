@@ -8,8 +8,6 @@ import frc.robot.RobotContainer;
 public class MoveElevator extends CommandBase
 {
     private double speed;
-    public static double leftLimit = 6259.75;
-    public static double rightLimit = -6264.0;
 
     public MoveElevator(double speed)
     {
@@ -31,8 +29,11 @@ public class MoveElevator extends CommandBase
     @Override
     public boolean isFinished() 
     {
-        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON);
-        
+        if (!RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON))
+        {
+            return true;
+        }
+        return false;
     }
 
     @Override

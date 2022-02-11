@@ -54,6 +54,8 @@ public final class Constants
     public static final int SHOOTER_MOTOR_BOTTOM = 6;
     public static final int ELEVATOR_LEFT_MOTOR = 13;
     public static final int ELEVATOR_RIGHT_MOTOR = 2;
+    public static final int ELEVATOR_TELE_MOTOR_1 = 2;
+    public static final int ELEVATOR_TELE_MOTOR_2 = 2;
 
     /*******************Sensors*******************/
     public static final int ULTRASONIC_PING = 22;
@@ -64,6 +66,8 @@ public final class Constants
     public static final int ELEVATOR_INNER_ENC_2 = 1;
     public static final int ELEVATOR_OUTER_ENC_1 = 2;
     public static final int ELEVATOR_OUTER_ENC_2 = 3;
+    public static final int ELEVATOR_TELE_ENC_1 = 2;
+    public static final int ELEVATOR_TELE_ENC_2 = 3;
     public static final int TRANSPORT_ENC_1 = 4;
     public static final int TRANSPORT_ENC_2 = 5;
     public static final int INTAKE_ENC_1 = 6;

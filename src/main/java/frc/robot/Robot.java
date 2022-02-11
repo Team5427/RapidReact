@@ -10,8 +10,6 @@ package frc.robot;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,8 +39,6 @@ public class Robot extends TimedRobot
   public static int setPointShooter;
   public static int autoSetPointShooter;
   public static double lidarVoltage;
-
-  private double default_all = 0.0;
 
   @Override
   public void robotInit() 

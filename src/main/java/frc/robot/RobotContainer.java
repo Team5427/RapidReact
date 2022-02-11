@@ -23,14 +23,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.MoveElevator;
+import frc.robot.commands.MoveElevatorInner;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.auto.IntakeVision;
 import frc.robot.commands.auto.ShootVision;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -75,9 +75,12 @@ public class RobotContainer
   private static Encoder intakeEnc;
   private static RelativeEncoder shooterMotorEncLeft;
   private static RelativeEncoder shooterMotorEncRight;
-  private static Encoder elevatorEncInner;
-  private static Encoder elevatorEncOuter;
-  private static Encoder elevatorEncTele;
+  private static Encoder elevatorEncInner1;
+  private static Encoder elevatorEncInner2;
+  private static Encoder elevatorEncOuter1;
+  private static Encoder elevatorEncOuter2;
+  private static Encoder elevatorEncTele1;
+  private static Encoder elevatorEncTele2;
 
   private static Ultrasonic ultra;
   private static AHRS ahrs;
@@ -94,7 +97,7 @@ public class RobotContainer
   private static Transport transport;
   private static Intake intake;
   private static Shooter shooter;
-  private static Elevator elevator;
+  private static Climber elevator;
 
   public RobotContainer() 
   {
@@ -142,16 +145,22 @@ public class RobotContainer
     innerElevator = new MotorControllerGroup(elevatorInner1, elevatorInner2);
     outerElevator = new MotorControllerGroup(elevatorOuter1, elevatorOuter2);
     teleElevator = new MotorControllerGroup(elevatorTele1, elevatorTele2);
-    elevatorEncInner = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
-    elevatorEncInner = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
-    elevatorEncTele = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
+    elevatorEncInner1 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
+    elevatorEncInner1.setReverseDirection(true);
+    elevatorEncInner2 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
+    elevatorEncOuter1 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
+    elevatorEncOuter1.setReverseDirection(true);
+    elevatorEncOuter2 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
+    elevatorEncTele1 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
+    elevatorEncTele1.setReverseDirection(true);
+    elevatorEncTele2 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     limit_elevator_inner_1 = new DigitalInput(0);
     limit_elevator_inner_2 = new DigitalInput(0);
     limit_elevator_outer_1 = new DigitalInput(0);
     limit_elevator_outer_2 = new DigitalInput(0);
     limit_elevator_tele_1 = new DigitalInput(0);
     limit_elevator_tele_2 = new DigitalInput(0);
-    elevator = new Elevator(innerElevator, outerElevator, teleElevator, elevatorEncInner, elevatorEncOuter, elevatorEncTele, limit_elevator_inner_1, limit_elevator_inner_2, limit_elevator_outer_1, limit_elevator_outer_2, limit_elevator_tele_1, limit_elevator_tele_2);
+    elevator = new Climber(elevatorInner1, elevatorInner2, elevatorOuter1, elevatorOuter2, elevatorTele1, elevatorTele2, innerElevator, outerElevator, teleElevator, elevatorEncInner1, elevatorEncInner2, elevatorEncOuter1, elevatorEncOuter2, elevatorEncTele1, elevatorEncTele2, limit_elevator_inner_1, limit_elevator_inner_2, limit_elevator_outer_1, limit_elevator_outer_2, limit_elevator_tele_1, limit_elevator_tele_2);
 
     ahrs = new AHRS(SPI.Port.kMXP);
 
@@ -175,8 +184,8 @@ public class RobotContainer
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
-    moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
-    moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    moveElevatorUp.whileHeld(new MoveElevatorInner(Constants.ELEVATOR_SPEED));
+    moveElevatorDown.whileHeld(new MoveElevatorInner(-Constants.ELEVATOR_SPEED));
     visionIntake.whenPressed(new IntakeVision(0, true));
     visionShoot.whenPressed(new ShootVision(0, true));
   }
@@ -196,6 +205,6 @@ public class RobotContainer
   public static Transport getTransport(){return transport;}
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
-  public static Elevator getElevator(){return elevator;}
+  public static Climber getElevator(){return elevator;}
   public static AnalogInput getLIDAR(){return lidar;}
 }

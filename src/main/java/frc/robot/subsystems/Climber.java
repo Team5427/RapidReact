@@ -112,12 +112,12 @@ public class Climber extends SubsystemBase
         tele.set(speed);
     }
 
-    public MotorControllerGroup getElevatorInner() 
+    public MotorControllerGroup getClimberInner() 
     {
         return inner;
     }
 
-    public MotorControllerGroup getElevatorOuter() 
+    public MotorControllerGroup getClimberOuter() 
     {
         return outer;
     }
@@ -127,22 +127,22 @@ public class Climber extends SubsystemBase
         return tele;
     }
 
-    public Encoder getElevatorEncInner1()
+    public Encoder getClimberEncInner1()
     {
         return innerEnc1;
     } 
 
-    public Encoder getElevatorEncInner2()
+    public Encoder getClimberEncInner2()
     {
         return innerEnc2;
     } 
 
-    public Encoder getElevatorEncOuter1()
+    public Encoder getClimberEncOuter1()
     {
         return outerEnc1;
     } 
 
-    public Encoder getElevatorEncOuter2()
+    public Encoder getClimberEncOuter2()
     {
         return outerEnc2;
     } 
@@ -157,32 +157,32 @@ public class Climber extends SubsystemBase
         return teleEnc2;
     }
 
-    public DigitalInput getElevatorLmtInner1()
+    public DigitalInput getClimberLmtInner1()
     {
         return innerLmt1;
     }
 
-    public DigitalInput getElevatorLmtInner2()
+    public DigitalInput getClimberLmtInner2()
     {
         return innerLmt2;
     }
 
-    public DigitalInput getElevatorLmtOuter1()
+    public DigitalInput getClimberLmtOuter1()
     {
         return outerLmt1;
     }
 
-    public DigitalInput getElevatorLmtOuter2()
+    public DigitalInput getClimberLmtOuter2()
     {
         return outerLmt2;
     }
 
-    public DigitalInput getElevatorLmtTele1()
+    public DigitalInput getClimberLmtTele1()
     {
         return teleLmt1;
     }
 
-    public DigitalInput getElevatorLmtTele2()
+    public DigitalInput getClimberLmtTele2()
     {
         return teleLmt2;
     }

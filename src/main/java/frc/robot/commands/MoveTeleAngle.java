@@ -16,29 +16,31 @@ public class MoveTeleAngle extends CommandBase
     private DigitalInput lmt2;
     private Encoder enc1;
     private Encoder enc2;
-    private Climber elevator;
+    private Climber climber;
 
     public MoveTeleAngle(double speed)
     {
-        addRequirements(RobotContainer.getElevator());
+        addRequirements(RobotContainer.getClimber());
         this.speed = speed;
     }
     @Override
     public void initialize() 
     {
-        elevator = RobotContainer.getElevator();
-        lmt1 = elevator.getElevatorLmtTele1();
-        lmt2 = elevator.getElevatorLmtTele2();
-        enc1 = elevator.getTeleEnc1();
-        enc2 = elevator.getTeleEnc2();
+        climber = RobotContainer.getClimber();
+        lmt1 = climber.getClimberLmtTele1();
+        lmt2 = climber.getClimberLmtTele2();
+        enc1 = climber.getTeleEnc1();
+        enc2 = climber.getTeleEnc2();
+        encLimit1 = Constants.ELEVATOR_TELE_UP_LMT_1;
+        encLimit2 = Constants.ELEVATOR_TELE_UP_LMT_2;
 
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
-            elevator.setTele1(speed);
-            elevator.setTele2(speed);
+            climber.setTele1(speed);
+            climber.setTele2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
-            elevator.stopTele1();
+            climber.stopTele1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            elevator.stopTele2();
+            climber.stopTele2();
         }
     }
 
@@ -46,12 +48,12 @@ public class MoveTeleAngle extends CommandBase
     public void execute()  
     {
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
-            elevator.setTele1(speed);
-            elevator.setTele2(speed);
+            climber.setTele1(speed);
+            climber.setTele2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
-            elevator.stopTele1();
+            climber.stopTele1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            elevator.stopTele2();
+            climber.stopTele2();
         }
     }
 
@@ -68,6 +70,6 @@ public class MoveTeleAngle extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-        elevator.stopTele();
+        climber.stopTele();
     }
 }

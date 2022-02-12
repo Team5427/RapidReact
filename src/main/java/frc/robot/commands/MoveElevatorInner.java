@@ -16,29 +16,31 @@ public class MoveElevatorInner extends CommandBase
     private DigitalInput lmt2;
     private Encoder enc1;
     private Encoder enc2;
-    private Climber elevator;
+    private Climber climber;
 
     public MoveElevatorInner(double speed)
     {
-        addRequirements(RobotContainer.getElevator());
+        addRequirements(RobotContainer.getClimber());
         this.speed = speed;
     }
     @Override
     public void initialize() 
     {
-        elevator = RobotContainer.getElevator();
-        lmt1 = elevator.getElevatorLmtInner1();
-        lmt2 = elevator.getElevatorLmtInner2();
-        enc1 = elevator.getElevatorEncInner1();
-        enc2 = elevator.getElevatorEncInner2();
+        climber = RobotContainer.getClimber();
+        lmt1 = climber.getClimberLmtInner1();
+        lmt2 = climber.getClimberLmtInner2();
+        enc1 = climber.getClimberEncInner1();
+        enc2 = climber.getClimberEncInner2();
+        encLimit1 = Constants.ELEVATOR_INNER_UP_LMT_1;
+        encLimit2 = Constants.ELEVATOR_INNER_UP_LMT_2;
 
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
-            elevator.setInner1(speed);
-            elevator.setInner2(speed);
+            climber.setInner1(speed);
+            climber.setInner2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
-            elevator.stopInner1();
+            climber.stopInner1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            elevator.stopInner2();
+            climber.stopInner2();
         }
     }
 
@@ -46,12 +48,12 @@ public class MoveElevatorInner extends CommandBase
     public void execute()  
     {
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
-            elevator.setInner1(speed);
-            elevator.setInner2(speed);
+            climber.setInner1(speed);
+            climber.setInner2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
-            elevator.stopInner1();
+            climber.stopInner1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            elevator.stopInner2();
+            climber.stopInner2();
         }
     }
 
@@ -68,6 +70,6 @@ public class MoveElevatorInner extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-        elevator.stopInner();
+        climber.stopInner();
     }
 }

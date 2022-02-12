@@ -39,6 +39,7 @@ public class Robot extends TimedRobot
   public static int setPointShooter;
   public static int autoSetPointShooter;
   public static double lidarVoltage;
+  public static double distance;
 
   @Override
   public void robotInit() 
@@ -83,12 +84,22 @@ public class Robot extends TimedRobot
 
     setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
     lidarVoltage = RobotContainer.getLIDAR().getVoltage();
-    autoSetPointShooter = (int)(lidarVoltage * Constants.LIDAR_COEFFICIENT);
+    distance = lidarVoltage * Constants.LIDAR_COEFFICIENT;
+    autoSetPointShooter = (int)(distance * Constants.DISTANCE_COEFFICIENT);
 
     SmartDashboard.putNumber("Shooter Setpoint", setPointShooter);
+    SmartDashboard.putNumber("Auton Shooter Setpoint", autoSetPointShooter);
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getShooterLeftEnc().getVelocity());
     SmartDashboard.putBoolean("Hoop Visible", target_hasTarget);
     SmartDashboard.putBoolean("Ball Visible", ball_hasTarget);
+    SmartDashboard.putBoolean("Climber Limit Switch 1", RobotContainer.getClimber().getClimberLmtInner1().get());
+    SmartDashboard.putBoolean("Climber Limit Switch 2", RobotContainer.getClimber().getClimberLmtInner1().get());
+    SmartDashboard.putBoolean("Climber 2 Limit Switch 1", RobotContainer.getClimber().getClimberLmtOuter1().get());
+    SmartDashboard.putBoolean("Climber 2 Limit Switch 2", RobotContainer.getClimber().getClimberLmtOuter1().get());
+    SmartDashboard.putBoolean("Telesxopic Limit Switch 1", RobotContainer.getClimber().getClimberLmtTele1().get());
+    SmartDashboard.putBoolean("Telescopic Limit Switch 2", RobotContainer.getClimber().getClimberLmtTele1().get());
+    SmartDashboard.putNumber("LIDAR Voltage", lidarVoltage);
+    SmartDashboard.putNumber("Distance from ", lidarVoltage);
   }
 
   @Override

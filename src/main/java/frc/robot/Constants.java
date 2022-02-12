@@ -21,6 +21,13 @@ public final class Constants
 {
     //****** NUMBERS *******/
     public static final double LIDAR_COEFFICIENT = 1000;
+    public static final double DISTANCE_COEFFICIENT = 1000;
+    public static final double ELEVATOR_INNER_UP_LMT_1 = 1000;
+    public static final double ELEVATOR_INNER_UP_LMT_2 = 1000;
+    public static final double ELEVATOR_OUTER_UP_LMT_1 = 1000;
+    public static final double ELEVATOR_OUTER_UP_LMT_2 = 1000;
+    public static final double ELEVATOR_TELE_UP_LMT_1 = 1000;
+    public static final double ELEVATOR_TELE_UP_LMT_2 = 1000;
     //↑ Undecided as of 2/10/22.
 
 
@@ -60,6 +67,12 @@ public final class Constants
     /*******************Sensors*******************/
     public static final int ULTRASONIC_PING = 22;
     public static final int ULTRASONIC_ECHO = 23;
+    public static final int LMT_SWITCH_INNER_CLIMBER_1 = 0;
+    public static final int LMT_SWITCH_INNER_CLIMBER_2 = 1;
+    public static final int LMT_SWITCH_OUTER_CLIMBER_1 = 2;
+    public static final int LMT_SWITCH_OUTER_CLIMBER_2 = 3;
+    public static final int LMT_SWITCH_TELE_CLIMBER_1 = 4;
+    public static final int LMT_SWITCH_TELE_CLIMBER_2 = 5;
 
     /*******************Encoder Ports*******************/
     public static final int ELEVATOR_INNER_ENC_1 = 0;

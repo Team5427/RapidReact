@@ -26,7 +26,14 @@ public final class Constants {
     public static final int TOP_LEFT_MOTOR = 0;
     public static final int  TILT_MOTOR = 1;
     public static final int TILT_SWITCH = 2;
+    public static final int TILT_UP_BUTTON = 4;
+    public static final int TILT_DOWN_BUTTON = 3;
     public static final double TILT_UP_SPEED = 0.5;
     public static final double TILT_DOWN_SPEED = -0.5;
+    public static final double COVERED = 5;
+    public static final int TRANSPORT_MOTOR = 7;
+    public static final int TRANSPORT_SENSOR = 9;
+    public static final double TRANSPORT_SPEED = 0.5;
+    public static final int TRANSPORT_BUTTON = 7;
 
 }

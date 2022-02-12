@@ -19,9 +19,7 @@ public class Transport extends SubsystemBase {
     public void stop(){
         transport_Controller.stopMotor();
     }
-    public MotorController getController(){
-        return transport_Controller;
-    }
+
     public AnalogInput getSensor(){
         return transport_sensor;
     }

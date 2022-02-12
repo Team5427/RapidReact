@@ -21,10 +21,11 @@ public class Robot extends TimedRobot
 
   private RobotContainer m_robotContainer;
 
-  PhotonCamera ballCamera;
-  PhotonTrackedTarget ballTarget;
-  PhotonCamera targetCamera;
-  PhotonTrackedTarget targetTarget;
+  private PhotonCamera ballCamera;
+  private PhotonTrackedTarget ballTarget;
+  private PhotonCamera targetCamera;
+  private PhotonTrackedTarget targetTarget;
+
   public static double ball_pitch;
   public static double ball_yaw;
   public static double ball_skew;

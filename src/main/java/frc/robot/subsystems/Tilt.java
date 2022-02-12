@@ -13,11 +13,8 @@ public class Tilt extends SubsystemBase {
         this.tilt_limit = tilt_limit;
 
     }
-    public MotorController getTilt() {
-        return tilt;
-    }
-    public DigitalInput getLimit(){
-        return tilt_limit;
+    public boolean getLimit(){
+        return tilt_limit.get();
     }
     public void setSpeed(double speed) {
         tilt.set(speed);

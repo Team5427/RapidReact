@@ -104,9 +104,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    shooterTeleop = new JoystickButton(joy, 1);
-    tiltUp = new JoystickButton(joy, 2);
-    tiltDown = new JoystickButton(joy, 3);
+    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
+    tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
+    tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
 
     shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
     tiltUp.whenPressed(new MoveTilt(Constants.TILT_UP_SPEED));

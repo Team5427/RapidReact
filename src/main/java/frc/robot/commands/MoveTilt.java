@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class MoveTilt extends CommandBase {
@@ -12,11 +13,11 @@ public class MoveTilt extends CommandBase {
     }
     @Override
     public void execute() {
-        RobotContainer.getTilt().getTilt().set(speed);
+        RobotContainer.getTilt().setSpeed(speed);
     }
     @Override
     public boolean isFinished() {
-        if (RobotContainer.getTilt().getLimit().get()) {
+        if (RobotContainer.getTilt().getLimit() || (!RobotContainer.getJoy().getRawButton(Constants.TILT_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.TILT_UP_BUTTON))) {
             return true;
         }
         else {

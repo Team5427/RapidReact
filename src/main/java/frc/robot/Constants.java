@@ -37,5 +37,10 @@ public final class Constants {
     //Sensor Ports
     public static final int TILT_SWITCH = 2;
 
+    public static final double COVERED = 5;
+    public static final int TRANSPORT_MOTOR = 7;
+    public static final int TRANSPORT_SENSOR = 9;
+    public static final double TRANSPORT_SPEED = 0.5;
+    public static final int TRANSPORT_BUTTON = 7;
 
 }

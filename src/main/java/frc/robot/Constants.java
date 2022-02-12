@@ -13,12 +13,16 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int SHOOTER_TELEOP = 1;
 
+    //speeds
     public static final double SHOOTER_TELEOP_SPEED = 1.0;
+    public static final double TILT_UP_SPEED = 0.5;
+    public static final double TILT_DOWN_SPEED = -0.5;
 
-    public static final int SHOOTER_MOTOR_RIGHT = 2;
-    public static final int SHOOTER_MOTOR_LEFT = 3;
+    //Buttons
+    public static final int SHOOTER_TELEOP_BUTTON = 1;
+    public static final int TILT_UP_BUTTON = 2;
+    public static final int TILT_DOWN_BUTTON = 3;
 
     public static final int INTAKE_MOTOR_PORT = 6;
     
@@ -29,8 +33,23 @@ public final class Constants {
     public static final double INTAKE_IN_SPEED = 0.5;
 
     public static final double INTAKE_OUT_SPEED = -0.8;
+
+    //Motor ports
     public static final int BOTTOM_LEFT_MOTOR = 0;
     public static final int BOTTOM_RIGHT_MOTOR = 0;
     public static final int TOP_RIGHT_MOTOR = 0;
     public static final int TOP_LEFT_MOTOR = 0;
+    public static final int  TILT_MOTOR = 1;
+    public static final int SHOOTER_MOTOR_RIGHT = 2;
+    public static final int SHOOTER_MOTOR_LEFT = 3;
+
+    //Sensor Ports
+    public static final int TILT_SWITCH = 2;
+
+    public static final double COVERED = 5;
+    public static final int TRANSPORT_MOTOR = 7;
+    public static final int TRANSPORT_SENSOR = 9;
+    public static final double TRANSPORT_SPEED = 0.5;
+    public static final int TRANSPORT_BUTTON = 7;
+
 }

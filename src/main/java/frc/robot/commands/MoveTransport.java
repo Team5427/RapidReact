@@ -6,23 +6,26 @@ import frc.robot.RobotContainer;
 
 public class MoveTransport extends CommandBase {
     private double speed;
+
     public MoveTransport(double speed){
+
            addRequirements(RobotContainer.getTransport());
            this.speed = speed;
        }
+
     @Override
     public void execute(){
-        RobotContainer.getTransport().setSpeed(speed);
+        RobotContainer.getTransport().move(speed);
     }
+
     @Override
     public boolean isFinished(){
-        if(RobotContainer.getTransport().getProxVal() < Constants.COVERED) {
+        if(RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BUTTON)) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
+
     @Override
     public void end(boolean interupted){
         RobotContainer.getTransport().stop();

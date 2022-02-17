@@ -9,19 +9,23 @@ public class IntakeVision extends CommandBase {
 
     private DriveTrain driveTrain = RobotContainer.getDriveTrain();
 
-    double bias = 0;
-    double err;
-    double setSpeedLeft;
-    double setSpeedRight;
+    private double err;
+    private double setSpeedLeft;
+    private double setSpeedRight;
 
-    boolean isOnRight;
-    boolean locked;
+    private double vSpeedSlow;
+    private double vSpeedFast;
+    private double vTurnSpeed;
 
-    public IntakeVision(double bias, boolean isOnRight)
+    private boolean isOnRight;
+
+    public IntakeVision(double vSpeedSlow, double vSpeedFast, double vTurnSpeed, boolean isOnRight)
     {
       addRequirements(RobotContainer.getDriveTrain());
-      this.bias = bias;
       this.isOnRight = isOnRight;
+      this.vSpeedSlow = vSpeedSlow;
+      this.vSpeedFast = vSpeedFast;
+      this.vTurnSpeed = vTurnSpeed;
     }
 
     @Override
@@ -34,18 +38,18 @@ public class IntakeVision extends CommandBase {
         err = Robot.ball_yaw;
         
         if(!Robot.ball_hasTarget && isOnRight){
-            driveTrain.getRight().set(0.5);
-            driveTrain.getLeft().set(0.5);
+            driveTrain.getRight().set(vTurnSpeed);
+            driveTrain.getLeft().set(vTurnSpeed);
         } else if(!Robot.ball_hasTarget && !isOnRight) {
-            driveTrain.getRight().set(-0.5);
-            driveTrain.getLeft().set(-0.5);
+            driveTrain.getRight().set(-vTurnSpeed);
+            driveTrain.getLeft().set(-vTurnSpeed);
         } else if(Robot.ball_hasTarget) {
             if (err < -2) {
-                setSpeedLeft = -0.3;
-                setSpeedRight = 0.4;
+                setSpeedLeft = -vSpeedSlow;
+                setSpeedRight = vSpeedFast;
             } if (err > 2) {
-                setSpeedLeft = -0.4;
-                setSpeedRight = 0.3;
+                setSpeedLeft = -vSpeedFast;
+                setSpeedRight = vSpeedSlow;
             }
             
             driveTrain.getLeft().set(setSpeedLeft);
@@ -55,7 +59,7 @@ public class IntakeVision extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (Robot.ball_pitch <= -14 && (Robot.ball_yaw >= -2 || Robot.ball_yaw <= 2)) {
+        if (Robot.ball_pitch <= -5 && (Robot.ball_yaw >= -2 || Robot.ball_yaw <= 2)) {
             return true;
         }
         return false;

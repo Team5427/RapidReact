@@ -29,17 +29,12 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTeleAngle;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.auto.IntakeVision;
-import frc.robot.commands.auto.ShootAllAuto;
-import frc.robot.commands.auto.ShootVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDAR;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
@@ -57,8 +52,6 @@ public class RobotContainer
   private static Button moveOuterClimberDown;
   private static Button moveTeleClimberUp;
   private static Button moveTeleClimberDown;
-  private static Button visionIntake;
-  private static Button visionShoot;
 
   private static CANSparkMax frontLeft, rearLeft;
   private static CANSparkMax frontRight,rearRight;
@@ -124,7 +117,6 @@ public class RobotContainer
     leftDrivePID = frontLeft.getPIDController();
     rightDrivePID = frontRight.getPIDController();
     drive = new DifferentialDrive(leftDrive, rightDrive);
-    drive.setSafetyEnabled(false);
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive, frontLeftEnc, rearLeftEnc, frontRightEnc, rearRightEnc, leftDrivePID, rightDrivePID);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
@@ -195,8 +187,6 @@ public class RobotContainer
     moveOuterClimberDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     moveTeleClimberUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveTeleClimberDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
-    visionIntake = new JoystickButton(joy, Constants.VISION_INTAKE_BTN);
-    visionShoot = new JoystickButton(joy, Constants.VISION_SHOOTER_BTN);
   
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -207,34 +197,11 @@ public class RobotContainer
     moveOuterClimberDown.whileHeld(new MoveElevatorOuter(-Constants.ELEVATOR_SPEED));
     moveTeleClimberUp.whileHeld(new MoveTeleAngle(Constants.ELEVATOR_SPEED));
     moveTeleClimberDown.whileHeld(new MoveTeleAngle(-Constants.ELEVATOR_SPEED));
-    visionIntake.whenPressed(new IntakeVision(0, true));
-    visionShoot.whenPressed(new ShootVision(0, true));
-  }
-
-  public static SequentialCommandGroup seqCommand()
-  {
-    return new SequentialCommandGroup(
-      new IntakeVision(0, true), 
-      new ShootVision(0, true), 
-      new ShootAllAuto(), 
-      new IntakeVision(0, true), 
-      new ShootVision(0, false), 
-      new ShootAllAuto()
-    );
-  }
-
-  public static ParallelCommandGroup parCommand()
-  {
-    return new ParallelCommandGroup(
-      seqCommand(), 
-      new MoveIntake(Constants.INTAKE_TELEOP_SPEED), 
-      new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED)
-    );
   }
 
   public static Command getAutonomousCommand() 
   {
-    return parCommand();
+    return null;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

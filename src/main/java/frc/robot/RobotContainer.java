@@ -14,9 +14,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -35,6 +35,7 @@ import frc.robot.commands.auto.ShootVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LIDAR;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -93,7 +94,7 @@ public class RobotContainer
 
   private static Ultrasonic ultra;
   private static AHRS ahrs;
-  private static AnalogInput lidar;
+  private static LIDAR lidar;
   private static DigitalInput limit_climber_inner_1;
   private static DigitalInput limit_climber_inner_2;
   private static DigitalInput limit_climber_outer_1;
@@ -148,12 +149,15 @@ public class RobotContainer
     climberOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
     climberTele1 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_1);
     climberTele2 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_2);
+
     climberInner1.setInverted(true);
     climberOuter1.setInverted(true);
     climberTele1.setInverted(true);
+
     innerClimber = new MotorControllerGroup(climberInner1, climberInner2);
     outerClimber = new MotorControllerGroup(climberOuter1, climberOuter2);
     teleClimber = new MotorControllerGroup(climberTele1, climberTele2);
+
     climberEncInner1 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     climberEncInner1.setReverseDirection(true);
     climberEncInner2 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
@@ -163,6 +167,7 @@ public class RobotContainer
     climberEncTele1 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     climberEncTele1.setReverseDirection(true);
     climberEncTele2 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
+    
     limit_climber_inner_1 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_1);
     limit_climber_inner_2 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_2);
     limit_climber_outer_1 = new DigitalInput(Constants.LMT_SWITCH_OUTER_CLIMBER_1);
@@ -172,8 +177,7 @@ public class RobotContainer
     climber = new Climber(climberInner1, climberInner2, climberOuter1, climberOuter2, climberTele1, climberTele2, innerClimber, outerClimber, teleClimber, climberEncInner1, climberEncInner2, climberEncOuter1, climberEncOuter2, climberEncTele1, climberEncTele2, limit_climber_inner_1, limit_climber_inner_2, limit_climber_outer_1, limit_climber_outer_2, limit_climber_tele_1, limit_climber_tele_2);
 
     ahrs = new AHRS(SPI.Port.kMXP);
-
-    lidar = new AnalogInput(0);
+    lidar = new LIDAR(I2C.Port.kOnboard, 0x62);
 
     configureButtonBindings();
   }
@@ -244,5 +248,5 @@ public class RobotContainer
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
   public static Climber getClimber(){return climber;}
-  public static AnalogInput getLIDAR(){return lidar;}
+  public static LIDAR getLIDAR(){return lidar;}
 }

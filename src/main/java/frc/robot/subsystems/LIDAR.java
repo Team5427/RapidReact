@@ -6,10 +6,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LIDAR extends SubsystemBase{
     I2C m_i2c;
     int fnc_bit = 0;
+    I2C.Port port;
+    int addr;
     
     public LIDAR(I2C.Port port, int addr) {  
+        this.port = port;
+        this.addr = addr;
+    }
+
+    public void initLIDAR() {
         m_i2c = new I2C(port, addr);
-        this.m_i2c = m_i2c;
     }
 
     public int getDistance() {
@@ -29,8 +35,8 @@ public class LIDAR extends SubsystemBase{
     }
 
     public boolean isSet(byte[] arr, int bit) {
-        int index = bit / 8;  // Get the index of the array for the byte with this bit
-        int bitPosition = bit % 8;  // Position of this bit in a byte
+        int index = bit / 8;
+        int bitPosition = bit % 8;
 
         return (arr[index] >> bitPosition & 1) == 1;
     }

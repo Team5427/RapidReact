@@ -50,6 +50,7 @@ public class Robot extends TimedRobot
     RobotContainer.getDriveTrain().driveLeftInit();
     RobotContainer.getDriveTrain().driveRightInit();
     RobotContainer.getShooter().shooterInit();
+    RobotContainer.getLIDAR().initLIDAR();
 
     RobotContainer.getAHRS().reset();
 
@@ -83,10 +84,10 @@ public class Robot extends TimedRobot
       target_area = targetTarget.getArea();
     }
 
-    setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
-    autoSetPointShooter = (int)(lidarDist * Constants.DISTANCE_COEFFICIENT);
     lidarDist = (RobotContainer.getLIDAR().getDistance()/2.54);
     lidarDistCm = RobotContainer.getLIDAR().getDistance();
+    setPointShooter = (((int)RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
+    autoSetPointShooter = (int)(lidarDist * Constants.DISTANCE_COEFFICIENT);
 
     SmartDashboard.putNumber("Shooter Setpoint", setPointShooter);
     SmartDashboard.putNumber("Auton Shooter Setpoint", autoSetPointShooter);

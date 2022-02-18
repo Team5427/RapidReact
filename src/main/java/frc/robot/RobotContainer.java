@@ -29,6 +29,7 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTeleAngle;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.auto.Sequences;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -201,7 +202,7 @@ public class RobotContainer
 
   public static Command getAutonomousCommand() 
   {
-    return null;
+    return Sequences.seq1;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

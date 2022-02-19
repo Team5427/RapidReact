@@ -1,9 +1,9 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+ 
 package frc.robot;
-
+ 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,9 +14,37 @@ package frc.robot;
  */
 public final class Constants {
     public static final int SHOOTER_TELEOP = 1;
-
+ 
     public static final double SHOOTER_TELEOP_SPEED = 1.0;
-
+ 
     public static final int SHOOTER_MOTOR_RIGHT = 2;
     public static final int SHOOTER_MOTOR_LEFT = 3;
+ 
+    public static final int BOTTOM_LEFT_MOTOR = 0;
+    public static final int BOTTOM_RIGHT_MOTOR = 0;
+    public static final int TOP_RIGHT_MOTOR = 0;
+    public static final int TOP_LEFT_MOTOR = 0;
+    public static final int  TILT_MOTOR = 1;
+    public static final int TILT_SWITCH = 2;
+    public static final int TILT_UP_BUTTON = 4;
+    public static final int TILT_DOWN_BUTTON = 3;
+    public static final double TILT_UP_SPEED = 0.5;
+    public static final double TILT_DOWN_SPEED = -0.5;
+    public static final double COVERED = 5;
+    public static final int TRANSPORT_MOTOR = 7;
+    public static final int TRANSPORT_SENSOR = 9;
+    public static final double TRANSPORT_SPEED = 0.5;
+    public static final int TRANSPORT_BUTTON = 7;
+    public static final double ArcadeHighSpeed = 5.0;
+    public static final double AUTON_SPEED = 7.0;
+    public static final int LEFT_MOTOR1 = 4;
+    public static final int LEFT_MOTOR2 = 5;
+    public static final int RIGHT_MOTOR1 = 6;
+    public static final int RIGHT_MOTOR2 = 7;
+    public static final double kP = 0.00015;
+    public static final double kI = 0.0000012;
+    public static final double kD = 0.0;
+    public static final double SET_POINT = 0;
+ 
 }
+ 

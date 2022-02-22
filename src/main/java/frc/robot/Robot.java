@@ -59,7 +59,6 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("left RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
     SmartDashboard.putNumber("right RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     SmartDashboard.putNumber("Voltage?", 1/RobotContainer.shooterMotorRight.getBusVoltage());
-    System.out.println(SmartDashboard.getNumber("Change RPM", 4560));
     SmartDashboard.putNumber("Power?", RobotContainer.pdp.getCurrent(12));
 
     CommandScheduler.getInstance().run();

@@ -62,10 +62,8 @@ public class RobotContainer
   private static MotorController intakeMotor;
   private static CANSparkMax shooterMotorLeft;
   private static CANSparkMax shooterMotorRight;
-  private static MotorController climberInner1, climberOuter1, climberInner2, climberOuter2, climberTele1, climberTele2;
-  private static MotorControllerGroup innerClimber;
+  private static MotorController climberInner1, climberOuter1, climberOuter2, climberTele1;
   private static MotorControllerGroup outerClimber;
-  private static MotorControllerGroup teleClimber;
 
   private static SparkMaxPIDController leftDrivePID;
   private static SparkMaxPIDController rightDrivePID;
@@ -80,11 +78,9 @@ public class RobotContainer
   private static RelativeEncoder shooterMotorEncLeft;
   private static RelativeEncoder shooterMotorEncRight;
   private static Encoder climberEncInner1;
-  private static Encoder climberEncInner2;
   private static Encoder climberEncOuter1;
   private static Encoder climberEncOuter2;
   private static Encoder climberEncTele1;
-  private static Encoder climberEncTele2;
 
   private static Ultrasonic ultra;
   private static AHRS ahrs;
@@ -138,28 +134,22 @@ public class RobotContainer
 
     climberInner1 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     climberOuter1 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
-    // climberInner2 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     climberOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
     climberTele1 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_1);
-    // climberTele2 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_2);
 
     climberInner1.setInverted(true);
     climberOuter1.setInverted(true);
     climberTele1.setInverted(true);
 
-    // innerClimber = new MotorControllerGroup(climberInner1, climberInner2);
     outerClimber = new MotorControllerGroup(climberOuter1, climberOuter2);
-    // teleClimber = new MotorControllerGroup(climberTele1, climberTele2);
 
     climberEncInner1 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     climberEncInner1.setReverseDirection(true);
-    // climberEncInner2 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     climberEncOuter1 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
     climberEncOuter1.setReverseDirection(true);
     climberEncOuter2 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
     climberEncTele1 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     climberEncTele1.setReverseDirection(true);
-    // climberEncTele2 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     
     limit_climber_inner_1 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_1);
     limit_climber_inner_2 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_2);

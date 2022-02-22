@@ -100,7 +100,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Climber Limit Switch 2", RobotContainer.getClimber().getClimberLmtInner1().get());
     SmartDashboard.putBoolean("Climber 2 Limit Switch 1", RobotContainer.getClimber().getClimberLmtOuter1().get());
     SmartDashboard.putBoolean("Climber 2 Limit Switch 2", RobotContainer.getClimber().getClimberLmtOuter1().get());
-    SmartDashboard.putBoolean("Telesxopic Limit Switch 1", RobotContainer.getClimber().getClimberLmtTele1().get());
+    SmartDashboard.putBoolean("Telescopic Limit Switch 1", RobotContainer.getClimber().getClimberLmtTele1().get());
     SmartDashboard.putBoolean("Telescopic Limit Switch 2", RobotContainer.getClimber().getClimberLmtTele1().get());
     SmartDashboard.putNumber("LIDAR (In)", RobotContainer.getLIDAR().getDistance());
   }

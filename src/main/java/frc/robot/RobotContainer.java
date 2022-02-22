@@ -138,28 +138,28 @@ public class RobotContainer
 
     climberInner1 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     climberOuter1 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
-    climberInner2 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
+    // climberInner2 = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     climberOuter2 = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
     climberTele1 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_1);
-    climberTele2 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_2);
+    // climberTele2 = new WPI_VictorSPX(Constants.ELEVATOR_TELE_MOTOR_2);
 
     climberInner1.setInverted(true);
     climberOuter1.setInverted(true);
     climberTele1.setInverted(true);
 
-    innerClimber = new MotorControllerGroup(climberInner1, climberInner2);
+    // innerClimber = new MotorControllerGroup(climberInner1, climberInner2);
     outerClimber = new MotorControllerGroup(climberOuter1, climberOuter2);
-    teleClimber = new MotorControllerGroup(climberTele1, climberTele2);
+    // teleClimber = new MotorControllerGroup(climberTele1, climberTele2);
 
     climberEncInner1 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     climberEncInner1.setReverseDirection(true);
-    climberEncInner2 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
+    // climberEncInner2 = new Encoder(Constants.ELEVATOR_INNER_ENC_1, Constants.ELEVATOR_INNER_ENC_2);
     climberEncOuter1 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
     climberEncOuter1.setReverseDirection(true);
     climberEncOuter2 = new Encoder(Constants.ELEVATOR_OUTER_ENC_1, Constants.ELEVATOR_OUTER_ENC_2);
     climberEncTele1 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     climberEncTele1.setReverseDirection(true);
-    climberEncTele2 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
+    // climberEncTele2 = new Encoder(Constants.ELEVATOR_TELE_ENC_1, Constants.ELEVATOR_TELE_ENC_2);
     
     limit_climber_inner_1 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_1);
     limit_climber_inner_2 = new DigitalInput(Constants.LMT_SWITCH_INNER_CLIMBER_2);
@@ -167,7 +167,7 @@ public class RobotContainer
     limit_climber_outer_2 = new DigitalInput(Constants.LMT_SWITCH_OUTER_CLIMBER_2);
     limit_climber_tele_1 = new DigitalInput(Constants.LMT_SWITCH_TELE_CLIMBER_1);
     limit_climber_tele_2 = new DigitalInput(Constants.LMT_SWITCH_TELE_CLIMBER_2);
-    climber = new Climber(climberInner1, climberInner2, climberOuter1, climberOuter2, climberTele1, climberTele2, innerClimber, outerClimber, teleClimber, climberEncInner1, climberEncInner2, climberEncOuter1, climberEncOuter2, climberEncTele1, climberEncTele2, limit_climber_inner_1, limit_climber_inner_2, limit_climber_outer_1, limit_climber_outer_2, limit_climber_tele_1, limit_climber_tele_2);
+    climber = new Climber(climberInner1, climberOuter1, climberOuter2, climberTele1, innerClimber, outerClimber, teleClimber, climberEncInner1, climberEncInner2, climberEncOuter1, climberEncOuter2, climberEncTele1, climberEncTele2, limit_climber_inner_1, limit_climber_inner_2, limit_climber_outer_1, limit_climber_outer_2, limit_climber_tele_1, limit_climber_tele_2);
 
     ahrs = new AHRS(SPI.Port.kMXP);
     lidar = new LIDAR(I2C.Port.kOnboard, 0x62);

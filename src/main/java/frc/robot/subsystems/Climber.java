@@ -60,11 +60,6 @@ public class Climber extends SubsystemBase
         inner1.set(speed);
     }
 
-    public void setInner2(double speed)
-    {
-        inner2.set(speed);
-    }
-
     public void setOuter1(double speed)
     {
         outer1.set(speed);
@@ -78,11 +73,6 @@ public class Climber extends SubsystemBase
     public void setTele1(double speed)
     {
         tele1.set(speed);
-    }
-
-    public void setTele2(double speed)
-    {
-        tele2.set(speed);
     }
 
     public void setInner(double speed)
@@ -203,11 +193,6 @@ public class Climber extends SubsystemBase
         inner1.stopMotor();
     }
 
-    public void stopInner2()
-    {
-        inner2.stopMotor();
-    }
-
     public void stopOuter1()
     {
         outer1.stopMotor();
@@ -221,11 +206,6 @@ public class Climber extends SubsystemBase
     public void stopTele1()
     {
         tele1.stopMotor();
-    }
-
-    public void stopTele2()
-    {
-        tele2.stopMotor();
     }
     
 }

@@ -36,11 +36,10 @@ public class MoveTeleAngle extends CommandBase
 
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
             climber.setTele1(speed);
-            climber.setTele2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
             climber.stopTele1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            climber.stopTele2();
+            climber.stopTele1();
         }
     }
 
@@ -49,11 +48,10 @@ public class MoveTeleAngle extends CommandBase
     {
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
             climber.setTele1(speed);
-            climber.setTele2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
             climber.stopTele1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            climber.stopTele2();
+            climber.stopTele1();
         }
     }
 

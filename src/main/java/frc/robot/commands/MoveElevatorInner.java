@@ -36,11 +36,10 @@ public class MoveElevatorInner extends CommandBase
 
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
             climber.setInner1(speed);
-            climber.setInner2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
             climber.stopInner1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            climber.stopInner2();
+            climber.stopInner1();
         }
     }
 
@@ -49,11 +48,10 @@ public class MoveElevatorInner extends CommandBase
     {
         if (!lmt1.get() && !lmt2.get() && enc1.getDistance() <= encLimit1 && enc2.getDistance() <= encLimit2) {
             climber.setInner1(speed);
-            climber.setInner2(speed);
         } else if (lmt1.get() || enc1.getDistance() > encLimit1) {
             climber.stopInner1();
         } else if (lmt2.get() || enc2.getDistance() > encLimit2) {
-            climber.stopInner2();
+            climber.stopInner1();
         }
     }
 

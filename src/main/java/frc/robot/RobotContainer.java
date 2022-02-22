@@ -167,7 +167,7 @@ public class RobotContainer
     limit_climber_outer_2 = new DigitalInput(Constants.LMT_SWITCH_OUTER_CLIMBER_2);
     limit_climber_tele_1 = new DigitalInput(Constants.LMT_SWITCH_TELE_CLIMBER_1);
     limit_climber_tele_2 = new DigitalInput(Constants.LMT_SWITCH_TELE_CLIMBER_2);
-    climber = new Climber(climberInner1, climberOuter1, climberOuter2, climberTele1, innerClimber, outerClimber, teleClimber, climberEncInner1, climberEncInner2, climberEncOuter1, climberEncOuter2, climberEncTele1, climberEncTele2, limit_climber_inner_1, limit_climber_inner_2, limit_climber_outer_1, limit_climber_outer_2, limit_climber_tele_1, limit_climber_tele_2);
+    climber = new Climber(climberInner1, climberOuter1, climberOuter2, climberTele1, outerClimber, climberEncInner1, climberEncOuter1, climberEncOuter2, climberEncTele1, limit_climber_inner_1, limit_climber_inner_2, limit_climber_outer_1, limit_climber_outer_2, limit_climber_tele_1, limit_climber_tele_2);
 
     ahrs = new AHRS(SPI.Port.kMXP);
     lidar = new LIDAR(I2C.Port.kOnboard, 0x62);

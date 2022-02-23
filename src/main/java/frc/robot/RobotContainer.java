@@ -26,11 +26,12 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.MoveTilt;
+import frc.robot.commands.TeleArmTilt;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
 import frc.robot.subsystems.Tilt;
@@ -45,10 +46,17 @@ import frc.robot.subsystems.Transport;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static Joystick joy;
+
   private static Button shooterTeleop;
   private static Button tiltUp;
   private static Button tiltDown;
   private static Button transport_move;
+  private static Button elevator_down;
+  private static Button elevator_up;
+  private static Button arm_tilt_in;
+  private static Button arm_extend_down;
+  private static Button manual_shoot;
+
 
   //motors 
   public static CANSparkMax shooterMotorRight;
@@ -128,9 +136,6 @@ public class RobotContainer {
 
   pdp = new PowerDistribution(0, ModuleType.kCTRE);
 
-
-  
-
   shooterMotorLeft.setInverted(false);
 
   
@@ -160,13 +165,19 @@ public class RobotContainer {
     tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
     tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
-
+    elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
+    elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
+    arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
+    arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
 
     shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
     tiltUp.whenPressed(new MoveTilt(Constants.TILT_UP_SPEED));
     tiltDown.whenPressed(new MoveTilt(Constants.TILT_DOWN_SPEED));
     transport_move.whenPressed(new MoveTilt(Constants.TRANSPORT_SPEED));
-    
+    elevator_down.whenPressed(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_up.whenPressed(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    arm_tilt_in.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    arm_extend_down.whenPressed(new MoveElevator(Constants.ARM_SPEED));
   }
   
   /**

@@ -25,6 +25,10 @@ public final class Constants {
 
     public static final double INTAKE_OUT_SPEED = -0.8;
 
+    public static final double ELEVATOR_SPEED = .5;
+    public static final double ARM_TILT_SPEED = .5;
+    public static final double ARM_SPEED = .5;
+
     //Buttons
     public static final int SHOOTER_TELEOP_BUTTON = 1;
     public static final int TILT_UP_BUTTON = 2;
@@ -37,7 +41,8 @@ public final class Constants {
 
     public static final int ARM_DOWN_BUTTON = 7;
 
-
+    public static final int ARM_TILT_IN_BUTTON = 0;
+    
     //Motor ports
     public static final int BOTTOM_LEFT_MOTOR = 0;
     public static final int BOTTOM_RIGHT_MOTOR = 0;
@@ -78,6 +83,8 @@ public final class Constants {
     public static final int ARM_RIGHT_LIMIT = 0;
     public static final int ARM_TILT_LEFT_LIMIT = 0;
     public static final int ARM_TILT_RIGHT_LIMIT = 0;
+
+
 
 
 

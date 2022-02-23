@@ -32,9 +32,6 @@ public class TeleArmTilt extends CommandBase{
         }
 
         // Depends on where limit switch is
-        // if(RobotContainer.getTelescopicArm().getTiltEncoder() >= limit){
-        //     RobotContainer.getTelescopicArm().stopTilt();
-        // }
     }
 
     @Override

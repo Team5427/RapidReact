@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class MoveArm extends CommandBase{
+public class AutoArmExtend extends CommandBase{
     private double speed;
+    private double leftLimit = 0;
+    private double rightLimit = 0;
 
-
-    public MoveArm(double speed){
+    public AutoArmExtend(double speed){
         addRequirements(RobotContainer.getTelescopicArm());
         this.speed = speed;
     }
@@ -20,6 +21,9 @@ public class MoveArm extends CommandBase{
         if(speed < 0 && (!RobotContainer.getTelescopicArm().getLeftLimit() || !RobotContainer.getTelescopicArm().getRightLimit())){
             RobotContainer.getTelescopicArm().move_Arm(speed);
         }
+        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() < leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() < rightLimit)){
+            RobotContainer.getTelescopicArm().move_Arm(speed);
+        }
         
 
     }
@@ -29,12 +33,21 @@ public class MoveArm extends CommandBase{
         if(speed < 0 && (RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit())){
             RobotContainer.getTelescopicArm().stopExtend();
         }
-
+        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
+            RobotContainer.getTelescopicArm().stopExtend();
+        }
     }
 
     @Override
     public boolean isFinished(){
-        return RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit() || RobotContainer.getJoy().getRawButton(Constants.ARM_DOWN_BUTTON);
+        if(speed < 0 && (RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit())){
+            return true;
+        }
+        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
+            return true;
+        }    
+
+        return false;
     }
 
     @Override

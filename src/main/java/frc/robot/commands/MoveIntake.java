@@ -18,13 +18,13 @@ public class MoveIntake extends CommandBase
     @Override
     public void initialize()
     {
-        Robot.m_robotContainer.getIntake().moveIntake(speed);
+        RobotContainer.getIntake().moveIntake(speed);
     }
  
     @Override
     public void execute()
     {
-        Robot.m_robotContainer.getIntake().moveIntake(speed);
+        RobotContainer.getIntake().moveIntake(speed);
     }
  
     @Override
@@ -35,6 +35,6 @@ public class MoveIntake extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        Robot.m_robotContainer.getIntake().stopIntake();
+        RobotContainer.getIntake().stopIntake();
     }
 }

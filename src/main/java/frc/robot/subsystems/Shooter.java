@@ -92,7 +92,7 @@ public class Shooter extends SubsystemBase
     // pid_btm_ss.setOutputRange(kMinOutput_Btm, kMaxOutput_Btm);
     } 
 
-    public void moveShooter(double tsetpoint, double bsetpoint)
+    public void moveShooter(double tsetpoint)
     {
         pid_Right_ss.setReference(tsetpoint, CANSparkMax.ControlType.kVelocity);
         shooterMotorLeft.set(shooterMotorRight.get());
@@ -107,5 +107,10 @@ public class Shooter extends SubsystemBase
     {
         shooterMotorLeft.set(0);
         shooterMotorRight.set(0);
+    }
+
+    public double getLidarSpeed(){
+        //replace with lidar values
+        return 0;
     }
 }

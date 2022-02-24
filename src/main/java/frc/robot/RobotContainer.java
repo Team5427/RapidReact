@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -18,18 +19,25 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.subsystems.Shooter;
@@ -62,6 +70,7 @@ public class RobotContainer {
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
+  public static MotorControllerGroup left, right;
   public static MotorController intakeMotor;
   public static MotorController tiltMotor;
   public static MotorController transportMotor;
@@ -69,6 +78,8 @@ public class RobotContainer {
   public static MotorController armLeftMotor;
   public static MotorController armRightMotor;
   public static MotorController armTiltMotor;
+
+  public static DifferentialDrive drive;
 
   //sensors
   private static RelativeEncoder shooterRightEnc;
@@ -84,6 +95,7 @@ public class RobotContainer {
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
   private static Encoder armTiltEncoder;
+  private static I2C lidar_sensor;
 
   //subsystems
   private static Shooter shooter;
@@ -92,20 +104,24 @@ public class RobotContainer {
   private static Intake intake;
   private static Elevator elevator;
   private static TelescopicArm telescopicArm;
+  private static DriveTrain driveTrain;
+  private static Lidar lidar;
 
   private static SparkMaxPIDController pidcontrol_shooter_Right;
   private static SparkMaxPIDController pidcontrol_shooter_Left;
 
   public static PowerDistribution pdp;
+
+  private static AHRS ahrs;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
   shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
   shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
 
-  topLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  topRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
-  bottomLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  bottomRight = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+  topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+  topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+  bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+  bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
   tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
   tilt_limit = new DigitalInput(Constants.TILT_SWITCH);
   transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
@@ -114,6 +130,10 @@ public class RobotContainer {
   armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
   armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
   armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+
+  left = new MotorControllerGroup(topLeft, bottomLeft);
+  right = new MotorControllerGroup(topRight, bottomRight);
+  drive = new DifferentialDrive(left, right);
 
   pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
   pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
@@ -134,6 +154,8 @@ public class RobotContainer {
   armTiltLeftLimit = new DigitalInput(Constants.ARM_TILT_LEFT_LIMIT);
   armTiltRightLimit = new DigitalInput(Constants.ARM_TILT_RIGHT_LIMIT);
 
+  lidar_sensor = new I2C(Constants.LIDAR_PORT, Constants.LIDAR_ADDRESS);
+
   pdp = new PowerDistribution(0, ModuleType.kCTRE);
 
   shooterMotorLeft.setInverted(false);
@@ -147,7 +169,13 @@ public class RobotContainer {
   intake = new Intake(intakeMotor);
   elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
   telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
-  
+  driveTrain = new DriveTrain(left, right, drive);
+  lidar = new Lidar(lidar_sensor);
+  ahrs = new AHRS(SPI.Port.kMXP);
+
+  driveTrain.setDefaultCommand(new DriveWithJoystick());
+
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -197,5 +225,8 @@ public class RobotContainer {
   public static Transport getTransport(){return transport;}
   public static Elevator getElevator(){return elevator;}
   public static TelescopicArm getTelescopicArm(){return telescopicArm;}
+  public static DriveTrain getDriveTrain(){return driveTrain;}
+  public static Lidar getLidar(){return lidar;}
+  public static AHRS getAHRS(){return ahrs;}
 
 }

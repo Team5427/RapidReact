@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -84,6 +85,14 @@ public final class Constants {
     public static final int ARM_TILT_LEFT_LIMIT = 0;
     public static final int ARM_TILT_RIGHT_LIMIT = 0;
 
+    public static final Port LIDAR_PORT = null;
+    public static final int LIDAR_ADDRESS = 0;
+
+
+    //Constants (numbers, limits, etc.)
+    public static final int LIDAR_MIN = 0;
+    public static final int LIDAR_MAX = 0;
+    
 
 
 

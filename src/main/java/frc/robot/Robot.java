@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ArmAutoTiltOut;
-import frc.robot.commands.AutoArmExtend;
+import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.MoveArm;
 //import frc.robot.commands.auto.AethiaLeftThreeCells;
 //import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.auto.AutoArmExtend;
 
 
 /**

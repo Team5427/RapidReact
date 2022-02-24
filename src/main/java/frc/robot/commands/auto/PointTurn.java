@@ -1,7 +1,6 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
@@ -27,7 +26,6 @@ public class PointTurn extends CommandBase{
     @Override
     public void initialize()
     {
-
         RobotContainer.getAHRS().reset();
         reset = true;
         System.out.println("Turn Started");
@@ -50,17 +48,11 @@ public class PointTurn extends CommandBase{
             speed *= -1;
         }
 
-
-
         RobotContainer.getDriveTrain().moveRight(speed);
-
         RobotContainer.getDriveTrain().moveLeft(speed);
 
     }
   
-  
-  
-    // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted)
     {
@@ -68,7 +60,6 @@ public class PointTurn extends CommandBase{
         driveTrain.stop();
     }
   
-    // Returns true when the command should end.
     @Override
     public boolean isFinished()
     {

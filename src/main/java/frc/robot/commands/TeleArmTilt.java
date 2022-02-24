@@ -5,17 +5,17 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants;
 
 
-public class TeleArmTilt extends CommandBase{
+public class TeleArmTilt extends CommandBase {
     private double speed;
     private double limit = 0;
 
-    public TeleArmTilt(double speed){
+    public TeleArmTilt(double speed) {
         addRequirements(RobotContainer.getTelescopicArm());
         this.speed = speed;
     }
     @Override
     public void initialize(){
-        if(!RobotContainer.getTelescopicArm().getLeftTiltLimit() || !RobotContainer.getTelescopicArm().getRightTiltLimit()){
+        if(!RobotContainer.getTelescopicArm().getLeftTiltLimit() || !RobotContainer.getTelescopicArm().getRightTiltLimit()) {
             RobotContainer.getTelescopicArm().tilt_Arm(speed);
         }
 

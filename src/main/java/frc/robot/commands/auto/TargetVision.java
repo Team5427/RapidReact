@@ -15,9 +15,8 @@ public class TargetVision extends CommandBase
   double bias = 0;
   private boolean hasTarget;
   private double err;
-  public static boolean isRunning;
-  public static int counter;
-  public static boolean isCW;
+  private int counter;
+  private boolean isCW;
   private PhotonCamera cam;
   private PhotonTrackedTarget target;
   /**
@@ -40,7 +39,6 @@ public class TargetVision extends CommandBase
   {
     System.out.println("Target Tracking Started");
     cam = new PhotonCamera("photoncam");
-    isRunning = true;
     counter = 0;
     hasTarget = false;
   }
@@ -101,7 +99,6 @@ public class TargetVision extends CommandBase
   {
     System.out.println("Target Tracking Finished");
     driveTrain.stop();
-    isRunning = false;
   }
 
   // Returns true when the command should end.

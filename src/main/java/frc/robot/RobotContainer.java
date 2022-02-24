@@ -12,11 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import org.w3c.dom.css.ElementCSSInlineStyle;
-
-import edu.wpi.first.hal.DigitalGlitchFilterJNI;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
@@ -29,7 +25,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
@@ -52,9 +47,8 @@ import frc.robot.subsystems.Transport;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private static Joystick joy;
 
+  private static Joystick joy;
   private static Button shooterTeleop;
   private static Button tiltUp;
   private static Button tiltDown;
@@ -115,69 +109,61 @@ public class RobotContainer {
   private static AHRS ahrs;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-  shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
 
-  topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
-  topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
-  bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
-  bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
-  tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
-  tilt_limit = new DigitalInput(Constants.TILT_SWITCH);
-  transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
-  transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
-  elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
-  armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
-  armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
-  armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+    topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+    bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
+    left = new MotorControllerGroup(topLeft, bottomLeft);
+    right = new MotorControllerGroup(topRight, bottomRight);
+    drive = new DifferentialDrive(left, right);
 
-  left = new MotorControllerGroup(topLeft, bottomLeft);
-  right = new MotorControllerGroup(topRight, bottomRight);
-  drive = new DifferentialDrive(left, right);
+    tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
+    tilt_limit = new DigitalInput(Constants.TILT_SWITCH);
 
-  pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
-  pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
+    transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
+    transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
-  // Configure the button bindings
+    elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
+    armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
+    armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
+    armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+    elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
+    armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
+    armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ELEVATOR_ENCODER_1);
+    armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
+    elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
+    armRightLimit = new DigitalInput(Constants.ARM_RIGHT_LIMIT);
+    armLeftLimit = new DigitalInput(Constants.TILT_MOTOR);
+    armTiltLeftLimit = new DigitalInput(Constants.ARM_TILT_LEFT_LIMIT);
+    armTiltRightLimit = new DigitalInput(Constants.ARM_TILT_RIGHT_LIMIT);
 
-  shooterRightEnc = shooterMotorRight.getEncoder();
-  shooterLeftEnc = shooterMotorLeft.getEncoder();
+    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
+    shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+    shooterMotorLeft.setInverted(false);
+    shooterMotorRight.setInverted(true);
+    pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
+    pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
+    shooterRightEnc = shooterMotorRight.getEncoder();
+    shooterLeftEnc = shooterMotorLeft.getEncoder();
 
-  elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
-  armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
-  armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ELEVATOR_ENCODER_1);
-  armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
+    lidar_sensor = new I2C(Constants.LIDAR_PORT, Constants.LIDAR_ADDRESS);
 
-  elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
-  armRightLimit = new DigitalInput(Constants.ARM_RIGHT_LIMIT);
-  armLeftLimit = new DigitalInput(Constants.TILT_MOTOR);
-  armTiltLeftLimit = new DigitalInput(Constants.ARM_TILT_LEFT_LIMIT);
-  armTiltRightLimit = new DigitalInput(Constants.ARM_TILT_RIGHT_LIMIT);
+    pdp = new PowerDistribution(0, ModuleType.kCTRE);
 
-  lidar_sensor = new I2C(Constants.LIDAR_PORT, Constants.LIDAR_ADDRESS);
-
-  pdp = new PowerDistribution(0, ModuleType.kCTRE);
-
-  shooterMotorLeft.setInverted(false);
-
-  
-  shooterMotorRight.setInverted(true);
-
-  shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
-  tilt = new Tilt(tiltMotor, tilt_limit);
-  transport = new Transport(transportMotor, transport_sensor);
-  intake = new Intake(intakeMotor);
-  elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
-  telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
-  driveTrain = new DriveTrain(left, right, drive);
-  lidar = new Lidar(lidar_sensor);
-  ahrs = new AHRS(SPI.Port.kMXP);
-
-  driveTrain.setDefaultCommand(new DriveWithJoystick());
-
-
-    // Configure the button bindings
+    shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
+    tilt = new Tilt(tiltMotor, tilt_limit);
+    transport = new Transport(transportMotor, transport_sensor);
+    intake = new Intake(intakeMotor);
+    elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
+    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
+    driveTrain = new DriveTrain(left, right, drive);
+    lidar = new Lidar(lidar_sensor);
+    ahrs = new AHRS(SPI.Port.kMXP);
+    driveTrain.setDefaultCommand(new DriveWithJoystick());
+    
     configureButtonBindings();
+
   }
 
   /**
@@ -187,7 +173,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    shooterTeleop = new JoystickButton(joy, 1);
 
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);

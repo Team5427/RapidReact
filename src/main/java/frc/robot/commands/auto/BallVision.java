@@ -2,28 +2,20 @@ package frc.robot.commands.auto;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
-
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
 public class BallVision extends CommandBase {
 
     private DriveTrain driveTrain = RobotContainer.getDriveTrain();
 
-    private double bias = 0;
+    private double bias;
     private double slowSpeed;
     private double fastSpeed;
     private double err;
     private double setSpeedLeft;
     private double setSpeedRight;
-    private boolean locked;
-
-    private double timer = 0;
 
     private PhotonCamera cam;
     private PhotonTrackedTarget target;
@@ -44,7 +36,6 @@ public class BallVision extends CommandBase {
 
     @Override
     public void initialize() {
-        locked = false;
         cam = new PhotonCamera("photoncam2");
         System.out.println("Ball Tracking Started");
     }
@@ -64,7 +55,6 @@ public class BallVision extends CommandBase {
             driveTrain.moveRight(slowSpeed);
             driveTrain.moveRight(-slowSpeed);
         } else {
-            locked = true;
             if (err < -3) {
                 setSpeedLeft = -slowSpeed;
                 setSpeedRight = -fastSpeed;

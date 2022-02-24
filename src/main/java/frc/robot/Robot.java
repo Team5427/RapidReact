@@ -7,14 +7,11 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.MoveArm;
-//import frc.robot.commands.auto.AethiaLeftThreeCells;
-//import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.auto.AutoArmExtend;
@@ -61,19 +58,13 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
-
     SmartDashboard.putNumber("left RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
     SmartDashboard.putNumber("right RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     SmartDashboard.putNumber("Voltage?", 1/RobotContainer.shooterMotorRight.getBusVoltage());
     SmartDashboard.putNumber("Power?", RobotContainer.pdp.getCurrent(12));
+    SmartDashboard.putNumber("Distance from target", RobotContainer.getLidar().getDistance());
 
     CommandScheduler.getInstance().run();
-
-
   }
 
   /**
@@ -138,7 +129,6 @@ public class Robot extends TimedRobot
       SmartDashboard.putNumber("Shooter Left Enc RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
       SmartDashboard.putNumber("Final_Setpoint", MoveShooterTeleop.setPointFinal);
       SmartDashboard.putNumber("Current_Setpoint_Right", MoveShooterTeleop. lsetPoint);
-      SmartDashboard.putNumber("Current_Setpoint_Btm", MoveShooterTeleop. rsetPoint);
   }
 
   @Override

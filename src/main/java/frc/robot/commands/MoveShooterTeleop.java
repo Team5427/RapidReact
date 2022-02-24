@@ -24,7 +24,6 @@ public class MoveShooterTeleop extends CommandBase
         rsetPoint = 0;
         setPointFinal = SmartDashboard.getNumber("Change RPI", 4560);
         RobotContainer.getShooter().shooterInitRight();
-        //RobotContainer.getShooter().moveShooter(speed);
     }
 
     @Override

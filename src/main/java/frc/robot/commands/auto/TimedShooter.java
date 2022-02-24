@@ -6,25 +6,28 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class TimedShooter extends CommandBase{
-    private double time = 0;
+    private double time;
+    private double setPoint;
     private Timer timer = new Timer();
 
-    public TimedShooter(){
-
+    public TimedShooter(double time, double setPoint)
+    {
+        addRequirements(RobotContainer.getShooter());
+        this.time = time;
+        this.setPoint = setPoint;
     }
 
     @Override
     public void initialize(){
+        timer.reset();
         timer.start();
-        RobotContainer.getShooter().moveShooter(Constants.SHOOTER_TELEOP_SPEED);
+        RobotContainer.getShooter().moveShooter(setPoint);
     }
 
     @Override
-    public void execute(){
-
-        if(timer.get() >= time){
-            RobotContainer.getShooter().stop();
-        }
+    public void execute()
+    {
+        RobotContainer.getShooter().moveShooter(setPoint);
     }
 
     @Override 

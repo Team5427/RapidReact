@@ -6,16 +6,20 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class TimedTransport extends CommandBase{
-    private double time = 0;
+    private double time;
     private double shooterTime = 0;
     private Timer timer = new Timer();
 
-    public TimedTransport(){
+    public TimedTransport(double time)
+    {
+        addRequirements(RobotContainer.getTransport());
+        this.time = time;
 
     }
 
     @Override
     public void initialize(){
+        timer.reset();
         timer.start();
     }
 

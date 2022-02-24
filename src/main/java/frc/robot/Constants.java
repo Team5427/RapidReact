@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
@@ -85,7 +85,7 @@ public final class Constants {
     public static final int ARM_TILT_LEFT_LIMIT = 0;
     public static final int ARM_TILT_RIGHT_LIMIT = 0;
 
-    public static final Port LIDAR_PORT = null;
+    public static final Port LIDAR_PORT = I2C.Port.kOnboard;
     public static final int LIDAR_ADDRESS = 0;
 
 

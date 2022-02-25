@@ -128,7 +128,6 @@ public class Robot extends TimedRobot
       SmartDashboard.putNumber("Shooter Right Enc RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
       SmartDashboard.putNumber("Shooter Left Enc RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
       SmartDashboard.putNumber("Final_Setpoint", MoveShooterTeleop.setPointFinal);
-      SmartDashboard.putNumber("Current_Setpoint_Right", MoveShooterTeleop. lsetPoint);
   }
 
   @Override

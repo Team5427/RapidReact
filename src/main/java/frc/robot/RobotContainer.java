@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,6 +37,9 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.TeleArmTilt;
+import frc.robot.commands.auto.AutonThreeBallsAlpha;
+import frc.robot.commands.auto.AutonThreeBallsBeta;
+import frc.robot.commands.auto.AutonTwoBalls;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
 import frc.robot.subsystems.Tilt;
@@ -107,6 +112,8 @@ public class RobotContainer {
   public static PowerDistribution pdp;
 
   private static AHRS ahrs;
+
+  private static SendableChooser<Command> autonChooser;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -162,6 +169,11 @@ public class RobotContainer {
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
+    autonChooser.setDefaultOption("Two Ball Auton", new AutonTwoBalls());
+    autonChooser.addOption("Far Ball Auton (3 balls)", new AutonThreeBallsBeta());
+    autonChooser.addOption("Close Ball Auton (3 balls)", new AutonThreeBallsAlpha());
+    
+    SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
 
   }
@@ -200,7 +212,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return autonChooser.getSelected();
   }
 
   public static Shooter getShooter(){return shooter;}

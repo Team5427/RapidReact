@@ -1,34 +1,23 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class MoveShooterTeleop extends CommandBase
 {
-    private double speed;
-    public static double lsetPoint;
-    public static double rsetPoint;
     public static double setPointFinal;
     
     public MoveShooterTeleop(double speed)
     {
-        addRequirements(RobotContainer.getShooter());
-        this.speed = speed;
+        addRequirements();
     }
 
     @Override
     public void initialize() {
 
-        lsetPoint = 0;
-        rsetPoint = 0;
         setPointFinal = SmartDashboard.getNumber("Change RPI", 4560);
         RobotContainer.getShooter().shooterInitRight();
-        RobotContainer.getShooter().shooterInitLeft();
-        //RobotContainer.getShooter().moveShooter(speed);
     }
 
     @Override
@@ -54,11 +43,11 @@ public class MoveShooterTeleop extends CommandBase
         //     rsetPoint = 0;
         // }
         
-        // RobotContainer.getShooter().moveShooter(lsetPoint, rsetPoint);
+        RobotContainer.getShooter().moveShooter(RobotContainer.getLidar().getDistance());
         
-        RobotContainer.getShooter().movePercent(.9);
+        // RobotContainer.getShooter().movePercent(.9);
 
-        System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
+        // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }
 
     @Override

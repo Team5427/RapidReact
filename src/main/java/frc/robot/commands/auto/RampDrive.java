@@ -5,17 +5,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
-public class ForwardTimer extends CommandBase {
+public class RampDrive extends CommandBase {
 
     private Timer timer = new Timer();
     private double ctimer;
+    private double finalSpeed;
     private double speed;
     
-    public ForwardTimer(double ctimer, double speed)
+    public RampDrive(double ctimer, double speed)
     {
       addRequirements(RobotContainer.getDriveTrain());
       this.ctimer = ctimer;
-      this.speed = speed;
+      this.finalSpeed = finalSpeed;
     }
 
     @Override
@@ -23,10 +24,14 @@ public class ForwardTimer extends CommandBase {
         System.out.println("Started Moving Forward at " + (int)speed * 100 + "% for " + ctimer + "s");
         timer.reset();
         timer.start();
+        speed = .1;
     }
 
     @Override
     public void execute() {
+        if(speed < finalSpeed){
+            speed *= 1.5;
+        }
         RobotContainer.getDriveTrain().moveLeft(-speed);
         RobotContainer.getDriveTrain().moveRight(-speed);
     }

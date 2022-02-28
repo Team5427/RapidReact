@@ -12,7 +12,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -64,7 +63,6 @@ public class RobotContainer {
   private static Button shooterTeleop;
   private static Button tiltUp;
   private static Button tiltDown;
-  // private static Button transport_move;
   private static Button elevator_down;
   private static Button elevator_up;
   // 2nd joystck
@@ -77,9 +75,6 @@ public class RobotContainer {
   private static Button transport_move;
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
-
-
-
 
   //motors 
   public static CANSparkMax shooterMotorRight;
@@ -173,9 +168,7 @@ public class RobotContainer {
     shooterLeftEnc = shooterMotorLeft.getEncoder();
 
     lidar_sensor = new I2C(Constants.LIDAR_PORT, Constants.LIDAR_ADDRESS);
-
-    pdp = new PowerDistribution(0, ModuleType.kCTRE);
-
+    pdp = new PowerDistribution(0, ModuleType.kRev);
     shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
     tilt = new Tilt(tiltMotor, tilt_limit);
     transport = new Transport(transportMotor, transport_sensor);
@@ -211,7 +204,6 @@ public class RobotContainer {
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
-    // arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
     arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
 
     shooterTeleop.whenPressed(new MoveShooterTeleop());
@@ -220,10 +212,7 @@ public class RobotContainer {
     transport_move.whenPressed(new MoveTilt(Constants.TRANSPORT_SPEED));
     elevator_down.whenPressed(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whenPressed(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    // arm_tilt_in.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
     arm_extend_down.whenPressed(new MoveElevator(Constants.ARM_SPEED));
-
-    //Joystick 2
 
     manual_shoot = new JoystickButton(joy2, Constants.MANUAL_SHOOT_BUTTON);
     auto_tilt_arm_out = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON);

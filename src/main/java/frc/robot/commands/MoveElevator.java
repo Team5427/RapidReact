@@ -21,22 +21,12 @@ public class MoveElevator extends CommandBase{
         {
             RobotContainer.getElevator().move(speed);
         }
-        if(speed < 0 && (!RobotContainer.getElevator().getLimit()))
-        {
-            RobotContainer.getElevator().move(speed);
-        }
+        
     }
 
     @Override 
     public void execute(){
-        if(speed < 0)
-        {
-            if(RobotContainer.getElevator().getLimit())
-            {
-                    RobotContainer.getElevator().stop();
-            }
-            
-        }
+        
         if(speed > 0)
         {
             if(RobotContainer.getElevator().getDistance() >= limit)
@@ -52,7 +42,7 @@ public class MoveElevator extends CommandBase{
     public boolean isFinished(){
         if(speed < 0)
         {
-            return RobotContainer.getElevator().getLimit() || !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON);
+            return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON);
         }
         else
         {

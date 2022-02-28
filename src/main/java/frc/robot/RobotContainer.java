@@ -45,6 +45,7 @@ import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
+import frc.robot.commands.auto.NoVisionAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
 import frc.robot.subsystems.Tilt;
@@ -100,7 +101,6 @@ public class RobotContainer {
   private static RelativeEncoder shooterLeftEnc;
   private static DigitalInput tilt_limit;
   private static AnalogInput transport_sensor;
-  private static DigitalInput elevatorLimit;
   private static DigitalInput armRightLimit;
   private static DigitalInput armLeftLimit;
   private static DigitalInput armTiltLeftLimit;
@@ -158,7 +158,6 @@ public class RobotContainer {
     armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
     armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ELEVATOR_ENCODER_1);
     armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
-    elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
     armRightLimit = new DigitalInput(Constants.ARM_RIGHT_LIMIT);
     armLeftLimit = new DigitalInput(Constants.TILT_MOTOR);
     armTiltLeftLimit = new DigitalInput(Constants.ARM_TILT_LEFT_LIMIT);
@@ -181,7 +180,7 @@ public class RobotContainer {
     tilt = new Tilt(tiltMotor, tilt_limit);
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
-    elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
+    elevator = new Elevator(elevatorMotor, elevatorEncoder);
     telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
@@ -191,7 +190,8 @@ public class RobotContainer {
     autonChooser.setDefaultOption("Two Ball Auton", new AutonTwoBalls());
     autonChooser.addOption("Far Ball Auton (3 balls)", new AutonThreeBallsBeta());
     autonChooser.addOption("Close Ball Auton (3 balls)", new AutonThreeBallsAlpha());
-    
+    autonChooser.addOption("No Vision Auton", new NoVisionAuton());
+
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
 

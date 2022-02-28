@@ -8,7 +8,7 @@ public class MoveShooterTeleop extends CommandBase
 {
     public static double setPointFinal;
     
-    public MoveShooterTeleop(double speed)
+    public MoveShooterTeleop()
     {
         addRequirements();
     }

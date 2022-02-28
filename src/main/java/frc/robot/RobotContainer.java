@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -29,6 +30,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.MoveArm;
+import frc.robot.commands.MoveArmTilt;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.subsystems.DriveTrain;
@@ -36,7 +39,9 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTilt;
+import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
+import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
@@ -54,15 +59,25 @@ import frc.robot.subsystems.Transport;
 public class RobotContainer {
 
   private static Joystick joy;
+  private static Joystick joy2;
   private static Button shooterTeleop;
   private static Button tiltUp;
   private static Button tiltDown;
-  private static Button transport_move;
+  // private static Button transport_move;
   private static Button elevator_down;
   private static Button elevator_up;
-  private static Button arm_tilt_in;
+  // 2nd joystck
   private static Button arm_extend_down;
   private static Button manual_shoot;
+  private static Button auto_tilt_arm_out;
+  private static Button arm_in;
+  private static Button arm_out;
+  private static Button auto_arm_out;
+  private static Button transport_move;
+  private static Button arm_tilt_in;
+  private static Button arm_tilt_out;
+
+
 
 
   //motors 
@@ -114,8 +129,12 @@ public class RobotContainer {
   private static AHRS ahrs;
 
   private static SendableChooser<Command> autonChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    joy = new Joystick(0);
+    joy2 = new Joystick(1);
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
@@ -192,17 +211,40 @@ public class RobotContainer {
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
-    arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
+    // arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
     arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
 
-    shooterTeleop.whenPressed(new MoveShooterTeleop(.5));
+    shooterTeleop.whenPressed(new MoveShooterTeleop());
     tiltUp.whenPressed(new MoveTilt(Constants.TILT_UP_SPEED));
     tiltDown.whenPressed(new MoveTilt(Constants.TILT_DOWN_SPEED));
     transport_move.whenPressed(new MoveTilt(Constants.TRANSPORT_SPEED));
     elevator_down.whenPressed(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whenPressed(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    arm_tilt_in.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    // arm_tilt_in.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
     arm_extend_down.whenPressed(new MoveElevator(Constants.ARM_SPEED));
+
+    //Joystick 2
+
+    manual_shoot = new JoystickButton(joy2, Constants.MANUAL_SHOOT_BUTTON);
+    auto_tilt_arm_out = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON);
+    arm_in = new JoystickButton(joy2, Constants.ARM_IN_BUTTON);
+    arm_out = new JoystickButton(joy2, Constants.ARM_OUT_BUTTON);
+    auto_arm_out = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON);
+    arm_tilt_in = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
+    arm_tilt_out = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
+
+    transport_move = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON);
+
+
+    manual_shoot.whileHeld(new MoveShooterTeleop());
+    auto_tilt_arm_out.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    arm_in.whileHeld(new MoveArmTilt(-Constants.ARM_TILT_SPEED));
+    arm_out.whileHeld(new MoveArmTilt(Constants.ARM_TILT_SPEED));
+    auto_arm_out.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    arm_tilt_in.whenPressed(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    arm_tilt_out.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+  
   }
   
   /**
@@ -225,5 +267,6 @@ public class RobotContainer {
   public static DriveTrain getDriveTrain(){return driveTrain;}
   public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
+  public static Joystick getSecondJoy(){return joy2;}
 
 }

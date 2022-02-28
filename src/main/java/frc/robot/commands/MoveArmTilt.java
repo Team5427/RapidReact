@@ -21,6 +21,8 @@ public class MoveArmTilt extends CommandBase{
     public void execute(){
         if(RobotContainer.getTelescopicArm().getLeftTiltLimit() || RobotContainer.getTelescopicArm().getLeftTiltLimit()){
             RobotContainer.getTelescopicArm().stopTilt();
+        } else {
+            RobotContainer.getTelescopicArm().tilt_Arm(speed);
         }
 
         // depends on where limit switch is

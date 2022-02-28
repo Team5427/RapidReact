@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Elevator extends SubsystemBase{
     private MotorController elevatorMotor;
     private Encoder elevatorEncoder;
+    private DigitalInput limit;
 
-    public Elevator(MotorController elevatorMotor, Encoder elevatorEncoder){
+    public Elevator(MotorController elevatorMotor, Encoder elevatorEncoder, DigitalInput limit){
         this.elevatorMotor = elevatorMotor;
         this.elevatorEncoder = elevatorEncoder;
+        this.limit = limit;
         elevatorEncoder.reset();
     }
 
@@ -25,6 +27,10 @@ public class Elevator extends SubsystemBase{
 
     public double getDistance(){
         return elevatorEncoder.getDistance();
+    }
+
+    public boolean getElevatorLimit() {
+        return limit.get();
     }
 
     

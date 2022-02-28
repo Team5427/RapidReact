@@ -3,7 +3,6 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveTrain;
 
 public class RampDrive extends CommandBase {
 
@@ -12,7 +11,7 @@ public class RampDrive extends CommandBase {
     private double finalSpeed;
     private double speed;
     
-    public RampDrive(double ctimer, double speed)
+    public RampDrive(double ctimer, double speed, double finalspeed)
     {
       addRequirements(RobotContainer.getDriveTrain());
       this.ctimer = ctimer;

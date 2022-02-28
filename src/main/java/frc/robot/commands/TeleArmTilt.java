@@ -16,7 +16,7 @@ public class TeleArmTilt extends CommandBase {
     @Override
     public void initialize(){
         if(!RobotContainer.getTelescopicArm().getLeftTiltLimit() || !RobotContainer.getTelescopicArm().getRightTiltLimit()) {
-            RobotContainer.getTelescopicArm().tilt_Arm(speed);
+            RobotContainer.getTelescopicArm().stopTilt();
         }
 
         // Depends on where limit switch is
@@ -29,6 +29,8 @@ public class TeleArmTilt extends CommandBase {
     public void execute(){
         if(RobotContainer.getTelescopicArm().getLeftTiltLimit() || RobotContainer.getTelescopicArm().getRightTiltLimit()){
             RobotContainer.getTelescopicArm().stopTilt();
+        } else {
+            RobotContainer.getTelescopicArm().tilt_Arm(speed);
         }
 
         // Depends on where limit switch is

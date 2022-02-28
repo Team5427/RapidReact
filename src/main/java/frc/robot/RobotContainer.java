@@ -59,13 +59,13 @@ import frc.robot.subsystems.Transport;
 public class RobotContainer {
 
   private static Joystick joy;
-  private static Joystick joy2;
   private static Button shooterTeleop;
   private static Button tiltUp;
   private static Button tiltDown;
   private static Button elevator_down;
   private static Button elevator_up;
-  // 2nd joystck
+
+  private static Joystick joy2;
   private static Button arm_extend_down;
   private static Button manual_shoot;
   private static Button auto_tilt_arm_out;
@@ -76,7 +76,6 @@ public class RobotContainer {
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
 
-  //motors 
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
@@ -88,10 +87,8 @@ public class RobotContainer {
   public static MotorController armLeftMotor;
   public static MotorController armRightMotor;
   public static MotorController armTiltMotor;
-
   public static DifferentialDrive drive;
 
-  //sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
   private static DigitalInput tilt_limit;
@@ -100,13 +97,13 @@ public class RobotContainer {
   private static DigitalInput armLeftLimit;
   private static DigitalInput armTiltLeftLimit;
   private static DigitalInput armTiltRightLimit;
+  private static DigitalInput elevatorLimit;
   private static Encoder elevatorEncoder;
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
   private static Encoder armTiltEncoder;
   private static I2C lidar_sensor;
 
-  //subsystems
   private static Shooter shooter;
   private static Tilt tilt;
   private static Transport transport;
@@ -146,6 +143,7 @@ public class RobotContainer {
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
+    elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
     armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
     armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
@@ -173,7 +171,7 @@ public class RobotContainer {
     tilt = new Tilt(tiltMotor, tilt_limit);
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
-    elevator = new Elevator(elevatorMotor, elevatorEncoder);
+    elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
     telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
@@ -224,7 +222,6 @@ public class RobotContainer {
 
     transport_move = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON);
 
-
     manual_shoot.whileHeld(new MoveShooterTeleop());
     auto_tilt_arm_out.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
     arm_in.whileHeld(new MoveArmTilt(-Constants.ARM_TILT_SPEED));
@@ -242,7 +239,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return autonChooser.getSelected();
   }
 

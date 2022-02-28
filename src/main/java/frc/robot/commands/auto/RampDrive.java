@@ -8,28 +8,33 @@ public class RampDrive extends CommandBase {
 
     private Timer timer = new Timer();
     private double ctimer;
-    private double finalSpeed;
+    private double maxSpeed;
+    private double startingSpeed;
     private double speed;
+    private double multiplier;
+
     
-    public RampDrive(double ctimer, double speed, double finalspeed)
+    public RampDrive(double ctimer, double startingSpeed, double multiplier, double maxspeed)
     {
       addRequirements(RobotContainer.getDriveTrain());
       this.ctimer = ctimer;
-      this.finalSpeed = finalSpeed;
+      this.startingSpeed = startingSpeed;
+      this.maxSpeed = maxSpeed;
+      this.multiplier = multiplier;
     }
 
     @Override
     public void initialize() {
-        System.out.println("Started Moving Forward at " + (int)speed * 100 + "% for " + ctimer + "s");
+        System.out.println("Started Moving Forward at " + (int)startingSpeed * 100 + "% for " + ctimer + "s");
         timer.reset();
         timer.start();
-        speed = .1;
+        speed = startingSpeed;
     }
 
     @Override
     public void execute() {
-        if(speed < finalSpeed){
-            speed *= 1.5;
+        if(speed < maxSpeed){
+            speed *= multiplier;
         }
         RobotContainer.getDriveTrain().moveLeft(-speed);
         RobotContainer.getDriveTrain().moveRight(-speed);

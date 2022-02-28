@@ -10,7 +10,6 @@ public class BallVision extends CommandBase {
 
     private DriveTrain driveTrain = RobotContainer.getDriveTrain();
 
-    private double bias;
     private double slowSpeed;
     private double fastSpeed;
     private double err;
@@ -26,10 +25,9 @@ public class BallVision extends CommandBase {
      */
   
     //bias based on distance model in case it is needed
-    public BallVision(double bias, double slowSpeed, double fastSpeed)
+    public BallVision(double slowSpeed, double fastSpeed)
     {
       addRequirements(RobotContainer.getDriveTrain());
-      this.bias = bias;
       this.slowSpeed = slowSpeed;
       this.fastSpeed = fastSpeed;
     }

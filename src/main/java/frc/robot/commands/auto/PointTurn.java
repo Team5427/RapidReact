@@ -8,16 +8,14 @@ public class PointTurn extends CommandBase{
 
     private DriveTrain driveTrain = RobotContainer.getDriveTrain();
     private double setPoint;
-    private boolean isAuto;
     private boolean reset = false;
     private double slowSpeed;
     private double fastSpeed;
     private double slowDist;
 
-    public PointTurn(double setPoint, boolean isAuto, double slowSpeed, double fastSpeed, double slowDist) {
+    public PointTurn(double setPoint, double slowSpeed, double fastSpeed, double slowDist) {
         addRequirements(RobotContainer.getDriveTrain());
         this.setPoint = setPoint;
-        this.isAuto = isAuto;
         this.slowSpeed = slowSpeed;
         this.fastSpeed = fastSpeed;
         this.slowDist = slowDist;

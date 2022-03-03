@@ -14,12 +14,12 @@ public class ArmAutoTiltOut extends CommandBase{
     @Override
     public void initialize(){
         if(!RobotContainer.getTelescopicArm().getLeftTiltLimit() || !RobotContainer.getTelescopicArm().getLeftTiltLimit()){
-            RobotContainer.getTelescopicArm().tilt_Arm(speed);
+            RobotContainer.getTelescopicArm().tiltArm(speed);
         }
 
         // depends on where limit switch is
         // if(RobotContainer.getTelescopicArm().getTiltEncoder() < limit){
-        //     RobotContainer.getTelescopicArm().tilt_Arm(speed);
+        //     RobotContainer.getTelescopicArm().tiltArm(speed);
         // }
     }
 

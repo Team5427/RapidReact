@@ -36,13 +36,15 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    SmartDashboard.putNumber("Change RPM", 4560);
-    SmartDashboard.putData("Auto Tilt Arm Out", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    SmartDashboard.putData("Teleop Tilt Arm Out", new MoveArm(Constants.ARM_TILT_SPEED));
-    SmartDashboard.putData("Teleop Tilt Arm in", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
-    SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
-    SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
+    // PRAT STOP DELETING COMMENTS!!!!
+    // THEY EXIST FOR A REASON
+    // SmartDashboard.putNumber("Change RPM", 4560);
+    // SmartDashboard.putData("Auto Tilt Arm Out", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    // SmartDashboard.putData("Teleop Tilt Arm Out", new MoveArm(Constants.ARM_TILT_SPEED));
+    // SmartDashboard.putData("Teleop Tilt Arm in", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
+    // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
+    // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
 
     m_robotContainer = new RobotContainer();
     

@@ -58,6 +58,7 @@ import frc.robot.subsystems.Transport;
  */
 public class RobotContainer {
 
+  // Joystick 1
   private static Joystick joy;
   private static Button shooterTeleop;
   private static Button tiltUp;
@@ -65,6 +66,7 @@ public class RobotContainer {
   private static Button elevator_down;
   private static Button elevator_up;
 
+  // Joystick 2
   private static Joystick joy2;
   private static Button arm_extend_down;
   private static Button manual_shoot;
@@ -76,6 +78,7 @@ public class RobotContainer {
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
 
+  // Motor Controllers
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
@@ -89,6 +92,7 @@ public class RobotContainer {
   public static MotorController armTiltMotor;
   public static DifferentialDrive drive;
 
+  //Sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
   private static DigitalInput tilt_limit;
@@ -104,6 +108,7 @@ public class RobotContainer {
   private static Encoder armTiltEncoder;
   private static I2C lidar_sensor;
 
+  // Subsystems
   private static Shooter shooter;
   private static Tilt tilt;
   private static Transport transport;
@@ -113,6 +118,7 @@ public class RobotContainer {
   private static DriveTrain driveTrain;
   private static Lidar lidar;
 
+  // PID controllers
   private static SparkMaxPIDController pidcontrol_shooter_Right;
   private static SparkMaxPIDController pidcontrol_shooter_Left;
 
@@ -124,9 +130,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
-    joy = new Joystick(0);
-    joy2 = new Joystick(1);
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
@@ -196,6 +199,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
+    // Joystick 1
+    joy = new Joystick(0);
+
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
     tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
@@ -211,6 +217,9 @@ public class RobotContainer {
     elevator_down.whenPressed(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whenPressed(new MoveElevator(-Constants.ELEVATOR_SPEED));
     arm_extend_down.whenPressed(new MoveElevator(Constants.ARM_SPEED));
+
+    // Joystick 2
+    joy2 = new Joystick(1);
 
     manual_shoot = new JoystickButton(joy2, Constants.MANUAL_SHOOT_BUTTON);
     auto_tilt_arm_out = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON);

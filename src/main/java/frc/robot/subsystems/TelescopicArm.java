@@ -7,12 +7,15 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TelescopicArm extends SubsystemBase{
+
     private MotorController tiltMotor;
     private MotorController extendLeftMotor;
     private MotorController extendRightMotor;
+
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private Encoder tiltEncoder;
+
     private DigitalInput tiltLeftLimit;
     private DigitalInput tiltRightLimit;
     private DigitalInput rightLimit;
@@ -22,8 +25,10 @@ public class TelescopicArm extends SubsystemBase{
         this.tiltMotor = tiltMotor;
         this.extendLeftMotor = extendLeftMotor;
         this.extendRightMotor = extendRightMotor;
+
         this.leftEncoder = leftEncoder;
         this.rightEncoder = rightEncoder;
+
         this.tiltEncoder = tiltEncoder;
         this.tiltLeftLimit = tiltLeftLimit;
         this.tiltRightLimit = tiltRightLimit;
@@ -31,11 +36,11 @@ public class TelescopicArm extends SubsystemBase{
 
     }
 
-    public void tilt_Arm(double speed){
+    public void tiltArm(double speed){
         tiltMotor.set(speed);
     }
 
-    public void move_Arm(double speed){
+    public void moveArm(double speed){
         extendRightMotor.set(speed);
         extendLeftMotor.set(speed);
     }

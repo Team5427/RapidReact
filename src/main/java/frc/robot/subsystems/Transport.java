@@ -7,25 +7,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Transport extends SubsystemBase {
-    private MotorController transport_Controller;
-    private AnalogInput    transport_sensor;
-    public Transport(MotorController transport_Controller, AnalogInput transport_sensor){
-        this.transport_Controller = transport_Controller;
-        this.transport_sensor = transport_sensor;
+    private MotorController transportMotor;
+    private AnalogInput proximity;
+
+    public Transport(MotorController transportMotor, AnalogInput proximity){
+        this.transportMotor = transportMotor;
+        this.proximity = proximity;
 
     }
     public void move(double speed) {
-        transport_Controller.set(speed);
+        transportMotor.set(speed);
     }
     public void stop(){
-        transport_Controller.stopMotor();
+        transportMotor.stopMotor();
     }
 
-    public AnalogInput getSensor(){
-        return transport_sensor;
-    }
+    
     public double getProxVal(){
-       return (1/transport_sensor.getVoltage()) * 6.1111126 * 1/2.54;
+       return (1/proximity.getVoltage()) * 6.1111126 * 1/2.54;
     }
 
     public boolean proxCovered(){

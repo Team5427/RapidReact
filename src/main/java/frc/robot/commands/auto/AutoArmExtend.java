@@ -18,10 +18,10 @@ public class AutoArmExtend extends CommandBase{
         //Code assumes -speed is down
         //assumes false from limit is not pressed
         if(speed < 0 && (!RobotContainer.getTelescopicArm().getLeftLimit() || !RobotContainer.getTelescopicArm().getRightLimit())){
-            RobotContainer.getTelescopicArm().move_Arm(speed);
+            RobotContainer.getTelescopicArm().moveArm(speed);
         }
         if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() < leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() < rightLimit)){
-            RobotContainer.getTelescopicArm().move_Arm(speed);
+            RobotContainer.getTelescopicArm().moveArm(speed);
         }
         
 

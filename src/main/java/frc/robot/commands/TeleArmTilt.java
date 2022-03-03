@@ -30,7 +30,7 @@ public class TeleArmTilt extends CommandBase {
         if(RobotContainer.getTelescopicArm().getLeftTiltLimit() || RobotContainer.getTelescopicArm().getRightTiltLimit()){
             RobotContainer.getTelescopicArm().stopTilt();
         } else {
-            RobotContainer.getTelescopicArm().tilt_Arm(speed);
+            RobotContainer.getTelescopicArm().tiltArm(speed);
         }
 
         // Depends on where limit switch is

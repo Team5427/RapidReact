@@ -12,7 +12,6 @@ public class TargetVision extends CommandBase
 
   private DriveTrain driveTrain = RobotContainer.getDriveTrain();
 
-  double bias = 0;
   private boolean hasTarget;
   private double err;
   private int counter;
@@ -24,10 +23,9 @@ public class TargetVision extends CommandBase
    */
 
   //bias based on distance model in case it is needed
-  public TargetVision(double bias, boolean isCW)
+  public TargetVision(boolean isCW)
   {
     addRequirements(RobotContainer.getDriveTrain());
-    this.bias = bias;
     this.isCW = isCW;
 
 

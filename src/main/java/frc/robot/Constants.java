@@ -43,6 +43,17 @@ public final class Constants {
     public static final int ARM_DOWN_BUTTON = 7;
 
     public static final int ARM_TILT_IN_BUTTON = 0;
+
+    //Joystick 2 Buttons
+    public static final int ARM_EXTEND_DOWN_BUTTON = 0;
+    public static final int MANUAL_SHOOT_BUTTON = 0;
+    public static final int ARM_IN_BUTTON = 0;
+    public static final int ARM_OUT_BUTTON = 0;
+    public static final int AUTO_ARM_OUT_BUTTON = 0;
+    public static final int TILT_IN_BUTTON = 0;
+    public static final int TILT_OUT_BUTTON = 0;
+    public static final int TRANSPOT_MOVE_BUTTON = 0;
+    public static final int AUTO_TILT_ARM_OUT_BUTTON = 0;
     
     //Motor ports
     public static final int BOTTOM_LEFT_MOTOR = 0;
@@ -92,6 +103,7 @@ public final class Constants {
     //Constants (numbers, limits, etc.)
     public static final int LIDAR_MIN = 0;
     public static final int LIDAR_MAX = 0;
+    
     
 
 

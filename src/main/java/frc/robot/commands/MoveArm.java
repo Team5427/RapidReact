@@ -34,7 +34,7 @@ public class MoveArm extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit() || RobotContainer.getJoy().getRawButton(Constants.ARM_DOWN_BUTTON);
+        return RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit() || !RobotContainer.getJoy().getRawButton(Constants.ARM_DOWN_BUTTON);
     }
 
     @Override

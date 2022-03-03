@@ -15,12 +15,6 @@ public class MoveElevator extends CommandBase{
     }
     @Override
     public void initialize(){
-        //code assumes -speed is down
-        
-        if(speed > 0 && (RobotContainer.getElevator().getDistance() < limit))
-        {
-            RobotContainer.getElevator().move(speed);
-        }
         
     }
 
@@ -32,8 +26,16 @@ public class MoveElevator extends CommandBase{
             if(RobotContainer.getElevator().getDistance() >= limit)
             {
                 RobotContainer.getElevator().stop();
+            } else {
+                RobotContainer.getElevator().move(speed);
             }
 
+        } else if (speed <= 0) {
+            if (RobotContainer.getElevator().getElevatorLimit()) {
+                RobotContainer.getElevator().stop();
+            } else {
+                RobotContainer.getElevator().move(speed);
+            }
         }
     }    
 

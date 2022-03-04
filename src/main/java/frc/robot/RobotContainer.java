@@ -5,12 +5,15 @@
 package frc.robot;
 
 
+import java.nio.channels.AsynchronousChannelGroup;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -119,7 +122,6 @@ public class RobotContainer {
   public static PowerDistribution pdp;
 
   private static AHRS ahrs;
-
   private static SendableChooser<Command> autonChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -141,6 +143,8 @@ public class RobotContainer {
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
+
+    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR_PORT);
 
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
@@ -219,7 +223,6 @@ public class RobotContainer {
     auto_arm_out = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON);
     arm_tilt_in = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
     arm_tilt_out = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
-
     transport_move = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON);
 
     manual_shoot.whileHeld(new MoveShooterTeleop());

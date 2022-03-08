@@ -17,7 +17,7 @@ public class MoveArm extends CommandBase{
     public void initialize(){
         //Code assumes -speed is down
         //assumes false from limit is not pressed
-        if(speed < 0 && (!RobotContainer.getTelescopicArm().getLeftLimit() || !RobotContainer.getTelescopicArm().getRightLimit())){
+        if(speed > 0 && (RobotContainer.getTelescopicArm().getRightEncoder() < Constants.ARM_RIGHT_ENCODER_LIMIT) || RobotContainer.getTelescopicArm().getLeftEncoder() < Constants.ARM_LEFT_ENCODER_LIMIT) {
             RobotContainer.getTelescopicArm().moveArm(speed);
         }
         
@@ -26,7 +26,7 @@ public class MoveArm extends CommandBase{
 
     @Override 
     public void execute(){
-        if(speed < 0 && (RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit())){
+        if(speed > 0 && !(RobotContainer.getTelescopicArm().getRightEncoder() < Constants.ARM_RIGHT_ENCODER_LIMIT) || RobotContainer.getTelescopicArm().getLeftEncoder() < Constants.ARM_LEFT_ENCODER_LIMIT) {
             RobotContainer.getTelescopicArm().stopExtend();
         }
 
@@ -34,7 +34,7 @@ public class MoveArm extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit() || !RobotContainer.getJoy().getRawButton(Constants.ARM_DOWN_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON);
     }
 
     @Override

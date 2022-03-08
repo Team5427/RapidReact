@@ -103,7 +103,10 @@ public final class Constants {
     //Constants (numbers, limits, etc.)
     public static final int LIDAR_MIN = 0;
     public static final int LIDAR_MAX = 0;
-    
+    public static final int ELEVATOR_ENCODER_LIMIT = 0;
+    public static final int ARM_LEFT_ENCODER_LIMIT = 0;
+    public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
+
     
 
 

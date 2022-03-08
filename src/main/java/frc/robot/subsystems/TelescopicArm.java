@@ -16,12 +16,10 @@ public class TelescopicArm extends SubsystemBase{
     private Encoder rightEncoder;
     private Encoder tiltEncoder;
 
-    private DigitalInput tiltLeftLimit;
-    private DigitalInput tiltRightLimit;
-    private DigitalInput rightLimit;
-    private DigitalInput leftLimit;
+    private DigitalInput tiltLimitSwitch;
 
-    public TelescopicArm(MotorController tiltMotor, MotorController extendLeftMotor, MotorController extendRightMotor, Encoder leftEncoder, Encoder rightEncoder, Encoder tiltEncoder, DigitalInput tiltLeftLimit, DigitalInput tiltRightLimit, DigitalInput rightLimit, DigitalInput leftLimit){
+
+    public TelescopicArm(MotorController tiltMotor, MotorController extendLeftMotor, MotorController extendRightMotor, Encoder leftEncoder, Encoder rightEncoder, Encoder tiltEncoder, DigitalInput tiltLimitSwitch, DigitalInput tiltRightLimit, DigitalInput rightLimit, DigitalInput leftLimit){
         this.tiltMotor = tiltMotor;
         this.extendLeftMotor = extendLeftMotor;
         this.extendRightMotor = extendRightMotor;
@@ -30,9 +28,7 @@ public class TelescopicArm extends SubsystemBase{
         this.rightEncoder = rightEncoder;
 
         this.tiltEncoder = tiltEncoder;
-        this.tiltLeftLimit = tiltLeftLimit;
-        this.tiltRightLimit = tiltRightLimit;
-        this.leftLimit = leftLimit;
+        this.tiltLimitSwitch = tiltLimitSwitch;
 
     }
 
@@ -54,20 +50,8 @@ public class TelescopicArm extends SubsystemBase{
         tiltMotor.stopMotor();
     }
 
-    public boolean getLeftLimit(){
-        return !leftLimit.get();
-    }
-
-    public boolean getRightLimit(){
-        return !rightLimit.get();
-    }
-
-    public boolean getRightTiltLimit(){
-        return !tiltRightLimit.get();
-    }
-
-    public boolean getLeftTiltLimit(){
-        return !tiltLeftLimit.get();
+    public boolean getTiltLimit(){
+        return !tiltLimitSwitch.get();
     }
 
     public double getLeftEncoder(){

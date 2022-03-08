@@ -7,7 +7,6 @@ import frc.robot.RobotContainer;
 public class MoveElevator extends CommandBase{
 
     private double speed;
-    private double limit = 0;
 
     public MoveElevator(double speed){
         addRequirements(RobotContainer.getElevator());
@@ -23,7 +22,7 @@ public class MoveElevator extends CommandBase{
         
         if(speed > 0)
         {
-            if(RobotContainer.getElevator().getDistance() >= limit)
+            if(RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT)
             {
                 RobotContainer.getElevator().stop();
             } else {
@@ -48,7 +47,7 @@ public class MoveElevator extends CommandBase{
         }
         else
         {
-            return (RobotContainer.getElevator().getDistance() >= limit || !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON));
+            return (RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT || !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON));
         }    
     }
 

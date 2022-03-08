@@ -61,11 +61,15 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     SmartDashboard.putNumber("left RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
-    SmartDashboard.putNumber("right RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
-    SmartDashboard.putNumber("Voltage?", 1/RobotContainer.shooterMotorRight.getBusVoltage());
-    SmartDashboard.putNumber("Power?", RobotContainer.pdp.getCurrent(12));
-    SmartDashboard.putNumber("Distance from target", RobotContainer.getLidar().getDistance());
-
+    
+    SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
+    SmartDashboard.putBoolean("Arm Tilt Switch", RobotContainer.getTelescopicArm().getTiltLimit());
+    SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
+    SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
+    SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
+    SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
+    SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
+    
     CommandScheduler.getInstance().run();
   }
 

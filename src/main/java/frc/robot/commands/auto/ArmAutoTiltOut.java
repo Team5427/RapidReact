@@ -13,38 +13,29 @@ public class ArmAutoTiltOut extends CommandBase{
 
     @Override
     public void initialize(){
-        if(!RobotContainer.getTelescopicArm().getLeftTiltLimit() || !RobotContainer.getTelescopicArm().getLeftTiltLimit()){
+        
+
+        if(RobotContainer.getTelescopicArm().getTiltEncoder() < limit){
             RobotContainer.getTelescopicArm().tiltArm(speed);
         }
-
-        // depends on where limit switch is
-        // if(RobotContainer.getTelescopicArm().getTiltEncoder() < limit){
-        //     RobotContainer.getTelescopicArm().tiltArm(speed);
-        // }
     }
 
     @Override
     public void execute(){
-        if(RobotContainer.getTelescopicArm().getLeftTiltLimit() || RobotContainer.getTelescopicArm().getLeftTiltLimit()){
+        
+
+        if(RobotContainer.getTelescopicArm().getTiltEncoder() >= limit){
             RobotContainer.getTelescopicArm().stopTilt();
         }
-
-        // depends on where limit switch is
-        // if(RobotContainer.getTelescopicArm().getTiltEncoder() >= limit){
-        //     RobotContainer.getTelescopicArm().stopTilt();
-        // }
     }
 
     @Override
     public boolean isFinished(){
-        if(RobotContainer.getTelescopicArm().getLeftTiltLimit() || RobotContainer.getTelescopicArm().getLeftTiltLimit()){
+        
+
+        if(RobotContainer.getTelescopicArm().getTiltEncoder() >= limit){
             return true;
         }
-
-        // depends on where limit switch is
-        // if(RobotContainer.getTelescopicArm().getTiltEncoder() >= limit){
-        //     return true;
-        // }
 
         return false;
     }

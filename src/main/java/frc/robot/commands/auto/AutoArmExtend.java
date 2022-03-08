@@ -17,9 +17,6 @@ public class AutoArmExtend extends CommandBase{
     public void initialize(){
         //Code assumes -speed is down
         //assumes false from limit is not pressed
-        if(speed < 0 && (!RobotContainer.getTelescopicArm().getLeftLimit() || !RobotContainer.getTelescopicArm().getRightLimit())){
-            RobotContainer.getTelescopicArm().moveArm(speed);
-        }
         if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() < leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() < rightLimit)){
             RobotContainer.getTelescopicArm().moveArm(speed);
         }
@@ -29,9 +26,7 @@ public class AutoArmExtend extends CommandBase{
 
     @Override 
     public void execute(){
-        if(speed < 0 && (RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit())){
-            RobotContainer.getTelescopicArm().stopExtend();
-        }
+
         if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
             RobotContainer.getTelescopicArm().stopExtend();
         }
@@ -39,9 +34,7 @@ public class AutoArmExtend extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        if(speed < 0 && (RobotContainer.getTelescopicArm().getLeftLimit() || RobotContainer.getTelescopicArm().getRightLimit())){
-            return true;
-        }
+
         if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
             return true;
         }    

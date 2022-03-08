@@ -30,7 +30,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveArm;
-import frc.robot.commands.MoveArmTilt;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.subsystems.DriveTrain;
@@ -145,6 +144,8 @@ public class RobotContainer {
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
+    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR_PORT);
+
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
@@ -233,8 +234,8 @@ public class RobotContainer {
 
     manual_shoot.whileHeld(new MoveShooterTeleop());
     auto_tilt_arm_out.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    arm_in.whileHeld(new MoveArmTilt(-Constants.ARM_TILT_SPEED));
-    arm_out.whileHeld(new MoveArmTilt(Constants.ARM_TILT_SPEED));
+    arm_in.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    arm_out.whileHeld(new MoveArm(Constants.ARM_SPEED));
     auto_arm_out.whenPressed(new MoveArm(Constants.ARM_SPEED));
     arm_tilt_in.whenPressed(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
     arm_tilt_out.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));

@@ -83,6 +83,6 @@ public class Shooter extends SubsystemBase
 
     public double getLidarSpeed(){
         //replace with lidar values
-        return 0;
+        return .5;
     }
 }

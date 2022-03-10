@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
+import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -40,6 +41,7 @@ import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.auto.ArmAutoTiltOut;
+import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
@@ -59,24 +61,29 @@ public class RobotContainer {
 
   // Joystick 1
   private static Joystick joy;
-  private static Button shooterTeleop;
+  private static Button intakeButton;
   private static Button tiltUp;
-  private static Button tiltDown;
+  private static Button tiltDown; 
+  private static Button manual_shoot;
+  private static Button shooterTeleop;
+
   private static Button elevator_down;
   private static Button elevator_up;
-
-  // Joystick 2
-  private static Joystick joy2;
   private static Button arm_extend_down;
-  private static Button manual_shoot;
-  private static Button auto_tilt_arm_out;
-  private static Button arm_in;
-  private static Button arm_out;
-  private static Button auto_arm_out;
-  private static Button transport_move;
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
 
+
+  // Joystick 2
+  private static Joystick joy2;
+  
+  private static Button transport_move_2;
+  private static Button auto_tilt_arm_out_2;
+  private static Button arm_extend_down_2;
+  private static Button arm_extend_up_2;  
+  private static Button auto_arm_out_2;  
+  private static Button arm_tilt_in_2;
+  private static Button arm_tilt_out_2;
   // Motor Controllers
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
@@ -94,12 +101,11 @@ public class RobotContainer {
   //Sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
-  private static DigitalInput tilt_limit;
   private static AnalogInput transport_sensor;
   private static DigitalInput armRightLimit;
   private static DigitalInput armLeftLimit;
   private static DigitalInput armTiltLeftLimit;
-  private static DigitalInput armTiltRightLimit;
+  private static DigitalInput armTiltLimit;
   private static DigitalInput elevatorLimit;
   private static Encoder elevatorEncoder;
   private static Encoder armleftEncoder;
@@ -139,44 +145,45 @@ public class RobotContainer {
     drive = new DifferentialDrive(left, right);
 
     tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
-    tilt_limit = new DigitalInput(Constants.TILT_SWITCH);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
-    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR_PORT);
+    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
 
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
+
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
     armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
     armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+    
     elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
-    armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
-    armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ELEVATOR_ENCODER_1);
-    armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
-    armRightLimit = new DigitalInput(Constants.ARM_RIGHT_LIMIT);
-    armLeftLimit = new DigitalInput(Constants.TILT_MOTOR);
-    armTiltLeftLimit = new DigitalInput(Constants.ARM_TILT_LEFT_LIMIT);
-    armTiltRightLimit = new DigitalInput(Constants.ARM_TILT_RIGHT_LIMIT);
 
-    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-    shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
+    armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ARM_LEFT_ENCODER_2);
+    armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
+    armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
+
+    armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
+
+    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
+    shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
+
     shooterMotorLeft.setInverted(false);
     shooterMotorRight.setInverted(true);
+
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
     shooterRightEnc = shooterMotorRight.getEncoder();
     shooterLeftEnc = shooterMotorLeft.getEncoder();
 
     lidar_sensor = new I2C(Constants.LIDAR_PORT, Constants.LIDAR_ADDRESS);
-    pdp = new PowerDistribution(0, ModuleType.kRev);
     shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
-    tilt = new Tilt(tiltMotor, tilt_limit);
+    tilt = new Tilt(tiltMotor);
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
-    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltRightLimit, armTiltLeftLimit);
+    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
@@ -203,44 +210,47 @@ public class RobotContainer {
     // Joystick 1
     joy = new Joystick(0);
 
-    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
+    intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
     tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
-    transport_move = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
+    manual_shoot = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
+    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
+    arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
+    arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
 
-    shooterTeleop.whenPressed(new MoveShooterTeleop());
-    tiltUp.whenPressed(new MoveTilt(Constants.TILT_UP_SPEED));
-    tiltDown.whenPressed(new MoveTilt(Constants.TILT_DOWN_SPEED));
-    transport_move.whenPressed(new MoveTilt(Constants.TRANSPORT_SPEED));
-    elevator_down.whenPressed(new MoveElevator(Constants.ELEVATOR_SPEED));
-    elevator_up.whenPressed(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    arm_extend_down.whenPressed(new MoveElevator(Constants.ARM_SPEED));
+    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
+    tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
+    tiltDown.whileHeld(new MoveTilt(Constants.TILT_DOWN_SPEED));
+    manual_shoot.whileHeld(new MoveShooterTeleop());
+    shooterTeleop.whileHeld(new AutoShoot());
+    elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    arm_tilt_out.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
 
     // Joystick 2
     joy2 = new Joystick(1);
 
-    manual_shoot = new JoystickButton(joy2, Constants.MANUAL_SHOOT_BUTTON);
-    auto_tilt_arm_out = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON);
-    arm_in = new JoystickButton(joy2, Constants.ARM_IN_BUTTON);
-    arm_out = new JoystickButton(joy2, Constants.ARM_OUT_BUTTON);
-    auto_arm_out = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON);
-    arm_tilt_in = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
-    arm_tilt_out = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON);
+    transport_move_2 = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON_2);
+    auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
+    arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
 
-    transport_move = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON);
+    transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
 
-    manual_shoot.whileHeld(new MoveShooterTeleop());
-    auto_tilt_arm_out.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    arm_in.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    arm_out.whileHeld(new MoveArm(Constants.ARM_SPEED));
-    auto_arm_out.whenPressed(new MoveArm(Constants.ARM_SPEED));
-    arm_tilt_in.whenPressed(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    arm_tilt_out.whenPressed(new TeleArmTilt(Constants.ARM_TILT_SPEED));
-    transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
-  
   }
   
   /**

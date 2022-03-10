@@ -20,35 +20,29 @@ public class MoveElevator extends CommandBase{
     @Override 
     public void execute(){
         
-        if(speed > 0)
-        {
-            if(RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT)
-            {
-                RobotContainer.getElevator().stop();
-            } else {
-                RobotContainer.getElevator().move(speed);
-            }
+        // if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON))
+        // {
+        //     if(RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT)
+        //     {
+        //         RobotContainer.getElevator().stop();
+        //     } else {
+        //         RobotContainer.getElevator().move(speed);
+        //     }
 
-        } else if (speed <= 0) {
-            if (RobotContainer.getElevator().getElevatorLimit()) {
-                RobotContainer.getElevator().stop();
-            } else {
-                RobotContainer.getElevator().move(speed);
-            }
-        }
+        // } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON)) {
+        //     if (RobotContainer.getElevator().getElevatorLimit()) {
+        //         RobotContainer.getElevator().stop();
+        //     } else {
+        //         RobotContainer.getElevator().move(speed);
+        //     }
+        // }
+        RobotContainer.getElevator().move(speed);
     }    
 
 
     @Override
     public boolean isFinished(){
-        if(speed < 0)
-        {
-            return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON);
-        }
-        else
-        {
-            return (RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT || !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON));
-        }    
+        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON); 
     }
 
     @Override

@@ -17,12 +17,8 @@ public class MoveTilt extends CommandBase {
     }
     @Override
     public boolean isFinished() {
-        if (RobotContainer.getTilt().getLimit() || (!RobotContainer.getJoy().getRawButton(Constants.TILT_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.TILT_UP_BUTTON))) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return !RobotContainer.getJoy().getRawButton(Constants.TILT_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.TILT_UP_BUTTON);
+        
     }
     @Override
     public void end(boolean interupted) {

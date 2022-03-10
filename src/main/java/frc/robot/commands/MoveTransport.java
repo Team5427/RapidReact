@@ -9,9 +9,9 @@ public class MoveTransport extends CommandBase {
 
     public MoveTransport(double speed){
 
-           addRequirements(RobotContainer.getTransport());
-           this.speed = speed;
-       }
+        addRequirements(RobotContainer.getTransport());
+        this.speed = speed;
+    }
 
     @Override
     public void execute(){
@@ -20,7 +20,7 @@ public class MoveTransport extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BUTTON)) {
+        if(RobotContainer.getJoy().getRawButton(Constants.TRANSPOT_MOVE_BUTTON_2)) {
             return true;
         }
         return false;

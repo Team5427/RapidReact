@@ -6,16 +6,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Tilt extends SubsystemBase {
     private MotorController tiltMotor;
-    private DigitalInput tiltLimit;
 
-    public Tilt(MotorController tiltMotor, DigitalInput tiltLimit) {
+    public Tilt(MotorController tiltMotor) {
         this.tiltMotor = tiltMotor;
-        this.tiltLimit = tiltLimit;
 
     }
-    public boolean getLimit(){
-        return tiltLimit.get();
-    }
+    
     public void setSpeed(double speed) {
         tiltMotor.set(speed);
     }

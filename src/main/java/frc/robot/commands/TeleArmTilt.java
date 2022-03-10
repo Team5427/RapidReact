@@ -7,7 +7,6 @@ import frc.robot.Constants;
 
 public class TeleArmTilt extends CommandBase {
     private double speed;
-    private double limit = 0;
 
     public TeleArmTilt(double speed) {
         addRequirements(RobotContainer.getTelescopicArm());
@@ -20,9 +19,12 @@ public class TeleArmTilt extends CommandBase {
 
     @Override 
     public void execute(){
-        if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_OUT_BUTTON) && RobotContainer.getTelescopicArm().getTiltEncoder() < limit)){
+        if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON) && RobotContainer.getTelescopicArm().getTiltEncoder() < Constants.ARM_TILT_ENCODER_LIMIT)){
             RobotContainer.getTelescopicArm().stopTilt();
-        } else {
+        } else if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON_2)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON_2) && RobotContainer.getTelescopicArm().getTiltEncoder() < Constants.ARM_TILT_ENCODER_LIMIT)){
+            RobotContainer.getTelescopicArm().stopTilt();
+        }
+         else {
             RobotContainer.getTelescopicArm().tiltArm(speed);
         }
 
@@ -31,7 +33,7 @@ public class TeleArmTilt extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_IN_BUTTON) && !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_OUT_BUTTON);
+        return !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON) && !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON) && !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON_2) && !RobotContainer.getSecondJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON_2);
         
         // Depends on where limit switch is
         // return RobotContainer.getTelescopicArm().getTiltEncoder() >= limit || RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON);

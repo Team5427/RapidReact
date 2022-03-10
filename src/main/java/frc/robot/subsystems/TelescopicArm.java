@@ -51,7 +51,8 @@ public class TelescopicArm extends SubsystemBase{
     }
 
     public boolean getTiltLimit(){
-        return !tiltLimitSwitch.get();
+        // return !tiltLimitSwitch.get();
+        return true;
     }
 
     public double getLeftEncoder(){

@@ -34,7 +34,7 @@ public class MoveArm extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.ARM_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2) && !RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_UP_BUTTON_2);
     }
 
     @Override

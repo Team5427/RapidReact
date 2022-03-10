@@ -32,10 +32,8 @@ public class ForwardTimer extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (timer.get() >= ctimer) {
-            return true;
-        }
-        return false;
+        return (timer.get() >= ctimer);
+
     }
 
     @Override

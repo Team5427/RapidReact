@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
@@ -45,6 +46,7 @@ import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
+import frc.robot.commands.auto.IntakeStart;
 import frc.robot.commands.auto.NoVisionAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
@@ -259,7 +261,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-    return autonChooser.getSelected();
+    return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 
   public static Shooter getShooter(){return shooter;}

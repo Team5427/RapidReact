@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase{
     private MotorController elevatorMotor;
@@ -33,6 +34,10 @@ public class Elevator extends SubsystemBase{
         return limit.get();
     }
 
+    public boolean getElevatorEncoderLimit(){
+        // return true if at limit
+        return getDistance() < Constants.ELEVATOR_ENCODER_LIMIT;
+    }
     
     
 }

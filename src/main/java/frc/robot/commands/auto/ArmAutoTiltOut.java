@@ -15,7 +15,7 @@ public class ArmAutoTiltOut extends CommandBase{
     public void initialize(){
         
 
-        if(RobotContainer.getTelescopicArm().getTiltEncoder() < Constants.ARM_TILT_ENCODER_LIMIT){
+        if(RobotContainer.getTelescopicArm().getTiltEncoderLimit()){
             RobotContainer.getTelescopicArm().tiltArm(speed);
         }
     }
@@ -24,7 +24,7 @@ public class ArmAutoTiltOut extends CommandBase{
     public void execute(){
         
 
-        if(RobotContainer.getTelescopicArm().getTiltEncoder() >= Constants.ARM_TILT_ENCODER_LIMIT){
+        if(RobotContainer.getTelescopicArm().getTiltEncoderLimit()){
             RobotContainer.getTelescopicArm().stopTilt();
         }
     }
@@ -33,7 +33,7 @@ public class ArmAutoTiltOut extends CommandBase{
     public boolean isFinished(){
         
 
-        if(RobotContainer.getTelescopicArm().getTiltEncoder() >= Constants.ARM_TILT_ENCODER_LIMIT){
+        if(RobotContainer.getTelescopicArm().getTiltEncoderLimit()){
             return true;
         }
 

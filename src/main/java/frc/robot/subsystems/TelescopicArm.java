@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class TelescopicArm extends SubsystemBase{
 
@@ -51,6 +52,7 @@ public class TelescopicArm extends SubsystemBase{
     }
 
     public boolean getTiltLimit(){
+        // return true if pressed
         // return !tiltLimitSwitch.get();
         return true;
     }
@@ -65,5 +67,20 @@ public class TelescopicArm extends SubsystemBase{
 
     public double getTiltEncoder(){
         return tiltEncoder.getDistance();
+    }
+
+    public boolean getTiltEncoderLimit(){
+        // return true if at limit
+        return getTiltEncoder() < Constants.ARM_TILT_ENCODER_LIMIT;
+    }
+
+    public boolean getLeftEncoderLimit(){
+        // return true if at limit
+        return getLeftEncoder() < Constants.ARM_LEFT_ENCODER_LIMIT;
+    }
+
+    public boolean getRightEncoderLimit(){
+        // return true if at limit
+        return getRightEncoder() < Constants.ARM_RIGHT_ENCODER_LIMIT;
     }
 }

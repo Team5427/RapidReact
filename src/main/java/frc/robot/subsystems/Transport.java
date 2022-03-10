@@ -28,6 +28,7 @@ public class Transport extends SubsystemBase {
     }
 
     public boolean proxCovered(){
+        // return true if covered
         return getProxVal() < Constants.COVERED;
     }
 

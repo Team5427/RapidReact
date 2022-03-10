@@ -22,11 +22,11 @@ public class MoveElevator extends CommandBase{
         
         // if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON))
         // {
-        //     if(RobotContainer.getElevator().getDistance() >= Constants.ELEVATOR_ENCODER_LIMIT)
-        //     {
-        //         RobotContainer.getElevator().stop();
-        //     } else {
-        //         RobotContainer.getElevator().move(speed);
+            // if(RobotContainer.getElevator().getElevatorEncoderLimit())
+            // {
+            //     RobotContainer.getElevator().stop();
+            // } else {
+            //     RobotContainer.getElevator().move(speed);
         //     }
 
         // } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON)) {

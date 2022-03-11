@@ -139,16 +139,22 @@ public class RobotContainer {
   public RobotContainer() {
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topLeft.setInverted(true);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    topRight.setInverted(true);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+    bottomLeft.setInverted(true);
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
+    
     left = new MotorControllerGroup(topLeft, bottomLeft);
     right = new MotorControllerGroup(topRight, bottomRight);
     drive = new DifferentialDrive(left, right);
+    drive.setSafetyEnabled(false);
 
     tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
+    transportMotor.setInverted(true);
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
@@ -166,13 +172,12 @@ public class RobotContainer {
     armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
     armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
 
-    armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
+    // armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
 
     shooterMotorRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
-
     shooterMotorLeft.setInverted(false);
-    shooterMotorRight.setInverted(true);
+    shooterMotorRight.setInverted(false);
 
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
@@ -191,6 +196,8 @@ public class RobotContainer {
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
+    autonChooser = new SendableChooser<Command>();
+
     autonChooser.setDefaultOption("Two Ball Auton", new AutonTwoBalls());
     autonChooser.addOption("Far Ball Auton (3 balls)", new AutonThreeBallsBeta());
     autonChooser.addOption("Close Ball Auton (3 balls)", new AutonThreeBallsAlpha());

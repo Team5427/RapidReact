@@ -10,7 +10,7 @@ public class MoveIntake extends CommandBase
  
     public MoveIntake(double speed)
     {
- 
+        addRequirements(RobotContainer.getIntake());
     }
  
     @Override

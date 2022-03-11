@@ -41,7 +41,7 @@ public final class Constants {
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ARM_DOWN_BUTTON = 6;
     public static final int ARM_TILT_IN_BUTTON = 4;
-    public static final int ARM_TILT_OUT_BUTTON = 0;
+    public static final int ARM_TILT_OUT_BUTTON = 9;
 
 
     //Joystick 2 Buttons
@@ -79,25 +79,25 @@ public final class Constants {
     //Sensor Ports
     public static final int TILT_SWITCH = 2;
 
-    public static final double COVERED = 5;
-    public static final int TRANSPORT_SENSOR = 9;
+    public static final double COVERED = 2.7;
+    public static final int TRANSPORT_SENSOR = 1;
 
-    public static final int ELEVATOR_ENCODER_1 = 0;
-    public static final int ELEVATOR_ENCODER_2 = 0;
+    public static final int ELEVATOR_ENCODER_1 = 5;
+    public static final int ELEVATOR_ENCODER_2 = 6;
 
-    public static final int ARM_LEFT_ENCODER_1 = 0;
-    public static final int ARM_RIGHT_ENCODER_1 = 0;
-    public static final int ARM_LEFT_ENCODER_2 = 0;
-    public static final int ARM_RIGHT_ENCODER_2 = 0;
-    public static final int ARM_TILT_ENCODER_1 = 0;
-    public static final int ARM_TILT_ENCODER_2 = 0;
+    public static final int ARM_LEFT_ENCODER_1 = 7;
+    public static final int ARM_RIGHT_ENCODER_1 = 3;
+    public static final int ARM_LEFT_ENCODER_2 = 8;
+    public static final int ARM_RIGHT_ENCODER_2 = 4;
+    public static final int ARM_TILT_ENCODER_1 = 1;
+    public static final int ARM_TILT_ENCODER_2 = 2;
 
-    public static final int ELEVATOR_LIMIT = 0;
-    public static final int ARM_TILT_LIMIT = 0;
+    public static final int ELEVATOR_LIMIT = 9;
+    // public static final int ARM_TILT_LIMIT = 0;
 
 
     public static final Port LIDAR_PORT = I2C.Port.kOnboard;
-    public static final int LIDAR_ADDRESS = 0;
+    public static final int LIDAR_ADDRESS = 0x62;
 
 
     //Constants (numbers, limits, etc.)

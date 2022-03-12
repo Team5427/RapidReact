@@ -29,7 +29,7 @@ public final class Constants {
     public static final double ELEVATOR_SPEED = .5;
     public static final double ARM_TILT_SPEED = .5;
     public static final double ARM_SPEED = .5;
-    public static final double TRANSPORT_SPEED = 1;
+    public static final double TRANSPORT_SPEED = .5;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;
@@ -42,11 +42,12 @@ public final class Constants {
     public static final int ARM_DOWN_BUTTON = 6;
     public static final int ARM_TILT_IN_BUTTON = 4;
     public static final int ARM_TILT_OUT_BUTTON = 9;
+    public static final int TRANSPORT_MOVE_BUTTON = 11;
 
 
     //Joystick 2 Buttons
 
-    public static final int TRANSPOT_MOVE_BUTTON_2 = 2;
+    public static final int TRANSPORT_MOVE_BUTTON_2 = 2;
     public static final int AUTO_TILT_ARM_OUT_BUTTON_2 = 7;
     public static final int ARM_EXTEND_DOWN_BUTTON_2 = 5;
     public static final int ARM_EXTEND_UP_BUTTON_2 = 3;

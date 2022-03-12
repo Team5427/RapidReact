@@ -75,6 +75,7 @@ public class RobotContainer {
   private static Button arm_extend_down;
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
+  private static Button transport_move;
 
 
   // Joystick 2
@@ -232,6 +233,7 @@ public class RobotContainer {
     arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
     arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
     arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
+    transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
@@ -240,22 +242,24 @@ public class RobotContainer {
     shooterTeleop.whileHeld(new AutoShoot());
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+
     // arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     // arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
     // arm_tilt_out.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
 
     // Joystick 2
-    joy2 = new Joystick(1);
+    // joy2 = new Joystick(1);
 
-    transport_move_2 = new JoystickButton(joy2, Constants.TRANSPOT_MOVE_BUTTON_2);
-    auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
+    // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
     // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
     // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
     // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
     // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
     // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
 
-    transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
     // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
@@ -285,6 +289,6 @@ public class RobotContainer {
   public static DriveTrain getDriveTrain(){return driveTrain;}
   public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
-  public static Joystick getSecondJoy(){return joy2;}
+  // public static Joystick getSecondJoy(){return joy2;}
 
 }

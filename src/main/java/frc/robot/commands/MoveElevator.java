@@ -20,23 +20,22 @@ public class MoveElevator extends CommandBase{
     @Override 
     public void execute(){
         
-        // if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON))
-        // {
-            // if(RobotContainer.getElevator().getElevatorEncoderLimit())
-            // {
-            //     RobotContainer.getElevator().stop();
-            // } else {
-            //     RobotContainer.getElevator().move(speed);
-        //     }
+        if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON))
+        {
+            if(RobotContainer.getElevator().getElevatorEncoderLimit())
+            {
+                RobotContainer.getElevator().stop();
+            } else {
+                RobotContainer.getElevator().move(speed);
+            }
 
-        // } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON)) {
-        //     if (RobotContainer.getElevator().getElevatorLimit()) {
-        //         RobotContainer.getElevator().stop();
-        //     } else {
-        //         RobotContainer.getElevator().move(speed);
-        //     }
-        // }
-        RobotContainer.getElevator().move(speed);
+        } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON)) {
+            if (RobotContainer.getElevator().getElevatorLimit()) {
+                RobotContainer.getElevator().stop();
+            } else {
+                RobotContainer.getElevator().move(speed);
+            }
+        }
     }    
 
 

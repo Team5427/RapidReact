@@ -20,7 +20,7 @@ public class MoveTransport extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(RobotContainer.getJoy().getRawButton(Constants.TRANSPOT_MOVE_BUTTON_2)) {
+        if(RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_MOVE_BUTTON)) {
             return true;
         }
         return false;

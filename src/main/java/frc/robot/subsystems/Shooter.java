@@ -46,8 +46,8 @@ public class Shooter extends SubsystemBase
 
     public void shooterInitRight() {
     
-        kP_Right = 0.00015; 
-        kI_Right = 0.0000012;
+        kP_Right = 0.00010; 
+        kI_Right = 0.0000007;
         kD_Right = 0; 
         kIz_Right = 0; 
         kFF_Right = 0.000015; 

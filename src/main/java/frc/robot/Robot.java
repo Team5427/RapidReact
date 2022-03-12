@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.ArmAutoTiltOut;
-import frc.robot.commands.MoveArm;
+// import frc.robot.commands.auto.ArmAutoTiltOut;
+// import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.auto.AutoArmExtend;
+// import frc.robot.commands.auto.AutoArmExtend;
 
 
 /**
@@ -60,14 +60,14 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    SmartDashboard.putNumber("left RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
+    SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     
     SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
-    SmartDashboard.putBoolean("Arm Tilt Switch", RobotContainer.getTelescopicArm().getTiltLimit());
+    // SmartDashboard.putBoolean("Arm Tilt Switch", RobotContainer.getTelescopicArm().getTiltLimit());
     SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
-    SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
+    // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
+    // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
+    // SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
     SmartDashboard.putNumber("Lidar", RobotContainer.getLidar().getDistance());
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());

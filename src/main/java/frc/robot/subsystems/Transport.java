@@ -35,7 +35,7 @@ public class Transport extends SubsystemBase {
     @Override
     public void periodic(){
         if(proxCovered()){
-            move(.1);
+            move(.4);
         }
         else{
             stop();

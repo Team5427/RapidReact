@@ -14,7 +14,6 @@ public class Lidar extends SubsystemBase{
     }
 
     public void initLidar() {
-        m_i2c = new I2C(port, addr);
     }
 
     public int getDistance() {

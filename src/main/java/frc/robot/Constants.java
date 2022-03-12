@@ -22,21 +22,21 @@ public final class Constants {
     public static final double TILT_UP_SPEED = 0.5;
     public static final double TILT_DOWN_SPEED = -0.5;
     
-    public static final double INTAKE_IN_SPEED = 0.5;
+    public static final double INTAKE_IN_SPEED = .55;
 
     public static final double INTAKE_OUT_SPEED = -0.8;
 
     public static final double ELEVATOR_SPEED = .5;
     public static final double ARM_TILT_SPEED = .5;
     public static final double ARM_SPEED = .5;
-    public static final double TRANSPORT_SPEED = 0.5;
+    public static final double TRANSPORT_SPEED = 1;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;
     public static final int TILT_UP_BUTTON = 7;
     public static final int TILT_DOWN_BUTTON = 8;
     public static final int MANUAL_SHOOT_BUTTON = 1;
-    public static final int SHOOTER_TELEOP_BUTTON = 1;
+    public static final int SHOOTER_TELEOP_BUTTON = 10;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ARM_DOWN_BUTTON = 6;

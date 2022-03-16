@@ -52,36 +52,38 @@ public class TargetVision extends CommandBase
     }
 
     if(!hasTarget && isCW){
-      driveTrain.moveRight(0.5);
-      driveTrain.moveLeft(-0.5);     
-    } else if (!hasTarget && !isCW) {
       driveTrain.moveRight(-0.5);
-      driveTrain.moveLeft(0.5);    
+      driveTrain.moveLeft(0.5);   
+      System.out.println("Not on cam CW");  
+    } else if (!hasTarget && !isCW) {
+      driveTrain.moveRight(0.5);
+      driveTrain.moveLeft(-0.5);
+      System.out.println("Not on cam !CW");
     } else {
       if(err >= 20){
-        driveTrain.moveRight(0.25);
-        driveTrain.moveLeft(-0.25);
-      } else if (err >= 6) {
-        driveTrain.moveRight(0.2);
-        driveTrain.moveLeft(-0.2);
-      } else if (err >= 4) {
-        driveTrain.moveRight(0.15);
-        driveTrain.moveLeft(-0.15); 
-      } else if(err > 1){
-        driveTrain.moveRight(0.1);
-        driveTrain.moveLeft(-0.1);      
-      } else if(err <= -20){
-        driveTrain.moveRight(-0.25);
-        driveTrain.moveLeft(0.25);
-      } else if (err <= -6) {
         driveTrain.moveRight(-0.2);
         driveTrain.moveLeft(0.2);
-      } else if (err <= -4) {
-        driveTrain.moveRight(-0.15);
-        driveTrain.moveLeft(0.15);    
-      } else if(err < -1){
+      } else if (err >= 6) {
+        driveTrain.moveRight(-0.2);
+        driveTrain.moveLeft(0.2);
+      } else if (err >= 4) {
         driveTrain.moveRight(-0.1);
-        driveTrain.moveLeft(0.1);
+        driveTrain.moveLeft(0.1); 
+      } else if(err > 1){
+        driveTrain.moveRight(-0.1);
+        driveTrain.moveLeft(0.1);      
+      } else if(err <= -20){
+        driveTrain.moveRight(0.2);
+        driveTrain.moveLeft(-0.2);
+      } else if (err <= -6) {
+        driveTrain.moveRight(0.2);
+        driveTrain.moveLeft(-0.2);
+      } else if (err <= -4) {
+        driveTrain.moveRight(0.1);
+        driveTrain.moveLeft(-0.1);    
+      } else if(err < -1){
+        driveTrain.moveRight(0.1);
+        driveTrain.moveLeft(-0.1);
 
       } 
     }

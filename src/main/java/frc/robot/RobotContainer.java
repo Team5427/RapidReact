@@ -40,6 +40,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.ShooterTransport;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
@@ -47,8 +48,11 @@ import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
+import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
 import frc.robot.commands.auto.NoVisionAuton;
+import frc.robot.commands.auto.ScuffedAuto;
+import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
 import frc.robot.subsystems.Tilt;
@@ -76,6 +80,7 @@ public class RobotContainer {
   private static Button arm_tilt_in;
   private static Button arm_tilt_out;
   private static Button transport_move;
+  private static Button transport_back;
 
 
   // Joystick 2
@@ -234,15 +239,17 @@ public class RobotContainer {
     arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
     arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
+    transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
     tiltDown.whileHeld(new MoveTilt(Constants.TILT_DOWN_SPEED));
     manual_shoot.whileHeld(new MoveShooterTeleop());
-    shooterTeleop.whileHeld(new AutoShoot());
+    shooterTeleop.whenPressed(new TargetVision(true));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    transport_back.whileHeld(new MoveTransport(-.25));
 
     // arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     // arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
@@ -275,7 +282,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-    return new AutoTiltDown(2, 1);
+    return new ScuffedAuto();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

@@ -6,6 +6,6 @@ import frc.robot.commands.auto.TimedTransport;
 
 public class ShooterTransport extends ParallelCommandGroup{
     public ShooterTransport(){
-        addCommands(new TimedShooter(1, .5), new TimedTransport(1));
+        addCommands(new TimedShooter(3, .95), new TimedTransport(1));
     }
 }

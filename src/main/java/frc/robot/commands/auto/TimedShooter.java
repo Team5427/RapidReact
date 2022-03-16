@@ -20,13 +20,13 @@ public class TimedShooter extends CommandBase{
     public void initialize(){
         timer.reset();
         timer.start();
-        RobotContainer.getShooter().moveShooter(setPoint);
+        RobotContainer.getShooter().movePercent(setPoint);
     }
 
     @Override
     public void execute()
     {
-        RobotContainer.getShooter().moveShooter(setPoint);
+        RobotContainer.getShooter().movePercent(setPoint);
     }
 
     @Override 

@@ -5,21 +5,58 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.DriveWithJoystick;
+// import frc.robot.commands.MoveArm;
+import frc.robot.commands.MoveElevator;
+import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lidar;
+import frc.robot.commands.MoveTilt;
+import frc.robot.commands.MoveTransport;
+import frc.robot.commands.ShooterTransport;
+// import frc.robot.commands.TeleArmTilt;
+// import frc.robot.commands.auto.ArmAutoTiltOut;
+import frc.robot.commands.auto.AutoShoot;
+import frc.robot.commands.auto.AutoTiltDown;
+import frc.robot.commands.auto.AutonThreeBallsAlpha;
+import frc.robot.commands.auto.AutonThreeBallsBeta;
+import frc.robot.commands.auto.AutonTwoBalls;
+import frc.robot.commands.auto.ForwardTimer;
+import frc.robot.commands.auto.IntakeStart;
+import frc.robot.commands.auto.NoVisionAuton;
+import frc.robot.commands.auto.ScuffedAuto;
+import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.TelescopicArm;
+import frc.robot.subsystems.Tilt;
+import frc.robot.subsystems.Transport;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,50 +65,156 @@ import frc.robot.subsystems.Shooter;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+
+  // Joystick 1
   private static Joystick joy;
+  private static Button intakeButton;
+  private static Button tiltUp;
+  private static Button tiltDown; 
+  private static Button manual_shoot;
   private static Button shooterTeleop;
 
-  //motors 
+  private static Button elevator_down;
+  private static Button elevator_up;
+  private static Button arm_extend_down;
+  private static Button arm_tilt_in;
+  private static Button arm_tilt_out;
+  private static Button transport_move;
+  private static Button transport_back;
+
+
+  // Joystick 2
+  private static Joystick joy2;
+  
+  private static Button transport_move_2;
+  private static Button auto_tilt_arm_out_2;
+  private static Button arm_extend_down_2;
+  private static Button arm_extend_up_2;  
+  private static Button auto_arm_out_2;  
+  private static Button arm_tilt_in_2;
+  private static Button arm_tilt_out_2;
+  // Motor Controllers
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
+  public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
+  public static MotorControllerGroup left, right;
+  public static MotorController intakeMotor;
+  public static MotorController tiltMotor;
+  public static MotorController transportMotor;
+  public static MotorController elevatorMotor;
+  public static MotorController armLeftMotor;
+  public static MotorController armRightMotor;
+  public static MotorController armTiltMotor;
+  public static DifferentialDrive drive;
 
-  //sensors
+  //Sensors
   private static RelativeEncoder shooterRightEnc;
   private static RelativeEncoder shooterLeftEnc;
+  private static AnalogInput transport_sensor;
+  private static DigitalInput armRightLimit;
+  private static DigitalInput armLeftLimit;
+  private static DigitalInput armTiltLeftLimit;
+  private static DigitalInput armTiltLimit;
+  private static DigitalInput elevatorLimit;
+  private static Encoder elevatorEncoder;
+  private static Encoder armleftEncoder;
+  private static Encoder armRightEncoder;
+  private static Encoder armTiltEncoder;
+  private static I2C lidar_sensor;
 
-  //subsystems
+  // Subsystems
   private static Shooter shooter;
+  private static Tilt tilt;
+  private static Transport transport;
+  private static Intake intake;
+  private static Elevator elevator;
+  private static TelescopicArm telescopicArm;
+  private static DriveTrain driveTrain;
+  private static Lidar lidar;
 
+  // PID controllers
   private static SparkMaxPIDController pidcontrol_shooter_Right;
   private static SparkMaxPIDController pidcontrol_shooter_Left;
 
   public static PowerDistribution pdp;
+
+  private static AHRS ahrs;
+
+  private static SendableChooser<Command> autonChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_MOTOR_RIGHT, MotorType.kBrushless);
-  shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_MOTOR_LEFT, MotorType.kBrushless);
 
-  pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
-  pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
-  // Configure the button bindings
+    topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    // topRight.setInverted(true);
+    bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+    bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
+    
+    left = new MotorControllerGroup(topLeft, bottomLeft);
+    left.setInverted(true);
+    right = new MotorControllerGroup(topRight, bottomRight);
+    right.setInverted(false);
+    drive = new DifferentialDrive(left, right);
+    drive.setSafetyEnabled(false);
 
-  shooterRightEnc = shooterMotorRight.getEncoder();
-  shooterLeftEnc = shooterMotorLeft.getEncoder();
+    tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
+    tiltMotor.setInverted(true);
 
-  pdp = new PowerDistribution(0, ModuleType.kCTRE);
+    transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
+    transportMotor.setInverted(true);
+    transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
+    intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
+    intakeMotor.setInverted(true);
 
-  
+    elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
+    elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
 
-  shooterMotorLeft.setInverted(false);
+    // armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
+    // armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
+    // armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+    
+    elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
 
-  
-  shooterMotorRight.setInverted(true);
+    // armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ARM_LEFT_ENCODER_2);
+    // armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
+    // armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
 
-  shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
-    // Configure the button bindings
+    // armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
+
+    shooterMotorRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
+    shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
+    shooterMotorLeft.setInverted(false);
+    shooterMotorRight.setInverted(false);
+
+    pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
+    pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
+    shooterRightEnc = shooterMotorRight.getEncoder();
+    shooterLeftEnc = shooterMotorLeft.getEncoder();
+
+    lidar_sensor = new I2C(I2C.Port.kOnboard, 0x62);
+    shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
+    tilt = new Tilt(tiltMotor);
+    transport = new Transport(transportMotor, transport_sensor);
+    intake = new Intake(intakeMotor);
+    elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
+    // telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLimit, armTiltLeftLimit);
+    driveTrain = new DriveTrain(left, right, drive);
+    lidar = new Lidar(lidar_sensor);
+    ahrs = new AHRS(SPI.Port.kMXP);
+    driveTrain.setDefaultCommand(new DriveWithJoystick());
+    
+    autonChooser = new SendableChooser<Command>();
+
+    autonChooser.setDefaultOption("Two Ball Auton", new AutonTwoBalls());
+    autonChooser.addOption("Far Ball Auton (3 balls)", new AutonThreeBallsBeta());
+    autonChooser.addOption("Close Ball Auton (3 balls)", new AutonThreeBallsAlpha());
+    autonChooser.addOption("No Vision Auton", new NoVisionAuton());
+
+    SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
+
   }
 
   /**
@@ -80,7 +223,58 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    // Joystick 1
+    joy = new Joystick(0);
+
+    intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
+    tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
+    tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
+    manual_shoot = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
+    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
+    elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
+    elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
+    arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
+    arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
+    arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
+    transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
+    transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
+
+    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
+    tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
+    tiltDown.whileHeld(new MoveTilt(Constants.TILT_DOWN_SPEED));
+    manual_shoot.whileHeld(new MoveShooterTeleop());
+    shooterTeleop.whenPressed(new TargetVision(true));
+    elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    transport_back.whileHeld(new MoveTransport(-.25));
+
+    // arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    // arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    // arm_tilt_out.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+
+    // Joystick 2
+    // joy2 = new Joystick(1);
+
+    // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
+    // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
+    // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
+
+    // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    // arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+
+  }
   
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -88,10 +282,20 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
+    return new ScuffedAuto();
+    // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 
   public static Shooter getShooter(){return shooter;}
   public static Joystick getJoy(){return joy;}
+  public static Intake getIntake() {return intake;}
+  public static Tilt getTilt() {return tilt;}
+  public static Transport getTransport(){return transport;}
+  public static Elevator getElevator(){return elevator;}
+  // public static TelescopicArm getTelescopicArm(){return telescopicArm;}
+  public static DriveTrain getDriveTrain(){return driveTrain;}
+  public static Lidar getLidar(){return lidar;}
+  public static AHRS getAHRS(){return ahrs;}
+  // public static Joystick getSecondJoy(){return joy2;}
+
 }

@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,10 +16,104 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int SHOOTER_TELEOP = 1;
 
+    //speeds
     public static final double SHOOTER_TELEOP_SPEED = 1.0;
+    public static final double TILT_UP_SPEED = 1;
+    public static final double TILT_DOWN_SPEED = -1;
+    
+    public static final double INTAKE_IN_SPEED = .45;
 
-    public static final int SHOOTER_MOTOR_RIGHT = 2;
-    public static final int SHOOTER_MOTOR_LEFT = 3;
+    public static final double INTAKE_OUT_SPEED = -0.8;
+
+    public static final double ELEVATOR_SPEED = .5;
+    public static final double ARM_TILT_SPEED = .5;
+    public static final double ARM_SPEED = .5;
+    public static final double TRANSPORT_SPEED = .5;
+
+    //Buttons
+    public static final int INTAKE_IN_BUTTON = 2;
+    public static final int TILT_UP_BUTTON = 7;
+    public static final int TILT_DOWN_BUTTON = 8;
+    public static final int MANUAL_SHOOT_BUTTON = 1;
+    public static final int SHOOTER_TELEOP_BUTTON = 11;
+    public static final int ELEVATOR_DOWN_BUTTON = 3;
+    public static final int ELEVATOR_UP_BUTTON = 5;
+    public static final int ARM_DOWN_BUTTON = 6;
+    public static final int ARM_TILT_IN_BUTTON = 4;
+    public static final int ARM_TILT_OUT_BUTTON = 12;
+    public static final int TRANSPORT_MOVE_BUTTON = 10;
+    public static final int TRANSPORT_BACK_BUTTON = 9;
+
+
+    //Joystick 2 Buttons
+
+    public static final int TRANSPORT_MOVE_BUTTON_2 = 2;
+    public static final int AUTO_TILT_ARM_OUT_BUTTON_2 = 7;
+    public static final int ARM_EXTEND_DOWN_BUTTON_2 = 5;
+    public static final int ARM_EXTEND_UP_BUTTON_2 = 3;
+    public static final int AUTO_ARM_OUT_BUTTON_2 = 8;
+    public static final int ARM_TILT_IN_BUTTON_2 = 6;
+    public static final int ARM_TILT_OUT_BUTTON_2 = 4;
+
+    //Motor ports
+    public static final int BOTTOM_LEFT_MOTOR = 3;
+    public static final int BOTTOM_RIGHT_MOTOR = 5;
+    public static final int TOP_RIGHT_MOTOR = 4;
+    public static final int TOP_LEFT_MOTOR = 2;
+
+    public static final int TILT_MOTOR = 14;
+
+    public static final int SHOOTER_RIGHT_MOTOR = 11;
+    public static final int SHOOTER_LEFT_MOTOR = 10;
+
+    public static final int ELEVATOR_MOTOR = 9;
+
+    public static final int ARM_LEFT_MOTOR = 6;
+    public static final int ARM_RIGHT_MOTOR = 7;
+    public static final int ARM_TILT_MOTOR = 8;
+
+    public static final int INTAKE_MOTOR = 13;
+
+    public static final int TRANSPORT_MOTOR = 12;
+
+
+    //Sensor Ports
+    public static final int TILT_SWITCH = 2;
+
+    public static final double COVERED = 2.7;
+    public static final int TRANSPORT_SENSOR = 1;
+
+    public static final int ELEVATOR_ENCODER_1 = 5;
+    public static final int ELEVATOR_ENCODER_2 = 6;
+
+    public static final int ARM_LEFT_ENCODER_1 = 7;
+    public static final int ARM_RIGHT_ENCODER_1 = 3;
+    public static final int ARM_LEFT_ENCODER_2 = 8;
+    public static final int ARM_RIGHT_ENCODER_2 = 4;
+    public static final int ARM_TILT_ENCODER_1 = 1;
+    public static final int ARM_TILT_ENCODER_2 = 2;
+
+    public static final int ELEVATOR_LIMIT = 9;
+    // public static final int ARM_TILT_LIMIT = 0;
+
+
+    public static final Port LIDAR_PORT = I2C.Port.kOnboard;
+    public static final int LIDAR_ADDRESS = 0x62;
+
+
+    //Constants (numbers, limits, etc.)
+    public static final int LIDAR_MIN = 0;
+    public static final int LIDAR_MAX = 0;
+    public static final int ELEVATOR_ENCODER_LIMIT = 0;
+    public static final int ARM_LEFT_ENCODER_LIMIT = 0;
+    public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
+    public static final int ARM_TILT_ENCODER_LIMIT = 0;
+    
+
+
+
+
+
+
 }

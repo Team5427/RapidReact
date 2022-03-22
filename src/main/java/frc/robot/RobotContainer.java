@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.MoveArm;
 // import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
@@ -41,8 +42,8 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ShooterTransport;
-// import frc.robot.commands.TeleArmTilt;
-// import frc.robot.commands.auto.ArmAutoTiltOut;
+import frc.robot.commands.TeleArmTilt;
+import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
@@ -86,13 +87,16 @@ public class RobotContainer {
   // Joystick 2
   private static Joystick joy2;
   
-  private static Button transport_move_2;
+  // private static Button transport_move_2;
   private static Button auto_tilt_arm_out_2;
   private static Button arm_extend_down_2;
   private static Button arm_extend_up_2;  
   private static Button auto_arm_out_2;  
   private static Button arm_tilt_in_2;
   private static Button arm_tilt_out_2;
+  private static Button elevator_down_2;
+  private static Button elevator_up_2;
+
   // Motor Controllers
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
@@ -171,17 +175,17 @@ public class RobotContainer {
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
 
-    // armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
-    // armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
-    // armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
+    armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
+    armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
+    armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
     
     elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
 
-    // armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ARM_LEFT_ENCODER_2);
-    // armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
-    // armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
+    armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ARM_LEFT_ENCODER_2);
+    armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
+    armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
 
-    // armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
+    armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
 
     shooterMotorRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
@@ -199,7 +203,7 @@ public class RobotContainer {
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
-    // telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLimit, armTiltLeftLimit);
+    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
@@ -260,19 +264,23 @@ public class RobotContainer {
 
     // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
     // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
-    // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
-    // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
     // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
-    // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
-    // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
+    arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
+    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
 
     // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
     // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
-    // arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
-    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    elevator_down_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    elevator_up_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
 
   }
   
@@ -292,10 +300,10 @@ public class RobotContainer {
   public static Tilt getTilt() {return tilt;}
   public static Transport getTransport(){return transport;}
   public static Elevator getElevator(){return elevator;}
-  // public static TelescopicArm getTelescopicArm(){return telescopicArm;}
+  public static TelescopicArm getTelescopicArm(){return telescopicArm;}
   public static DriveTrain getDriveTrain(){return driveTrain;}
   public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
-  // public static Joystick getSecondJoy(){return joy2;}
+  public static Joystick getSecondJoy(){return joy2;}
 
 }

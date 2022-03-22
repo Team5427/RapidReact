@@ -60,6 +60,7 @@ public class TargetVision extends CommandBase
       driveTrain.moveLeft(-0.5);
       System.out.println("Not on cam !CW");
     } else {
+      System.out.println("on cam.");
       if(err >= 20){
         driveTrain.moveRight(-0.2);
         driveTrain.moveLeft(0.2);

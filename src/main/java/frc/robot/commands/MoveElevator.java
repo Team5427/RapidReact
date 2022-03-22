@@ -20,7 +20,7 @@ public class MoveElevator extends CommandBase{
     @Override 
     public void execute(){
         
-        if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON))
+        if(RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON_2))
         {
             if(RobotContainer.getElevator().getElevatorEncoderLimit())
             {
@@ -29,7 +29,7 @@ public class MoveElevator extends CommandBase{
                 RobotContainer.getElevator().move(speed);
             }
 
-        } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON)) {
+        } else if (RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON_2)) {
             if (RobotContainer.getElevator().getElevatorLimit()) {
                 RobotContainer.getElevator().stop();
             } else {
@@ -41,7 +41,7 @@ public class MoveElevator extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON) && !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON); 
+        return !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_DOWN_BUTTON_2) && !RobotContainer.getJoy().getRawButton(Constants.ELEVATOR_UP_BUTTON_2); 
     }
 
     @Override

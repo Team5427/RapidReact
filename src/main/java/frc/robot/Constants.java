@@ -55,6 +55,8 @@ public final class Constants {
     public static final int AUTO_ARM_OUT_BUTTON_2 = 8;
     public static final int ARM_TILT_IN_BUTTON_2 = 6;
     public static final int ARM_TILT_OUT_BUTTON_2 = 4;
+    public static final int ELEVATOR_DOWN_BUTTON_2 = 9;
+    public static final int ELEVATOR_UP_BUTTON_2 = 10;
 
     //Motor ports
     public static final int BOTTOM_LEFT_MOTOR = 3;
@@ -95,7 +97,7 @@ public final class Constants {
     public static final int ARM_TILT_ENCODER_2 = 2;
 
     public static final int ELEVATOR_LIMIT = 9;
-    // public static final int ARM_TILT_LIMIT = 0;
+    public static final int ARM_TILT_LIMIT = 0;
 
 
     public static final Port LIDAR_PORT = I2C.Port.kOnboard;

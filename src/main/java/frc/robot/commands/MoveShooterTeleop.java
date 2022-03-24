@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class MoveShooterTeleop extends CommandBase
@@ -47,8 +48,8 @@ public class MoveShooterTeleop extends CommandBase
         // VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         // RobotContainer.getShooter().moveShooter(RobotContainer.getLidar().getDistance());
         
-        // RobotContainer.getShooter().moveShooter(4000);
-        RobotContainer.getShooter().movePercent(0.95);
+        // RobotContainer.getShooter().moveShooter(5500);
+        RobotContainer.getShooter().movePercent(1);
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }

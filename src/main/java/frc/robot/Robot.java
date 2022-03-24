@@ -28,6 +28,7 @@ public class Robot extends TimedRobot
   private Command m_autonomousCommand;
 
   public static RobotContainer m_robotContainer;
+  public static double wantedSetPoint;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -73,6 +74,9 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
 
     CommandScheduler.getInstance().run();
+    wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
+
+    SmartDashboard.putNumber("SetPoint", wantedSetPoint);
   }
 
   /**

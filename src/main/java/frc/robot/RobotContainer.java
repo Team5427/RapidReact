@@ -44,7 +44,7 @@ import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ShooterTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.auto.ArmAutoTiltOut;
-import frc.robot.commands.auto.AutoShoot;
+// import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
@@ -118,13 +118,13 @@ public class RobotContainer {
   private static DigitalInput armRightLimit;
   private static DigitalInput armLeftLimit;
   private static DigitalInput armTiltLeftLimit;
-  private static DigitalInput armTiltLimit;
+  // private static DigitalInput armTiltLimit;
   private static DigitalInput elevatorLimit;
   private static Encoder elevatorEncoder;
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
   private static Encoder armTiltEncoder;
-  private static I2C lidar_sensor;
+  // private static I2C lidar_sensor;
 
   // Subsystems
   private static Shooter shooter;
@@ -170,12 +170,12 @@ public class RobotContainer {
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
-    intakeMotor.setInverted(true);
 
     elevatorMotor = new WPI_VictorSPX(Constants.ELEVATOR_MOTOR);
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
 
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
+    armLeftMotor.setInverted(true);
     armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
     armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
     
@@ -185,11 +185,11 @@ public class RobotContainer {
     armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
     armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
 
-    armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
+    // armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
 
     shooterMotorRight = new CANSparkMax(Constants.SHOOTER_RIGHT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
-    shooterMotorLeft.setInverted(false);
+    shooterMotorLeft.setInverted(true);
     shooterMotorRight.setInverted(false);
 
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
@@ -197,15 +197,15 @@ public class RobotContainer {
     shooterRightEnc = shooterMotorRight.getEncoder();
     shooterLeftEnc = shooterMotorLeft.getEncoder();
 
-    lidar_sensor = new I2C(I2C.Port.kOnboard, 0x62);
+    // lidar_sensor = new I2C(I2C.Port.kOnboard, 0x62);
     shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
     tilt = new Tilt(tiltMotor);
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
-    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLimit, armTiltLeftLimit);
+    telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
-    lidar = new Lidar(lidar_sensor);
+    // lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
@@ -260,7 +260,7 @@ public class RobotContainer {
     // arm_tilt_out.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
 
     // Joystick 2
-    // joy2 = new Joystick(1);
+    joy2 = new Joystick(1);
 
     // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
     // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
@@ -269,7 +269,7 @@ public class RobotContainer {
     // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
     arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
     arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
-    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
     elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
 
     // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
@@ -279,8 +279,8 @@ public class RobotContainer {
     // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
     arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
     arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    elevator_down_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    elevator_up_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
   }
   
@@ -302,7 +302,7 @@ public class RobotContainer {
   public static Elevator getElevator(){return elevator;}
   public static TelescopicArm getTelescopicArm(){return telescopicArm;}
   public static DriveTrain getDriveTrain(){return driveTrain;}
-  public static Lidar getLidar(){return lidar;}
+  // public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
   public static Joystick getSecondJoy(){return joy2;}
 

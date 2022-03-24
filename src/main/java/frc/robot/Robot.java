@@ -63,13 +63,13 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     
     SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
-    // SmartDashboard.putBoolean("Arm Tilt Switch", RobotContainer.getTelescopicArm().getTiltLimit());
+    SmartDashboard.putBoolean("Arm Tilt Switch", RobotContainer.getTelescopicArm().getTiltLimit());
     SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
-    // SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
+    SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
+    SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
+    SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    SmartDashboard.putNumber("Lidar", RobotContainer.getLidar().getDistance());
+    // SmartDashboard.putNumber("Lidar", RobotContainer.getLidar().getDistance());
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
 
     CommandScheduler.getInstance().run();

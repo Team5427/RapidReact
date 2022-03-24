@@ -17,21 +17,23 @@ public class MoveArm extends CommandBase{
     public void initialize(){
         //Code assumes -speed is down
         //assumes false from limit is not pressed
-        if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (!RobotContainer.getTelescopicArm().getRightEncoderLimit() && !RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
-            RobotContainer.getTelescopicArm().moveArm(speed);
-        }
-        else if((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2))){
-            RobotContainer.getTelescopicArm().moveArm(speed);
-        }
+        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (!RobotContainer.getTelescopicArm().getRightEncoderLimit() && !RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
+        //     RobotContainer.getTelescopicArm().moveArm(speed);
+        // }
+        // else if((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2))){
+        //     RobotContainer.getTelescopicArm().moveArm(speed);
+        // }
         
 
     }
 
     @Override 
     public void execute(){
-        if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (RobotContainer.getTelescopicArm().getRightEncoderLimit() || RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
-            RobotContainer.getTelescopicArm().stopExtend();
-        }
+        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (RobotContainer.getTelescopicArm().getRightEncoderLimit() || RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
+        //     RobotContainer.getTelescopicArm().stopExtend();
+        // }
+        RobotContainer.getTelescopicArm().moveArm(speed);
+
         
 
     }

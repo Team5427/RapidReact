@@ -18,6 +18,10 @@ public class TargetVision extends CommandBase
   private boolean isCW;
   private PhotonCamera cam;
   private PhotonTrackedTarget target;
+  private double fastSpeed = .3;
+  private double medSpeed = .2;
+  private double slowSpeed = .15;
+  private double smallAdjustSpeed = .1;
   /**
    * Creates a new MoveStraight.
    */
@@ -62,29 +66,29 @@ public class TargetVision extends CommandBase
     } else {
       System.out.println("on cam.");
       if(err >= 20){
-        driveTrain.moveRight(-0.2);
-        driveTrain.moveLeft(0.2);
+        driveTrain.moveRight(-fastSpeed);
+        driveTrain.moveLeft(fastSpeed);
       } else if (err >= 6) {
-        driveTrain.moveRight(-0.2);
-        driveTrain.moveLeft(0.2);
+        driveTrain.moveRight(-medSpeed);
+        driveTrain.moveLeft(medSpeed);
       } else if (err >= 4) {
-        driveTrain.moveRight(-0.1);
-        driveTrain.moveLeft(0.1); 
+        driveTrain.moveRight(-slowSpeed);
+        driveTrain.moveLeft(slowSpeed); 
       } else if(err > 1){
-        driveTrain.moveRight(-0.1);
-        driveTrain.moveLeft(0.1);      
+        driveTrain.moveRight(-smallAdjustSpeed);
+        driveTrain.moveLeft(smallAdjustSpeed);      
       } else if(err <= -20){
-        driveTrain.moveRight(0.2);
-        driveTrain.moveLeft(-0.2);
+        driveTrain.moveRight(fastSpeed);
+        driveTrain.moveLeft(-fastSpeed);
       } else if (err <= -6) {
-        driveTrain.moveRight(0.2);
-        driveTrain.moveLeft(-0.2);
+        driveTrain.moveRight(medSpeed);
+        driveTrain.moveLeft(-medSpeed);
       } else if (err <= -4) {
-        driveTrain.moveRight(0.1);
-        driveTrain.moveLeft(-0.1);    
+        driveTrain.moveRight(slowSpeed);
+        driveTrain.moveLeft(-slowSpeed);    
       } else if(err < -1){
-        driveTrain.moveRight(0.1);
-        driveTrain.moveLeft(-0.1);
+        driveTrain.moveRight(smallAdjustSpeed);
+        driveTrain.moveLeft(-smallAdjustSpeed);
 
       } 
     }

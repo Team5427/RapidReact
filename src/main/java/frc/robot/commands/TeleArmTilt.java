@@ -19,9 +19,9 @@ public class TeleArmTilt extends CommandBase {
 
     @Override 
     public void execute(){
-        if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON) && RobotContainer.getTelescopicArm().getTiltEncoderLimit())){
-            RobotContainer.getTelescopicArm().stopTilt();
-        } else if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON_2)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON_2) && RobotContainer.getTelescopicArm().getTiltEncoderLimit())){
+        // if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON) && RobotContainer.getTelescopicArm().getTiltEncoderLimit())){
+        //     RobotContainer.getTelescopicArm().stopTilt();
+        if((RobotContainer.getTelescopicArm().getTiltLimit() && RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_OUT_BUTTON_2)) || (RobotContainer.getJoy().getRawButton(Constants.ARM_TILT_IN_BUTTON_2) && RobotContainer.getTelescopicArm().getTiltEncoderLimit())){
             RobotContainer.getTelescopicArm().stopTilt();
         }
          else {

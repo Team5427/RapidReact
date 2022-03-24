@@ -31,7 +31,7 @@ public class Elevator extends SubsystemBase{
     }
 
     public boolean getElevatorLimit() {
-        return !limit.get();
+        return false;
     }
 
     public boolean getElevatorEncoderLimit(){

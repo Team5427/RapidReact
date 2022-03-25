@@ -18,10 +18,10 @@ public class TargetVision extends CommandBase
   private boolean isCW;
   private PhotonCamera cam;
   private PhotonTrackedTarget target;
-  private double fastSpeed = .3;
-  private double medSpeed = .2;
-  private double slowSpeed = .15;
-  private double smallAdjustSpeed = .1;
+  private double fastSpeed = .25;
+  private double medSpeed = .15;
+  private double slowSpeed = .10;
+  private double smallAdjustSpeed = .05;
   /**
    * Creates a new MoveStraight.
    */
@@ -68,9 +68,9 @@ public class TargetVision extends CommandBase
       if(err >= 20){
         driveTrain.moveRight(-fastSpeed);
         driveTrain.moveLeft(fastSpeed);
-      } else if (err >= 6) {
-        driveTrain.moveRight(-medSpeed);
-        driveTrain.moveLeft(medSpeed);
+      } else if (err >= 8) {
+        driveTrain.moveRight(-slowSpeed);
+        driveTrain.moveLeft(slowSpeed);
       } else if (err >= 4) {
         driveTrain.moveRight(-slowSpeed);
         driveTrain.moveLeft(slowSpeed); 
@@ -80,9 +80,9 @@ public class TargetVision extends CommandBase
       } else if(err <= -20){
         driveTrain.moveRight(fastSpeed);
         driveTrain.moveLeft(-fastSpeed);
-      } else if (err <= -6) {
-        driveTrain.moveRight(medSpeed);
-        driveTrain.moveLeft(-medSpeed);
+      } else if (err <= -8) {
+        driveTrain.moveRight(slowSpeed);
+        driveTrain.moveLeft(-slowSpeed);
       } else if (err <= -4) {
         driveTrain.moveRight(slowSpeed);
         driveTrain.moveLeft(-slowSpeed);    

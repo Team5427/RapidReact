@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import com.revrobotics.CANSparkMaxLowLevel;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
+    
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     
     SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());

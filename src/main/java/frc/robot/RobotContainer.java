@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -177,6 +178,7 @@ public class RobotContainer {
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
     armLeftMotor.setInverted(true);
     armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
+    armRightMotor.setInverted(true);
     armTiltMotor = new WPI_VictorSPX(Constants.ARM_TILT_MOTOR);
     
     elevatorEncoder = new Encoder(Constants.ELEVATOR_ENCODER_1, Constants.ELEVATOR_ENCODER_2);
@@ -191,7 +193,7 @@ public class RobotContainer {
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft.setInverted(true);
     shooterMotorRight.setInverted(false);
-
+    shooterMotorRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
     shooterRightEnc = shooterMotorRight.getEncoder();

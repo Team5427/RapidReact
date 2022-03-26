@@ -56,36 +56,36 @@ public class TargetVision extends CommandBase
     }
 
     if(!hasTarget && isCW){
-      driveTrain.moveRight(-0.5);
-      driveTrain.moveLeft(0.5);   
+      driveTrain.moveRight(-fastSpeed);
+      driveTrain.moveLeft(fastSpeed);   
       System.out.println("Not on cam CW");  
     } else if (!hasTarget && !isCW) {
-      driveTrain.moveRight(0.5);
-      driveTrain.moveLeft(-0.5);
+      driveTrain.moveRight(fastSpeed);
+      driveTrain.moveLeft(-fastSpeed);
       System.out.println("Not on cam !CW");
     } else {
       System.out.println("on cam.");
       if(err >= 20){
         driveTrain.moveRight(-fastSpeed);
         driveTrain.moveLeft(fastSpeed);
-      } else if (err >= 8) {
+      } else if (err >= 12) {
         driveTrain.moveRight(-slowSpeed);
         driveTrain.moveLeft(slowSpeed);
       } else if (err >= 4) {
-        driveTrain.moveRight(-slowSpeed);
-        driveTrain.moveLeft(slowSpeed); 
+        driveTrain.moveRight(-smallAdjustSpeed);
+        driveTrain.moveLeft(smallAdjustSpeed); 
       } else if(err > 1){
         driveTrain.moveRight(-smallAdjustSpeed);
         driveTrain.moveLeft(smallAdjustSpeed);      
       } else if(err <= -20){
         driveTrain.moveRight(fastSpeed);
         driveTrain.moveLeft(-fastSpeed);
-      } else if (err <= -8) {
+      } else if (err <= -12) {
         driveTrain.moveRight(slowSpeed);
         driveTrain.moveLeft(-slowSpeed);
       } else if (err <= -4) {
-        driveTrain.moveRight(slowSpeed);
-        driveTrain.moveLeft(-slowSpeed);    
+        driveTrain.moveRight(smallAdjustSpeed);
+        driveTrain.moveLeft(-smallAdjustSpeed);    
       } else if(err < -1){
         driveTrain.moveRight(smallAdjustSpeed);
         driveTrain.moveLeft(-smallAdjustSpeed);
@@ -110,7 +110,10 @@ public class TargetVision extends CommandBase
   @Override
   public boolean isFinished()
   {
-    if(err > -2 && err < 2 && hasTarget) 
+    if(RobotContainer.getJoy().getRawButton(12)){
+      return true;
+    }
+    if(err > -1 && err < 1 && hasTarget) 
     {
       counter++;
       if(counter > 12){

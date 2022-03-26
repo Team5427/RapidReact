@@ -73,7 +73,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
     SmartDashboard.putNumber("Arm Tilt Encoder", RobotContainer.getTelescopicArm().getTiltEncoder());
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    // SmartDashboard.putNumber("Lidar", RobotContainer.getLidar().getDistance());
+    SmartDashboard.putNumber("Lidar", (RobotContainer.getLidar().getDistance()/2.54)/12);
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
 
     CommandScheduler.getInstance().run();

@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.DriveToRange;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveArm;
 // import frc.robot.commands.MoveArm;
@@ -50,6 +51,7 @@ import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
 import frc.robot.commands.auto.AutonThreeBallsBeta;
 import frc.robot.commands.auto.AutonTwoBalls;
+import frc.robot.commands.auto.CoolAuto;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
 import frc.robot.commands.auto.NoVisionAuton;
@@ -125,7 +127,7 @@ public class RobotContainer {
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
   private static Encoder armTiltEncoder;
-  // private static I2C lidar_sensor;
+  private static I2C lidar_sensor;
 
   // Subsystems
   private static Shooter shooter;
@@ -199,7 +201,7 @@ public class RobotContainer {
     shooterRightEnc = shooterMotorRight.getEncoder();
     shooterLeftEnc = shooterMotorLeft.getEncoder();
 
-    // lidar_sensor = new I2C(I2C.Port.kOnboard, 0x62);
+    lidar_sensor = new I2C(I2C.Port.kOnboard, 0x62);
     shooter = new Shooter(shooterMotorRight, shooterMotorLeft, shooterRightEnc, shooterLeftEnc, pidcontrol_shooter_Right, pidcontrol_shooter_Left);
     tilt = new Tilt(tiltMotor);
     transport = new Transport(transportMotor, transport_sensor);
@@ -207,7 +209,7 @@ public class RobotContainer {
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
     telescopicArm = new TelescopicArm(tiltMotor, armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armTiltEncoder, armRightLimit, armLeftLimit, armTiltLeftLimit);
     driveTrain = new DriveTrain(left, right, drive);
-    // lidar = new Lidar(lidar_sensor);
+    lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
@@ -264,25 +266,25 @@ public class RobotContainer {
     // Joystick 2
     joy2 = new Joystick(1);
 
-    // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
-    // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
-    arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
-    arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
-    // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
-    arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
-    arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
-    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
-    elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
+    // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
+    // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
+    // elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
+    // elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
 
-    // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
-    // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
-    // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
-    arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
-    arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
-    elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));''
+    // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    // arm_tilt_in_2.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
+    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    // elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    // elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
   }
   
@@ -293,6 +295,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
     return new ScuffedAuto();
+    // return new CoolAuto();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 
@@ -304,7 +307,7 @@ public class RobotContainer {
   public static Elevator getElevator(){return elevator;}
   public static TelescopicArm getTelescopicArm(){return telescopicArm;}
   public static DriveTrain getDriveTrain(){return driveTrain;}
-  // public static Lidar getLidar(){return lidar;}
+  public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
   public static Joystick getSecondJoy(){return joy2;}
 

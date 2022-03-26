@@ -47,7 +47,7 @@ public class PointTurn extends CommandBase{
         }
 
         RobotContainer.getDriveTrain().moveRight(speed);
-        RobotContainer.getDriveTrain().moveLeft(speed);
+        RobotContainer.getDriveTrain().moveLeft(-speed);
 
     }
   

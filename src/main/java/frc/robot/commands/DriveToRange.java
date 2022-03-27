@@ -20,7 +20,7 @@ public class DriveToRange extends CommandBase{
 
     private double tolerence = 5;
 
-    private double pitch = -19;
+    private double pitch = -15.5;
     private double err;
     private double abserr = Math.abs(err);
 
@@ -51,8 +51,8 @@ public class DriveToRange extends CommandBase{
             RobotContainer.getDriveTrain().moveLeft(fastSpeed);
             RobotContainer.getDriveTrain().moveRight(fastSpeed);
         } else if (target.getPitch() < 0 && err > 5) {
-            RobotContainer.getDriveTrain().moveLeft(-.05);
-            RobotContainer.getDriveTrain().moveRight(-.05);
+            RobotContainer.getDriveTrain().moveLeft(-.1);
+            RobotContainer.getDriveTrain().moveRight(-.1);
         } else{
             RobotContainer.getDriveTrain().moveLeft(-.05);
             RobotContainer.getDriveTrain().moveRight(-.05);

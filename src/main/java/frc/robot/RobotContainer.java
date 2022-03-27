@@ -294,8 +294,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
-    return new ScuffedAuto();
-    // return new CoolAuto();
+    // return new ScuffedAuto();
+    return new CoolAuto();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

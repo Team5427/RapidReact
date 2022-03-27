@@ -20,7 +20,7 @@ public class TargetVision extends CommandBase
   private PhotonTrackedTarget target;
   private double fastSpeed = .25;
   private double medSpeed = .15;
-  private double slowSpeed = .10;
+  private double slowSpeed = .07;
   private double smallAdjustSpeed = .05;
   /**
    * Creates a new MoveStraight.
@@ -58,13 +58,10 @@ public class TargetVision extends CommandBase
     if(!hasTarget && isCW){
       driveTrain.moveRight(-fastSpeed);
       driveTrain.moveLeft(fastSpeed);   
-      System.out.println("Not on cam CW");  
     } else if (!hasTarget && !isCW) {
       driveTrain.moveRight(fastSpeed);
       driveTrain.moveLeft(-fastSpeed);
-      System.out.println("Not on cam !CW");
     } else {
-      System.out.println("on cam.");
       if(err >= 20){
         driveTrain.moveRight(-fastSpeed);
         driveTrain.moveLeft(fastSpeed);
@@ -72,11 +69,15 @@ public class TargetVision extends CommandBase
         driveTrain.moveRight(-slowSpeed);
         driveTrain.moveLeft(slowSpeed);
       } else if (err >= 4) {
-        driveTrain.moveRight(-smallAdjustSpeed);
-        driveTrain.moveLeft(smallAdjustSpeed); 
-      } else if(err > 1){
+        driveTrain.moveRight(-slowSpeed);
+        driveTrain.moveLeft(slowSpeed); 
+      } else if(err >= 1.5){
         driveTrain.moveRight(-smallAdjustSpeed);
         driveTrain.moveLeft(smallAdjustSpeed);      
+      }  else if(err > 1){
+        driveTrain.moveRight(-smallAdjustSpeed / 2);
+        driveTrain.moveLeft(smallAdjustSpeed / 2);
+
       } else if(err <= -20){
         driveTrain.moveRight(fastSpeed);
         driveTrain.moveLeft(-fastSpeed);
@@ -84,11 +85,15 @@ public class TargetVision extends CommandBase
         driveTrain.moveRight(slowSpeed);
         driveTrain.moveLeft(-slowSpeed);
       } else if (err <= -4) {
-        driveTrain.moveRight(smallAdjustSpeed);
-        driveTrain.moveLeft(-smallAdjustSpeed);    
-      } else if(err < -1){
+        driveTrain.moveRight(slowSpeed);
+        driveTrain.moveLeft(-slowSpeed);    
+      } else if(err <= -1.5){
         driveTrain.moveRight(smallAdjustSpeed);
         driveTrain.moveLeft(-smallAdjustSpeed);
+
+      } else if(err < -1){
+        driveTrain.moveRight(smallAdjustSpeed / 2);
+        driveTrain.moveLeft(-smallAdjustSpeed / 2);
 
       } 
     }
@@ -116,7 +121,7 @@ public class TargetVision extends CommandBase
     if(err > -1 && err < 1 && hasTarget) 
     {
       counter++;
-      if(counter > 12){
+      if(counter > 6){
         return true;
       }
     }

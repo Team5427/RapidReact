@@ -5,7 +5,7 @@ import frc.robot.commands.ShooterTransport;
 
 public class ScuffedAuto extends SequentialCommandGroup{
     public ScuffedAuto(){
-        addCommands(new AutoTiltDown(1.5, 1), new ForwardTimer(.38, 0.4),new Wait(1), new ShooterTransport());
+        addCommands(new AutoTiltDown(1.5, 1), new ForwardTimer(.4, 0.4),new Wait(1), new ShooterTransport());
     
     }
 }

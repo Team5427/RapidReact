@@ -4,25 +4,20 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class DriveToRange extends CommandBase{
     private boolean hasTarget;
     private int counter;
-    private boolean isCW;
     private PhotonCamera cam;
     private PhotonTrackedTarget target;
     private double fastSpeed = -.2;
-    private double medSpeed = -.2;
-    private double slowSpeed = -.1;
-    private double Pnum = 0.6;
-
-    private double tolerence = 5;
+    private double medSpeed = -.1;
+    private double slowSpeed = -.5;
 
     private double pitch = -15.5;
+    private double init_err;
     private double err;
-    private double abserr = Math.abs(err);
 
     public DriveToRange(){
         addRequirements(RobotContainer.getDriveTrain());
@@ -40,34 +35,36 @@ public class DriveToRange extends CommandBase{
     @Override
     public void execute()
     {
-
         if(cam.getLatestResult().hasTargets()){
             hasTarget = cam.getLatestResult().hasTargets();
             target = cam.getLatestResult().getBestTarget();
-            err = target.getPitch() - pitch;
+            init_err = target.getPitch() - pitch;
+            err = Math.abs(init_err);
         }
 
-        if(target.getPitch() >= 0){
-            RobotContainer.getDriveTrain().moveLeft(fastSpeed);
-            RobotContainer.getDriveTrain().moveRight(fastSpeed);
-        } else if (target.getPitch() < 0 && err > 5) {
-            RobotContainer.getDriveTrain().moveLeft(-.1);
-            RobotContainer.getDriveTrain().moveRight(-.1);
-        } else{
-            RobotContainer.getDriveTrain().moveLeft(-.05);
-            RobotContainer.getDriveTrain().moveRight(-.05);
+        if (err >= 10) {
+            RobotContainer.getDriveTrain().moveLeft(fastSpeed * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight(fastSpeed * Math.signum(init_err));
+        } else if (err >= 6) {
+            RobotContainer.getDriveTrain().moveLeft(medSpeed * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight(medSpeed * Math.signum(init_err));
+        } else if (err >= 3) {
+            RobotContainer.getDriveTrain().moveLeft(slowSpeed * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight(slowSpeed * Math.signum(init_err));
+        } else if (err >= 1) {
+            RobotContainer.getDriveTrain().moveLeft((slowSpeed / 3) * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight((slowSpeed / 3) * Math.signum(init_err));
         }
     }
 
     @Override
     public boolean isFinished(){
 
-        if (Math.abs(err) < 0.5){
-            // counter++;
-            // if (counter >= 9) {
-            //     return true;
-            // }
-            return true;
+        if (err < 0.5){
+            counter++;
+            if (counter >= 7) {
+                return true;
+            }
         }
         return false;
     }

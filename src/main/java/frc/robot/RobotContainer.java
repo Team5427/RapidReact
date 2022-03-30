@@ -46,6 +46,7 @@ import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ShooterTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.auto.ArmAutoTiltOut;
+import frc.robot.commands.auto.AutoShoot;
 // import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.AutonThreeBallsAlpha;
@@ -75,8 +76,9 @@ public class RobotContainer {
   private static Button intakeButton;
   private static Button tiltUp;
   private static Button tiltDown; 
-  private static Button manual_shoot;
+  private static Button visionTurn;
   private static Button shooterTeleop;
+  private static Button manualShoot;
 
   private static Button elevator_down;
   private static Button elevator_up;
@@ -239,7 +241,7 @@ public class RobotContainer {
     intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
     tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
-    manual_shoot = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
+    visionTurn = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
@@ -248,16 +250,18 @@ public class RobotContainer {
     arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
+    manualShoot = new JoystickButton(joy, 6);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
     tiltDown.whileHeld(new MoveTilt(Constants.TILT_DOWN_SPEED));
-    manual_shoot.whileHeld(new MoveShooterTeleop());
+    visionTurn.whileHeld(new MoveShooterTeleop());
     shooterTeleop.whenPressed(new TargetVision(true));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
+    manualShoot.whenPressed(new AutoShoot());
 
     // arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     // arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));

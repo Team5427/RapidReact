@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class Intake extends SubsystemBase
 {
@@ -14,7 +15,7 @@ public class Intake extends SubsystemBase
 
     public void moveIntake(double speed)
     {
-        intakeMotor.set(speed);
+        intakeMotor.set((1 + RobotContainer.getJoy().getRawAxis(3)) / 2);
     }
 
     public void stopIntake()

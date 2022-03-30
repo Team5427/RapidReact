@@ -75,6 +75,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
     SmartDashboard.putNumber("Lidar", (RobotContainer.getLidar().getDistance()/2.54)/12);
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
+    SmartDashboard.putNumber("IntakeSPeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
 
     CommandScheduler.getInstance().run();
     wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);

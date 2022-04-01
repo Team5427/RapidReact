@@ -49,11 +49,11 @@ public class TargetVision extends CommandBase
   public void execute()
   {
 
-    if(cam.getLatestResult().hasTargets()){
-      hasTarget = cam.getLatestResult().hasTargets();
-      target = cam.getLatestResult().getBestTarget();
-      err = target.getYaw();
+    hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
+    if(hasTarget){
+        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0);
     }
+
 
     if(!hasTarget && isCW){
       driveTrain.moveRight(-fastSpeed);

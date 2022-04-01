@@ -9,8 +9,6 @@ import frc.robot.RobotContainer;
 public class DriveToRange extends CommandBase{
     private boolean hasTarget;
     private int counter;
-    private PhotonCamera cam;
-    private PhotonTrackedTarget target;
     private double fastSpeed = -.2;
     private double medSpeed = -.1;
     private double slowSpeed = -.5;
@@ -26,19 +24,13 @@ public class DriveToRange extends CommandBase{
     @Override
     public void initialize()
     {
-        System.out.println("Target Tracking Started");
-        cam = new PhotonCamera("photoncam");
-        hasTarget = false;
-        counter = 0;
     }
 
     @Override
     public void execute()
-    {
-        if(cam.getLatestResult().hasTargets()){
-            hasTarget = cam.getLatestResult().hasTargets();
-            target = cam.getLatestResult().getBestTarget();
-            init_err = target.getPitch() - pitch;
+    {   hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
+        if(hasTarget){
+            init_err = RobotContainer.getLimeLight().getEntry("ty").getDouble(pitch) - pitch;
             err = Math.abs(init_err);
         }
 

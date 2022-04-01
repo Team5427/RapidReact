@@ -59,7 +59,7 @@ public class Shooter extends SubsystemBase
         pid_Right_ss.setI(kI_Right);
         pid_Right_ss.setD(kD_Right);
         pid_Right_ss.setIZone(kIz_Right);
-        pid_Right_ss.setFF(kFF_Right);
+        pid_Right_ss.setFF(kFF_Right); //This is kV from SysID
         pid_Right_ss.setOutputRange(kMinOutput_Right, kMaxOutput_Right);
 
     }

@@ -15,7 +15,7 @@ public class Intake extends SubsystemBase
 
     public void moveIntake(double speed)
     {
-        intakeMotor.set((1 + RobotContainer.getJoy().getRawAxis(3)) / 2);
+        intakeMotor.set(speed);
     }
 
     public void stopIntake()

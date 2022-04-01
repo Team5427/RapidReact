@@ -13,9 +13,9 @@ public class DriveToRange extends CommandBase{
     private PhotonTrackedTarget target;
     private double fastSpeed = -.2;
     private double medSpeed = -.1;
-    private double slowSpeed = -.5;
+    private double slowSpeed = -.05;
 
-    private double pitch = -15.5;
+    private double pitch = -16.5;
     private double init_err;
     private double err;
 
@@ -49,11 +49,11 @@ public class DriveToRange extends CommandBase{
             RobotContainer.getDriveTrain().moveLeft(medSpeed * Math.signum(init_err));
             RobotContainer.getDriveTrain().moveRight(medSpeed * Math.signum(init_err));
         } else if (err >= 3) {
-            RobotContainer.getDriveTrain().moveLeft(slowSpeed * Math.signum(init_err));
-            RobotContainer.getDriveTrain().moveRight(slowSpeed * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveLeft(medSpeed * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight(medSpeed * Math.signum(init_err));
         } else if (err >= 1) {
-            RobotContainer.getDriveTrain().moveLeft((slowSpeed / 3) * Math.signum(init_err));
-            RobotContainer.getDriveTrain().moveRight((slowSpeed / 3) * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveLeft((slowSpeed) * Math.signum(init_err));
+            RobotContainer.getDriveTrain().moveRight((slowSpeed) * Math.signum(init_err));
         }
     }
 

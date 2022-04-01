@@ -48,56 +48,58 @@ public class TargetVision extends CommandBase
   @Override
   public void execute()
   {
+    try{
+      if(cam.getLatestResult().hasTargets()){
+        hasTarget = cam.getLatestResult().hasTargets();
+        target = cam.getLatestResult().getBestTarget();
+        err = target.getYaw();
+      }
 
-    if(cam.getLatestResult().hasTargets()){
-      hasTarget = cam.getLatestResult().hasTargets();
-      target = cam.getLatestResult().getBestTarget();
-      err = target.getYaw();
-    }
-
-    if(!hasTarget && isCW){
-      driveTrain.moveRight(-fastSpeed);
-      driveTrain.moveLeft(fastSpeed);   
-    } else if (!hasTarget && !isCW) {
-      driveTrain.moveRight(fastSpeed);
-      driveTrain.moveLeft(-fastSpeed);
-    } else {
-      if(err >= 20){
+      if(!hasTarget && isCW){
         driveTrain.moveRight(-fastSpeed);
-        driveTrain.moveLeft(fastSpeed);
-      } else if (err >= 12) {
-        driveTrain.moveRight(-slowSpeed);
-        driveTrain.moveLeft(slowSpeed);
-      } else if (err >= 4) {
-        driveTrain.moveRight(-slowSpeed);
-        driveTrain.moveLeft(slowSpeed); 
-      } else if(err >= 1.5){
-        driveTrain.moveRight(-smallAdjustSpeed);
-        driveTrain.moveLeft(smallAdjustSpeed);      
-      }  else if(err > 1){
-        driveTrain.moveRight(-smallAdjustSpeed / 2);
-        driveTrain.moveLeft(smallAdjustSpeed / 2);
-
-      } else if(err <= -20){
+        driveTrain.moveLeft(fastSpeed);   
+      } else if (!hasTarget && !isCW) {
         driveTrain.moveRight(fastSpeed);
         driveTrain.moveLeft(-fastSpeed);
-      } else if (err <= -12) {
-        driveTrain.moveRight(slowSpeed);
-        driveTrain.moveLeft(-slowSpeed);
-      } else if (err <= -4) {
-        driveTrain.moveRight(slowSpeed);
-        driveTrain.moveLeft(-slowSpeed);    
-      } else if(err <= -1.5){
-        driveTrain.moveRight(smallAdjustSpeed);
-        driveTrain.moveLeft(-smallAdjustSpeed);
+      } else {
+        if(err >= 20){
+          driveTrain.moveRight(-fastSpeed);
+          driveTrain.moveLeft(fastSpeed);
+        } else if (err >= 12) {
+          driveTrain.moveRight(-slowSpeed);
+          driveTrain.moveLeft(slowSpeed);
+        } else if (err >= 4) {
+          driveTrain.moveRight(-slowSpeed);
+          driveTrain.moveLeft(slowSpeed); 
+        } else if(err >= 1.5){
+          driveTrain.moveRight(-smallAdjustSpeed);
+          driveTrain.moveLeft(smallAdjustSpeed);      
+        }  else if(err > 1){
+          driveTrain.moveRight(-smallAdjustSpeed / 2);
+          driveTrain.moveLeft(smallAdjustSpeed / 2);
 
-      } else if(err < -1){
-        driveTrain.moveRight(smallAdjustSpeed / 2);
-        driveTrain.moveLeft(-smallAdjustSpeed / 2);
+        } else if(err <= -20){
+          driveTrain.moveRight(fastSpeed);
+          driveTrain.moveLeft(-fastSpeed);
+        } else if (err <= -12) {
+          driveTrain.moveRight(slowSpeed);
+          driveTrain.moveLeft(-slowSpeed);
+        } else if (err <= -4) {
+          driveTrain.moveRight(slowSpeed);
+          driveTrain.moveLeft(-slowSpeed);    
+        } else if(err <= -1.5){
+          driveTrain.moveRight(smallAdjustSpeed);
+          driveTrain.moveLeft(-smallAdjustSpeed);
 
-      } 
+        } else if(err < -1){
+          driveTrain.moveRight(smallAdjustSpeed / 2);
+          driveTrain.moveLeft(-smallAdjustSpeed / 2);
+
+        } 
+      }
+    }catch(NullPointerException e){
+      System.out.println("Lost Connection to PI");
     }
-
     
   }
 

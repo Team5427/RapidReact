@@ -14,12 +14,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -197,7 +200,7 @@ public class RobotContainer {
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft.setInverted(true);
     shooterMotorRight.setInverted(false);
-    shooterMotorRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    shooterMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
     shooterRightEnc = shooterMotorRight.getEncoder();

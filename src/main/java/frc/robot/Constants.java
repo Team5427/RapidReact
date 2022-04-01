@@ -22,14 +22,14 @@ public final class Constants {
     public static final double TILT_UP_SPEED = 1;
     public static final double TILT_DOWN_SPEED = -1;
     
-    public static final double INTAKE_IN_SPEED = .33;
+    public static final double INTAKE_IN_SPEED = 1;
 
     public static final double INTAKE_OUT_SPEED = -0.8;
 
     public static final double ELEVATOR_SPEED = .5;
     public static final double ARM_TILT_SPEED = .5;
     public static final double ARM_SPEED = .5;
-    public static final double TRANSPORT_SPEED = .3;
+    public static final double TRANSPORT_SPEED = .5;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;

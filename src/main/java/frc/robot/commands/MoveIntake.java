@@ -10,13 +10,14 @@ public class MoveIntake extends CommandBase
  
     public MoveIntake(double speed)
     {
-        addRequirements(RobotContainer.getIntake());
+        addRequirements(RobotContainer.getIntake(), RobotContainer.getTilt());
         this.speed = speed;
     }
  
     @Override
     public void initialize()
     {
+        RobotContainer.getTilt().setTilt(true);
         RobotContainer.getIntake().moveIntake(speed);
     }
  
@@ -34,6 +35,8 @@ public class MoveIntake extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
+        RobotContainer.getTilt().setTilt(false);
+
         RobotContainer.getIntake().stopIntake();
     }
 }

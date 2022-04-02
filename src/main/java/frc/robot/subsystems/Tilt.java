@@ -1,22 +1,29 @@
 package frc.robot.subsystems;
 
+import org.ejml.interfaces.SolveNullSpace;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Tilt extends SubsystemBase {
-    private MotorController tiltMotor;
-
-    public Tilt(MotorController tiltMotor) {
-        this.tiltMotor = tiltMotor;
-
+    private Solenoid leftPiston;
+    private Solenoid rightPiston;
+    public Tilt(Solenoid leftPiston, Solenoid rightPiston) {
+        this.leftPiston = leftPiston;
+        this.rightPiston = rightPiston;
     }
     
-    public void setSpeed(double speed) {
-        tiltMotor.set(speed);
+    
+    public void toggleTilt(){
+        leftPiston.toggle();
+        rightPiston.toggle();
     }
-    public void stop(){
-        tiltMotor.stopMotor();
+
+    public void setTilt(boolean on){
+        leftPiston.set(on);
+        rightPiston.set(on);
     }
     
     

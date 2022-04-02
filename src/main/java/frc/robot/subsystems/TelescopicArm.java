@@ -3,38 +3,32 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class TelescopicArm extends SubsystemBase{
 
-    private MotorController tiltMotor;
     private MotorController extendLeftMotor;
     private MotorController extendRightMotor;
 
     private Encoder leftEncoder;
     private Encoder rightEncoder;
-    private Encoder tiltEncoder;
 
-    private DigitalInput tiltLimitSwitch;
+    private Solenoid armTiltLeft;
+    private Solenoid armTiltRight;
 
-
-    public TelescopicArm(MotorController tiltMotor, MotorController extendLeftMotor, MotorController extendRightMotor, Encoder leftEncoder, Encoder rightEncoder, Encoder tiltEncoder, DigitalInput tiltRightLimit, DigitalInput rightLimit, DigitalInput leftLimit){
-        this.tiltMotor = tiltMotor;
+    public TelescopicArm(MotorController extendLeftMotor, MotorController extendRightMotor, Encoder leftEncoder, Encoder rightEncoder, DigitalInput rightLimit, DigitalInput leftLimit, Solenoid armTiltLeft, Solenoid armTiltRight){
         this.extendLeftMotor = extendLeftMotor;
         this.extendRightMotor = extendRightMotor;
 
         this.leftEncoder = leftEncoder;
         this.rightEncoder = rightEncoder;
 
-        this.tiltEncoder = tiltEncoder;
-        this.tiltLimitSwitch = tiltLimitSwitch;
+        this.armTiltLeft = armTiltLeft;
+        this.armTiltRight = armTiltRight;
 
-    }
-
-    public void tiltArm(double speed){
-        tiltMotor.set(speed);
     }
 
     public void moveArm(double speed){
@@ -47,14 +41,9 @@ public class TelescopicArm extends SubsystemBase{
         extendRightMotor.stopMotor();
     }
 
-    public void stopTilt(){
-        tiltMotor.stopMotor();
-    }
-
-    public boolean getTiltLimit(){
-        // return true if pressed
-        // return !tiltLimitSwitch.get();
-        return true;
+    public void toggleArmTilt(){
+        armTiltLeft.toggle();
+        armTiltRight.toggle();
     }
 
     public double getLeftEncoder(){
@@ -65,15 +54,6 @@ public class TelescopicArm extends SubsystemBase{
         return rightEncoder.getDistance();
     }
 
-    public double getTiltEncoder(){
-        return tiltEncoder.getDistance();
-    }
-
-    public boolean getTiltEncoderLimit(){
-        // return true if at limit
-        // return getTiltEncoder() < Constants.ARM_TILT_ENCODER_LIMIT;
-        return false;
-    }
 
     public boolean getLeftEncoderLimit(){
         // return true if at limit

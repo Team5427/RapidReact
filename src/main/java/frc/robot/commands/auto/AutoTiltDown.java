@@ -24,7 +24,7 @@ public class AutoTiltDown extends CommandBase {
 
     @Override
     public void execute() {
-        RobotContainer.getTilt().setSpeed(speed);
+        // RobotContainer.getTilt().setSpeed(speed);
     }
     @Override
     public boolean isFinished() {
@@ -34,7 +34,7 @@ public class AutoTiltDown extends CommandBase {
     @Override
     public void end(boolean interupted) {
         timer.reset();
-        RobotContainer.getTilt().stop();
+        // RobotContainer.getTilt().stop();
 
     }
 

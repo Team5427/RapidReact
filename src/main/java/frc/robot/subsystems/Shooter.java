@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -7,7 +8,7 @@ import com.revrobotics.CANSparkMax;
 
 public class Shooter extends SubsystemBase
 {
-    private CANSparkMax shooterMotorRight;
+    public CANSparkMax shooterMotorRight;
     private CANSparkMax shooterMotorLeft;
     private RelativeEncoder shooterRightEnc;
     private RelativeEncoder shooterLeftEnc;
@@ -46,14 +47,14 @@ public class Shooter extends SubsystemBase
 
     public void shooterInitRight() {
     
-        kP_Right = 0.0003; 
-        kI_Right = 0.0;
+        kP_Right = 0.00015; 
+        kI_Right = 0.0000007;
         kD_Right = 0; 
         kIz_Right = 0; 
         kFF_Right = 0.000015; 
         kMaxOutput_Right = 1; 
         kMinOutput_Right = -1;
-        maxRPM_Right = 5700;
+        maxRPM_Right = 5874;
 
         pid_Right_ss.setP(kP_Right);
         pid_Right_ss.setI(kI_Right);
@@ -67,12 +68,14 @@ public class Shooter extends SubsystemBase
     public void moveShooter(double tsetpoint)
     {
         pid_Right_ss.setReference(tsetpoint, CANSparkMax.ControlType.kVelocity);
-        shooterMotorLeft.set(shooterMotorRight.get());
+        // shooterMotorLeft.set(shooterMotorRight.get());
+        SmartDashboard.putNumber("Shooter Voltage", shooterMotorRight.getAppliedOutput());
+
     }
 
     public void movePercent(double speed){
         shooterMotorRight.set(speed);
-        shooterMotorLeft.set(speed);
+        // shooterMotorLeft.set(speed);
     }
 
     public void stop()

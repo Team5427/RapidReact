@@ -178,14 +178,14 @@ public class RobotContainer {
     drive = new DifferentialDrive(left, right);
     drive.setSafetyEnabled(false);
 
-    compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
-    compressor.enableDigital();
+    // compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
+    // compressor.enableDigital();
 
-    tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_LEFT);
-    tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_LEFT);
+    // tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_LEFT);
+    // tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_RIGHT);
 
-    arm_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_LEFT);
-    arm_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_RIGHT);
+    // arm_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_LEFT);
+    // arm_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_RIGHT);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transportMotor.setInverted(true);
@@ -213,6 +213,8 @@ public class RobotContainer {
     shooterMotorLeft = new CANSparkMax(Constants.SHOOTER_LEFT_MOTOR, MotorType.kBrushless);
     shooterMotorLeft.setInverted(true);
     shooterMotorRight.setInverted(false);
+
+    shooterMotorLeft.follow(shooterMotorRight, true);
     shooterMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
@@ -286,25 +288,25 @@ public class RobotContainer {
     // Joystick 2
     joy2 = new Joystick(1);
 
-    // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
-    // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
-    arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
-    arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
-    // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
-    arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
-    arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
-    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
-    elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    // // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
+    // // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    // // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
+    // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
+    // elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
+    // elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
 
-    // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
-    // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
-    // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
-    arm_tilt_in_2.whenPressed(new TeleArmTilt());
-    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
-    elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    // // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    // // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    // // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    // arm_tilt_in_2.whenPressed(new TeleArmTilt());
+    // // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    // elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    // elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
   }
   

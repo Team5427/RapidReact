@@ -64,8 +64,8 @@ public final class Constants {
     public static final int TOP_RIGHT_MOTOR = 4;
     public static final int TOP_LEFT_MOTOR = 2;
 
-    public static final int TILT_PISTON_RIGHT = 14;
-    public static final int TILT_PISTON_LEFT = 0;
+    public static final int TILT_PISTON_RIGHT = 2;
+    public static final int TILT_PISTON_LEFT = 1;
 
     public static final int SHOOTER_RIGHT_MOTOR = 11;
     public static final int SHOOTER_LEFT_MOTOR = 10;
@@ -74,7 +74,7 @@ public final class Constants {
 
     public static final int ARM_LEFT_MOTOR = 6;
     public static final int ARM_RIGHT_MOTOR = 7;
-    public static final int ARM_PISTON_RIGHT = 8;
+    public static final int ARM_PISTON_RIGHT = 3;
     public static final int ARM_PISTON_LEFT = 0;
 
 

@@ -19,22 +19,18 @@ public final class Constants {
 
     //speeds
     public static final double SHOOTER_TELEOP_SPEED = 1.0;
-    public static final double TILT_UP_SPEED = 1;
-    public static final double TILT_DOWN_SPEED = -1;
     
     public static final double INTAKE_IN_SPEED = 1;
 
     public static final double INTAKE_OUT_SPEED = -0.8;
 
     public static final double ELEVATOR_SPEED = .5;
-    public static final double ARM_TILT_SPEED = .5;
     public static final double ARM_SPEED = .5;
     public static final double TRANSPORT_SPEED = .5;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;
-    public static final int TILT_UP_BUTTON = 7;
-    public static final int TILT_DOWN_BUTTON = 8;
+    public static final int TILT_BUTTON = 7;
     public static final int MANUAL_SHOOT_BUTTON = 1;
     public static final int SHOOTER_TELEOP_BUTTON = 11;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
@@ -64,7 +60,7 @@ public final class Constants {
     public static final int TOP_RIGHT_MOTOR = 4;
     public static final int TOP_LEFT_MOTOR = 2;
 
-    public static final int TILT_PISTON_RIGHT = 2;
+    public static final int TILT_PISTON_RIGHT = 0;
     public static final int TILT_PISTON_LEFT = 1;
 
     public static final int SHOOTER_RIGHT_MOTOR = 11;
@@ -75,7 +71,7 @@ public final class Constants {
     public static final int ARM_LEFT_MOTOR = 6;
     public static final int ARM_RIGHT_MOTOR = 7;
     public static final int ARM_PISTON_RIGHT = 3;
-    public static final int ARM_PISTON_LEFT = 0;
+    public static final int ARM_PISTON_LEFT = 2;
 
 
     public static final int INTAKE_MOTOR = 13;

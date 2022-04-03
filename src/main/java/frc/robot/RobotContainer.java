@@ -13,6 +13,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -41,6 +43,7 @@ import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveShooterTeleop;
+import frc.robot.commands.MoveTilt;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -79,8 +82,7 @@ public class RobotContainer {
   // Joystick 1
   private static Joystick joy;
   private static Button intakeButton;
-  private static Button tiltUp;
-  private static Button tiltDown; 
+  private static Button tiltToggleButton;
   private static Button visionTurn;
   private static Button shooterTeleop;
   private static Button manualShoot;
@@ -133,13 +135,11 @@ public class RobotContainer {
   private static AnalogInput transport_sensor;
   private static DigitalInput armRightLimit;
   private static DigitalInput armLeftLimit;
-  private static DigitalInput armTiltLeftLimit;
   // private static DigitalInput armTiltLimit;
   private static DigitalInput elevatorLimit;
   private static Encoder elevatorEncoder;
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
-  private static Encoder armTiltEncoder;
   private static I2C lidar_sensor;
 
   // Subsystems
@@ -162,8 +162,18 @@ public class RobotContainer {
 
   private static SendableChooser<Command> autonChooser;
 
+  private static UsbCamera intakeCam;
+  private static CameraServer server;
+  
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    // server = CameraServer.getInstance();
+    // intakeCam = CameraServer.startAutomaticCapture(0);
+
+    // intakeCam.setFPS(15);
+    
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
@@ -205,7 +215,6 @@ public class RobotContainer {
 
     armleftEncoder = new Encoder(Constants.ARM_LEFT_ENCODER_1, Constants.ARM_LEFT_ENCODER_2);
     armRightEncoder = new Encoder(Constants.ARM_RIGHT_ENCODER_1, Constants.ARM_RIGHT_ENCODER_2);
-    armTiltEncoder = new Encoder(Constants.ARM_TILT_ENCODER_1, Constants.ARM_TILT_ENCODER_2);
 
     // armTiltLimit = new DigitalInput(Constants.ARM_TILT_LIMIT);
 
@@ -257,8 +266,7 @@ public class RobotContainer {
     joy = new Joystick(0);
 
     intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
-    tiltUp = new JoystickButton(joy, Constants.TILT_UP_BUTTON);
-    tiltDown = new JoystickButton(joy, Constants.TILT_DOWN_BUTTON);
+    tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
     visionTurn = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
@@ -271,8 +279,7 @@ public class RobotContainer {
     manualShoot = new JoystickButton(joy, 6);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
-    // tiltUp.whileHeld(new MoveTilt(Constants.TILT_UP_SPEED));
-    // tiltDown.whenPressed(new MoveTilt(Constants.TILT_DOWN_SPEED));
+    tiltToggleButton.whenPressed(new MoveTilt());
     visionTurn.whileHeld(new MoveShooterTeleop());
     shooterTeleop.whenPressed(new TargetVision(true));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));

@@ -8,6 +8,7 @@
 package frc.robot;
 import com.revrobotics.CANSparkMaxLowLevel;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
-
+    CameraServer.startAutomaticCapture();
     m_robotContainer = new RobotContainer();
     
   }

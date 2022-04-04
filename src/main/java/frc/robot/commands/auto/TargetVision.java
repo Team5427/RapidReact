@@ -48,14 +48,26 @@ public class TargetVision extends CommandBase
   @Override
   public void execute()
   {
-    try{
       if(cam.getLatestResult().hasTargets()){
         hasTarget = cam.getLatestResult().hasTargets();
         target = cam.getLatestResult().getBestTarget();
         err = target.getYaw();
       }
 
-      if(!hasTarget && isCW){
+    hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
+    if(hasTarget){
+        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0);
+    }
+
+
+    if(!hasTarget && isCW){
+      driveTrain.moveRight(-fastSpeed);
+      driveTrain.moveLeft(fastSpeed);   
+    } else if (!hasTarget && !isCW) {
+      driveTrain.moveRight(fastSpeed);
+      driveTrain.moveLeft(-fastSpeed);
+    } else {
+      if(err >= 20){
         driveTrain.moveRight(-fastSpeed);
         driveTrain.moveLeft(fastSpeed);   
       } else if (!hasTarget && !isCW) {
@@ -97,8 +109,6 @@ public class TargetVision extends CommandBase
 
         } 
       }
-    }catch(NullPointerException e){
-      System.out.println("Lost Connection to PI");
     }
     
   }

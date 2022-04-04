@@ -13,8 +13,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -162,18 +162,12 @@ public class RobotContainer {
 
   private static SendableChooser<Command> autonChooser;
 
-  private static UsbCamera intakeCam;
-  private static CameraServer server;
-  
+  private static NetworkTable limelight_table;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    // server = CameraServer.getInstance();
-    // intakeCam = CameraServer.startAutomaticCapture(0);
-
-    // intakeCam.setFPS(15);
-    
+    limelight_table = NetworkTableInstance.getDefault().getTable("limelight");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
@@ -346,5 +340,6 @@ public class RobotContainer {
   public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
   public static Joystick getSecondJoy(){return joy2;}
+  public static NetworkTable getLimeLight(){return limelight_table;}
 
 }

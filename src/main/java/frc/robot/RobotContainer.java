@@ -176,11 +176,18 @@ public class RobotContainer {
     
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+
     // topRight.setInverted(true);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+    bottomLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
-    
+    bottomRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+
     left = new MotorControllerGroup(topLeft, bottomLeft);
     left.setInverted(true);
     right = new MotorControllerGroup(topRight, bottomRight);
@@ -295,25 +302,25 @@ public class RobotContainer {
     // Joystick 2
     joy2 = new Joystick(1);
 
-    // // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
-    // // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
-    // arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
-    // arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
-    // // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
-    // arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
+    // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
+    // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
+    arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
+    // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
+    arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
     // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
-    // elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
-    // elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
+    elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
 
-    // // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
-    // // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    // arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    // arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
-    // // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
-    // arm_tilt_in_2.whenPressed(new TeleArmTilt());
-    // // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    // elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
-    // elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+    // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
+    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
+    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    arm_tilt_in_2.whenPressed(new TeleArmTilt());
+    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
+    elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
   }
   

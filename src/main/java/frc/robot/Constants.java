@@ -45,14 +45,22 @@ public final class Constants {
     //Joystick 2 Buttons
 
     public static final int TRANSPORT_MOVE_BUTTON_2 = 2;
-    public static final int AUTO_TILT_ARM_OUT_BUTTON_2 = 7;
-    public static final int ARM_EXTEND_DOWN_BUTTON_2 = 5;
-    public static final int ARM_EXTEND_UP_BUTTON_2 = 3;
+    public static final int AUTO_TILT_OUT_BUTTON_2 = 7;
+    public static final int ARM_EXTEND_DOWN_BUTTON_2 = 3;
+    public static final int ARM_EXTEND_UP_BUTTON_2 = 5;
     public static final int AUTO_ARM_OUT_BUTTON_2 = 8;
-    public static final int ARM_TILT_IN_BUTTON_2 = 6;
-    public static final int ARM_TILT_OUT_BUTTON_2 = 4;
-    public static final int ELEVATOR_DOWN_BUTTON_2 = 9;
-    public static final int ELEVATOR_UP_BUTTON_2 = 10;
+    public static final int ARM_TILT_IN_BUTTON_2 = 8;
+    // public static final int ARM_TILT_OUT_BUTTON_2 = 4;
+    public static final int ELEVATOR_DOWN_BUTTON_2 = 4;
+    public static final int ELEVATOR_UP_BUTTON_2 = 6;
+    
+    public static final int MANUAL_ARM_LEFT_UP_BUTTON_2 = 10;
+
+    public static final int MANUAL_ARM_LEFT_DOWN_BUTTON_2 = 9;
+
+    public static final int MANUAL_ARM_RIGHT_UP_BUTTON_2 = 12;
+
+    public static final int MANUAL_ARM_RIGHT_DOWN_BUTTON_2 = 11;
 
     //Motor ports
     public static final int BOTTOM_LEFT_MOTOR = 3;
@@ -112,6 +120,7 @@ public final class Constants {
     public static final int ARM_LEFT_ENCODER_LIMIT = 0;
     public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
     public static final int ARM_TILT_ENCODER_LIMIT = 0;
+
     
 
 

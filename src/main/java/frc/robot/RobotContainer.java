@@ -42,6 +42,8 @@ import frc.robot.commands.MoveArm;
 // import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
+import frc.robot.commands.MoveLeftArm;
+import frc.robot.commands.MoveRightArm;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTilt;
 import frc.robot.subsystems.DriveTrain;
@@ -89,9 +91,6 @@ public class RobotContainer {
 
   private static Button elevator_down;
   private static Button elevator_up;
-  private static Button arm_extend_down;
-  private static Button arm_tilt_in;
-  private static Button arm_tilt_out;
   private static Button transport_move;
   private static Button transport_back;
 
@@ -100,14 +99,16 @@ public class RobotContainer {
   private static Joystick joy2;
   
   // private static Button transport_move_2;
-  private static Button auto_tilt_arm_out_2;
+  private static Button tilt_in_button;
   private static Button arm_extend_down_2;
   private static Button arm_extend_up_2;  
-  private static Button auto_arm_out_2;  
   private static Button arm_tilt_in_2;
-  private static Button arm_tilt_out_2;
   private static Button elevator_down_2;
   private static Button elevator_up_2;
+  private static Button manual_extend_up_right_2;
+  private static Button manual_extend_up_left_2;
+  private static Button manual_extend_down_right_2;
+  private static Button manual_extend_down_left_2;
 
   // Motor Controllers
   public static CANSparkMax shooterMotorRight;
@@ -272,9 +273,6 @@ public class RobotContainer {
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
-    arm_extend_down = new JoystickButton(joy, Constants.ARM_DOWN_BUTTON);
-    arm_tilt_in = new JoystickButton(joy, Constants.ARM_TILT_IN_BUTTON);
-    arm_tilt_out = new JoystickButton(joy, Constants.ARM_TILT_OUT_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
     manualShoot = new JoystickButton(joy, 6);
@@ -289,33 +287,30 @@ public class RobotContainer {
     transport_back.whileHeld(new MoveTransport(-.25));
     manualShoot.whenPressed(new AutoShoot());
 
-    // arm_extend_down.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    // arm_tilt_in.whileHeld(new TeleArmTilt(Constants.ARM_TILT_SPEED));
-    // arm_tilt_out.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-
     // Joystick 2
     joy2 = new Joystick(1);
 
-    // // transport_move_2 = new JoystickButton(joy2, Constants.TRANSPORT_MOVE_BUTTON_2);
-    // // auto_tilt_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_TILT_ARM_OUT_BUTTON_2);
+    tilt_in_button = new JoystickButton(joy2, Constants.AUTO_TILT_OUT_BUTTON_2);
     arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
     arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
-    // // auto_arm_out_2 = new JoystickButton(joy2, Constants.AUTO_ARM_OUT_BUTTON_2);
     arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
-    // arm_tilt_out_2 = new JoystickButton(joy2, Constants.ARM_TILT_OUT_BUTTON_2);
     elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
     elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    manual_extend_up_left_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_LEFT_UP_BUTTON_2);
+    manual_extend_down_left_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_LEFT_DOWN_BUTTON_2);
+    manual_extend_up_right_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_RIGHT_UP_BUTTON_2);
+    manual_extend_down_right_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_RIGHT_DOWN_BUTTON_2);
 
-    // // transport_move_2.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
-    // // auto_tilt_arm_out_2.whenPressed(new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    arm_extend_down_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
-    arm_extend_up_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
-    // // auto_arm_out_2.whenPressed(new MoveArm(Constants.ARM_SPEED));
+    tilt_in_button.whenPressed(new AutoTiltDown(false));
+    arm_extend_down_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
+    arm_extend_up_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     arm_tilt_in_2.whenPressed(new TeleArmTilt());
-    // arm_tilt_out_2.whileHeld(new TeleArmTilt(-Constants.ARM_TILT_SPEED));
-    elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
-    elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-
+    // elevator_down_2.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    // elevator_up_2.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    manual_extend_up_left_2.whileHeld(new MoveLeftArm(-Constants.ARM_SPEED));
+    manual_extend_down_left_2.whileHeld(new MoveLeftArm(Constants.ARM_SPEED));
+    manual_extend_up_right_2.whileHeld(new MoveRightArm(-Constants.ARM_SPEED));
+    manual_extend_down_right_2.whileHeld(new MoveRightArm(Constants.ARM_SPEED));
   }
   
   /**

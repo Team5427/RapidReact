@@ -36,6 +36,14 @@ public class TelescopicArm extends SubsystemBase{
         extendLeftMotor.set(speed);
     }
 
+    public void extendLeft(double speed){
+        extendLeftMotor.set(speed);
+    }
+
+    public void extendRight(double speed){
+        extendRightMotor.set(speed);
+    }
+
     public void stopExtend(){
         extendLeftMotor.stopMotor();
         extendRightMotor.stopMotor();

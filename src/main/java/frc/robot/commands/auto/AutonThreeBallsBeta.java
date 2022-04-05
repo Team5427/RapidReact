@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutonThreeBallsBeta extends SequentialCommandGroup{
     public AutonThreeBallsBeta(){
-        addCommands(new AutoTiltDown(2, 1), new BallVision(0.4, 0.5), new TargetVision(true), new Wait(1), new PointTurn(210, 0.15, 0.6, 30), new Wait(0.1), new ForwardTimer(1, 0.65), new BallVision(0.3, 0.5), new Wait(0.3), new ForwardTimer(0.4, -0.4), new Wait(0.2), new PointTurn(179, 0.15, 0.6, 35), new Wait(0.2), new ForwardTimer(1.3, 0.7), new Wait(0.3), new TargetVision(true));
+        addCommands(new AutoTiltDown(true), new BallVision(0.4, 0.5), new TargetVision(true), new Wait(1), new PointTurn(210, 0.15, 0.6, 30), new Wait(0.1), new ForwardTimer(1, 0.65), new BallVision(0.3, 0.5), new Wait(0.3), new ForwardTimer(0.4, -0.4), new Wait(0.2), new PointTurn(179, 0.15, 0.6, 35), new Wait(0.2), new ForwardTimer(1.3, 0.7), new Wait(0.3), new TargetVision(true));
     
     }
 }

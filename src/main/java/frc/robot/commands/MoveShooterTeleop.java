@@ -48,9 +48,9 @@ public class MoveShooterTeleop extends CommandBase
         // VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
         // RobotContainer.getShooter().moveShooter(RobotContainer.getLidar().getDistance());
         
-        RobotContainer.getShooter().moveShooter(5000);
+        // RobotContainer.getShooter().moveShooter(5000);
         
-        // RobotContainer.getShooter().movePercent(1);
+        RobotContainer.getShooter().movePercent(.99);
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }

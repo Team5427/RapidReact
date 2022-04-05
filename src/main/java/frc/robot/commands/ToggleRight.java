@@ -4,19 +4,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class MoveTilt extends CommandBase {
-    public MoveTilt() {
+public class ToggleRight extends CommandBase {
+    public ToggleRight() {
         addRequirements(RobotContainer.getTilt());
 
     }
     @Override
-    public void initialize(){
-        RobotContainer.getTilt().toggleTilt();
-
-    }
-    @Override
     public void execute() {
-        // RobotContainer.getTilt().toggleTilt();
+        RobotContainer.getTilt().toggleRight();;
     }
     @Override
     public boolean isFinished() {

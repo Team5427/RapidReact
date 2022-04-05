@@ -21,6 +21,12 @@ public class Tilt extends SubsystemBase {
         rightPiston.toggle();
     }
 
+    public void toggleLeft(){
+        leftPiston.toggle();
+    }
+    public void toggleRight(){
+        rightPiston.toggle();
+    }
     public void setTilt(boolean on){
         leftPiston.set(on);
         rightPiston.set(on);

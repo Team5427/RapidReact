@@ -86,7 +86,7 @@ public final class Constants {
 
     public static final int TRANSPORT_MOTOR = 12;
 
-    public static final int COMPRESSOR_ID = 0;
+    public static final int COMPRESSOR_ID = 14;
 
 
     //Sensor Ports

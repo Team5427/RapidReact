@@ -54,6 +54,7 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ShooterTransport;
 import frc.robot.commands.TeleArmTilt;
+import frc.robot.commands.ToggleRight;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
@@ -171,17 +172,17 @@ public class RobotContainer {
     limelight_table = NetworkTableInstance.getDefault().getTable("limelight");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
-    topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
-    topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    // topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     // topRight.setInverted(true);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
-    bottomLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    // bottomLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
-    bottomRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    // bottomRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     left = new MotorControllerGroup(topLeft, bottomLeft);
     left.setInverted(true);
@@ -190,14 +191,14 @@ public class RobotContainer {
     drive = new DifferentialDrive(left, right);
     drive.setSafetyEnabled(false);
 
-    // compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
-    // compressor.enableDigital();
+    compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
+    compressor.enableDigital();
 
-    // tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_LEFT);
-    // tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_RIGHT);
+    tilt_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_LEFT);
+    tilt_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.TILT_PISTON_RIGHT);
 
-    // arm_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_LEFT);
-    // arm_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_RIGHT);
+    arm_left_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_LEFT);
+    arm_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_RIGHT);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transportMotor.setInverted(true);
@@ -226,7 +227,7 @@ public class RobotContainer {
     shooterMotorRight.setInverted(false);
 
     shooterMotorLeft.follow(shooterMotorRight, true);
-    shooterMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
+    // shooterMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
     pidcontrol_shooter_Right = shooterMotorRight.getPIDController();
     pidcontrol_shooter_Left = shooterMotorLeft.getPIDController();
     shooterRightEnc = shooterMotorRight.getEncoder();
@@ -270,6 +271,8 @@ public class RobotContainer {
     intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
     visionTurn = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
+        // visionTurn = new JoystickButton(joy, 8);
+
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
@@ -280,6 +283,8 @@ public class RobotContainer {
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltToggleButton.whenPressed(new MoveTilt());
     visionTurn.whileHeld(new MoveShooterTeleop());
+    // visionTurn.whileHeld(new ToggleRight());
+
     shooterTeleop.whenPressed(new TargetVision(true));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));

@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
@@ -76,6 +78,10 @@ public class Shooter extends SubsystemBase
     public void movePercent(double speed){
         shooterMotorRight.set(speed);
         // shooterMotorLeft.set(speed);
+    }
+
+    public void moveDynamic() {
+        pid_Right_ss.setReference(Robot.wantedSetPoint, CANSparkMax.ControlType.kVelocity);
     }
 
     public void stop()

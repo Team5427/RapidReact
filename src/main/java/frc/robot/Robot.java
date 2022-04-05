@@ -32,7 +32,19 @@ public class Robot extends TimedRobot
 
   public static RobotContainer m_robotContainer;
   public static double wantedSetPoint;
-  
+  public static double dynamicSetPoint;
+
+  public static double pitch;
+  public static double yaw;
+  public static boolean hasTarget;
+  private static double limelightMountAngleDegrees = Constants.LL_MOUNT_ANGLE_DEG;
+  private static double limelightLensHeightInches = Constants.LL_LENS_HEIGHT_INCHES;
+  private static double goalHeightInches = Constants.GOAL_HEIGHT_INCHES;
+  private static double angleToGoalDegrees = limelightMountAngleDegrees + pitch;
+  private static double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+  public static double distFromGoal = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -72,13 +84,23 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
     SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    SmartDashboard.putNumber("Lidar", (RobotContainer.getLidar().getDistance()/2.54)/12);
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
-    SmartDashboard.putNumber("IntakeSPeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
+    SmartDashboard.putNumber("IntakeSpeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
     SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
+    SmartDashboard.putBoolean("Has Shooter Target", hasTarget);
     CommandScheduler.getInstance().run();
     wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
-
+    hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
+    if (hasTarget) {
+      pitch = RobotContainer.getLimeLight().getEntry("ty").getDouble(1000);
+      yaw = RobotContainer.getLimeLight().getEntry("tx").getDouble(1000);
+    } else if (!hasTarget) {
+      pitch = 0;
+      yaw = 0;
+    }
+    dynamicSetPoint = pitchToRPM(pitch);
+    // dynamicSetPoint = distToRPM(distFromGoal);
+    //We will see which is better ^^^ prolly distance but wtv smh smh :|
     SmartDashboard.putNumber("SetPoint", wantedSetPoint);
   }
 
@@ -149,5 +171,13 @@ public class Robot extends TimedRobot
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+  }
+
+  public double pitchToRPM(double in_pitch) {
+    return 15.0 * in_pitch;
+  }
+
+  public double distToRPM(double dist_inches) {
+    return 15.0 * dist_inches;
   }
 }

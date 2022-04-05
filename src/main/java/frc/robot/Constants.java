@@ -121,6 +121,11 @@ public final class Constants {
     public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
     public static final int ARM_TILT_ENCODER_LIMIT = 0;
 
+    //Limelight Shi
+    public static final double LL_MOUNT_ANGLE_DEG = 0;
+    public static final double LL_LENS_HEIGHT_INCHES = 0;
+    public static final double GOAL_HEIGHT_INCHES = 0;
+
     
 
 

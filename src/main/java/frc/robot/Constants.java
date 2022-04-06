@@ -24,8 +24,8 @@ public final class Constants {
 
     public static final double INTAKE_OUT_SPEED = -0.8;
 
-    public static final double ELEVATOR_SPEED = .5;
-    public static final double ARM_SPEED = .5;
+    public static final double ELEVATOR_SPEED = 1;
+    public static final double ARM_SPEED = 1;
     public static final double TRANSPORT_SPEED = .5;
 
     //Buttons

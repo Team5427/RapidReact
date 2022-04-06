@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -76,6 +77,8 @@ public class Shooter extends SubsystemBase
     }
 
     public void movePercent(double speed){
+        SmartDashboard.putNumber("Shooter Voltage",shooterMotorRight.get());
+
         shooterMotorRight.set(speed);
         // shooterMotorLeft.set(speed);
     }

@@ -50,14 +50,15 @@ public class MoveShooterTeleop extends CommandBase
         
         // RobotContainer.getShooter().moveShooter(5000);
         
-        RobotContainer.getShooter().movePercent(.99);
+        RobotContainer.getShooter().movePercent((RobotContainer.getJoy().getRawAxis(3) + 1)/2);
+        SmartDashboard.putNumber("Shooter Speed", (RobotContainer.getJoy().getRawAxis(3) + 1)/2);
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }
 
     @Override
     public boolean isFinished() {
-        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOT_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOT_BUTTON) && !RobotContainer.getJoy().getRawButton(6);
     }
 
     @Override

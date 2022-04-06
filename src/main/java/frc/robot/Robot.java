@@ -79,26 +79,20 @@ public class Robot extends TimedRobot
     
     SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     
-    SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
-    SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
-    SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
-    SmartDashboard.putNumber("IntakeSpeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
-    SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
+    // SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
+    // SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
+    // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
+    // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
+    // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
+    // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
+    // SmartDashboard.putNumber("IntakeSpeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
+    // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
     SmartDashboard.putBoolean("Has Shooter Target", hasTarget);
+
+    SmartDashboard.putNumber("Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
     CommandScheduler.getInstance().run();
     wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
-    hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
-    if (hasTarget) {
-      pitch = RobotContainer.getLimeLight().getEntry("ty").getDouble(1000);
-      yaw = RobotContainer.getLimeLight().getEntry("tx").getDouble(1000);
-    } else if (!hasTarget) {
-      pitch = 0;
-      yaw = 0;
-    }
-    dynamicSetPoint = pitchToRPM(pitch);
+    
     // dynamicSetPoint = distToRPM(distFromGoal);
     //We will see which is better ^^^ prolly distance but wtv smh smh :|
     SmartDashboard.putNumber("SetPoint", wantedSetPoint);
@@ -173,11 +167,4 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().cancelAll();
   }
 
-  public double pitchToRPM(double in_pitch) {
-    return 15.0 * in_pitch;
-  }
-
-  public double distToRPM(double dist_inches) {
-    return 15.0 * dist_inches;
-  }
 }

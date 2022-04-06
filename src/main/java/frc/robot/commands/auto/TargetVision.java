@@ -48,11 +48,7 @@ public class TargetVision extends CommandBase
   @Override
   public void execute()
   {
-      if(cam.getLatestResult().hasTargets()){
-        hasTarget = cam.getLatestResult().hasTargets();
-        target = cam.getLatestResult().getBestTarget();
-        err = target.getYaw();
-      }
+      
 
     hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
     if(hasTarget){

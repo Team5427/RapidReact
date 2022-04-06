@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveToRange;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.DynamicShooting;
 import frc.robot.commands.MoveArm;
 // import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveElevator;
@@ -71,6 +72,7 @@ import frc.robot.commands.auto.ScuffedAuto;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TelescopicArm;
+import frc.robot.subsystems.TelescopicArmRight;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.Transport;
 
@@ -151,6 +153,8 @@ public class RobotContainer {
   private static Intake intake;
   private static Elevator elevator;
   private static TelescopicArm telescopicArm;
+  private static TelescopicArmRight telescopicArmR;
+
   private static DriveTrain driveTrain;
   private static Lidar lidar;
 
@@ -169,7 +173,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    limelight_table = NetworkTableInstance.getDefault().getTable("limelight");
+    limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steel");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
@@ -210,7 +214,7 @@ public class RobotContainer {
     elevatorLimit = new DigitalInput(Constants.ELEVATOR_LIMIT);
 
     armLeftMotor = new WPI_VictorSPX(Constants.ARM_LEFT_MOTOR);
-    armLeftMotor.setInverted(true);
+    armLeftMotor.setInverted(false);
     armRightMotor = new WPI_VictorSPX(Constants.ARM_RIGHT_MOTOR);
     armRightMotor.setInverted(true);
     
@@ -240,6 +244,8 @@ public class RobotContainer {
     intake = new Intake(intakeMotor);
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
     telescopicArm = new TelescopicArm(armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armRightLimit, armLeftLimit, arm_left_piston, arm_right_piston);
+    telescopicArmR = new TelescopicArmRight(armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armRightLimit, armLeftLimit, arm_left_piston, arm_right_piston);
+
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
@@ -282,7 +288,7 @@ public class RobotContainer {
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltToggleButton.whenPressed(new MoveTilt());
-    visionTurn.whileHeld(new MoveShooterTeleop());
+    visionTurn.whileHeld(new DynamicShooting());
     // visionTurn.whileHeld(new ToggleRight());
 
     shooterTeleop.whenPressed(new TargetVision(true));
@@ -290,7 +296,7 @@ public class RobotContainer {
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
-    manualShoot.whenPressed(new AutoShoot());
+    manualShoot.whileHeld(new MoveShooterTeleop());
 
     // Joystick 2
     joy2 = new Joystick(1);
@@ -341,5 +347,6 @@ public class RobotContainer {
   public static AHRS getAHRS(){return ahrs;}
   public static Joystick getSecondJoy(){return joy2;}
   public static NetworkTable getLimeLight(){return limelight_table;}
+  public static TelescopicArmRight getTeleR(){return telescopicArmR;}
 
 }

@@ -9,17 +9,17 @@ public class AutoArmExtend extends CommandBase{
     private double rightLimit = 0;
 
     public AutoArmExtend(double speed){
-        addRequirements(RobotContainer.getTelescopicArm());
+        // addRequirements(RobotContainer.getTelescopicArm());
         this.speed = speed;
     }
 
     @Override
     public void initialize(){
         //Code assumes -speed is down
-        //assumes false from limit is not pressed
-        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() < leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() < rightLimit)){
-            RobotContainer.getTelescopicArm().moveArm(speed);
-        }
+        // //assumes false from limit is not pressed
+        // if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() < leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() < rightLimit)){
+        //     RobotContainer.getTelescopicArm().moveArm(speed);
+        // }
         
 
     }
@@ -27,23 +27,23 @@ public class AutoArmExtend extends CommandBase{
     @Override 
     public void execute(){
 
-        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
-            RobotContainer.getTelescopicArm().stopExtend();
-        }
+        // if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
+        //     RobotContainer.getTelescopicArm().stopExtend();
+        // }
     }
 
     @Override
     public boolean isFinished(){
 
-        if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
-            return true;
-        }    
+        // if(speed > 0 && (RobotContainer.getTelescopicArm().getLeftEncoder() >= leftLimit || RobotContainer.getTelescopicArm().getRightEncoder() >= rightLimit)){
+        //     return true;
+        // }    
 
         return false;
     }
 
     @Override
     public void end(boolean interrupted){
-        RobotContainer.getTelescopicArm().stopExtend();
+        // RobotContainer.getTelescopicArm().stopExtend();
     }
 }

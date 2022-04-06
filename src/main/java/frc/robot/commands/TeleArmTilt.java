@@ -8,11 +8,11 @@ import frc.robot.Constants;
 public class TeleArmTilt extends CommandBase {
 
     public TeleArmTilt() {
-        addRequirements(RobotContainer.getTelescopicArm());
+        addRequirements(RobotContainer.getArmTilt());
     }
     @Override
     public void initialize(){
-        RobotContainer.getTelescopicArm().toggleArmTilt();
+        RobotContainer.getArmTilt().toggleArmTilt();
     }
 
     @Override 

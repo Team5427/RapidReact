@@ -9,7 +9,7 @@ public class MoveArm extends CommandBase{
 
 
     public MoveArm(double speed){
-        addRequirements(RobotContainer.getTelescopicArm());
+        addRequirements(RobotContainer.getTeleArmR(), RobotContainer.getTeleArmL());
         this.speed = speed;
     }
 
@@ -17,11 +17,11 @@ public class MoveArm extends CommandBase{
     public void initialize(){
         //Code assumes -speed is down
         //assumes false from limit is not pressed
-        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (!RobotContainer.getTelescopicArm().getRightEncoderLimit() && !RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
-        //     RobotContainer.getTelescopicArm().moveArm(speed);
+        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (!RobotContainer.getTeleArmR().getRightEncoderLimit() && !RobotContainer.getTeleArmR().getLeftEncoderLimit()))) {
+        //     RobotContainer.getTeleArmR().moveArm(speed);
         // }
         // else if((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2))){
-        //     RobotContainer.getTelescopicArm().moveArm(speed);
+        //     RobotContainer.getTeleArmR().moveArm(speed);
         // }
         
 
@@ -29,10 +29,11 @@ public class MoveArm extends CommandBase{
 
     @Override 
     public void execute(){
-        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (RobotContainer.getTelescopicArm().getRightEncoderLimit() || RobotContainer.getTelescopicArm().getLeftEncoderLimit()))) {
-        //     RobotContainer.getTelescopicArm().stopExtend();
+        // if(((RobotContainer.getJoy().getRawButton(Constants.ARM_EXTEND_DOWN_BUTTON_2)) && (RobotContainer.getTeleArmR().getRightEncoderLimit() || RobotContainer.getTeleArmR().getLeftEncoderLimit()))) {
+        //     RobotContainer.getTeleArmR().stopExtend();
         // }
-        RobotContainer.getTelescopicArm().moveArm(speed);
+        RobotContainer.getTeleArmR().extendRight(speed);
+        RobotContainer.getTeleArmL().extendLeft(speed);
 
         
 
@@ -45,6 +46,7 @@ public class MoveArm extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        RobotContainer.getTelescopicArm().stopExtend();
+        RobotContainer.getTeleArmR().stopExtend();
+        RobotContainer.getTeleArmL().stopExtend();
     }
 }

@@ -9,7 +9,7 @@ public class MoveLeftArm extends CommandBase{
 
 
     public MoveLeftArm(double speed){
-        addRequirements(RobotContainer.getTelescopicArm());
+        addRequirements(RobotContainer.getTeleArmL());
         this.speed = speed;
     }
 
@@ -22,7 +22,7 @@ public class MoveLeftArm extends CommandBase{
     @Override 
     public void execute(){
         
-        RobotContainer.getTelescopicArm().extendLeft(speed);
+        RobotContainer.getTeleArmL().extendLeft(speed);
 
         
 
@@ -35,6 +35,6 @@ public class MoveLeftArm extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        RobotContainer.getTelescopicArm().stopExtend();
+        RobotContainer.getTeleArmL().stopExtend();
     }
 }

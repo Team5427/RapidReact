@@ -46,6 +46,7 @@ import frc.robot.commands.MoveLeftArm;
 import frc.robot.commands.MoveRightArm;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTilt;
+import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -70,7 +71,8 @@ import frc.robot.commands.auto.NoVisionAuton;
 import frc.robot.commands.auto.ScuffedAuto;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.TelescopicArm;
+import frc.robot.subsystems.TeleArmL;
+import frc.robot.subsystems.TeleArmR;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.Transport;
 
@@ -150,7 +152,9 @@ public class RobotContainer {
   private static Transport transport;
   private static Intake intake;
   private static Elevator elevator;
-  private static TelescopicArm telescopicArm;
+  private static TeleArmL teleArmL;
+  private static TeleArmR teleArmR;
+  private static ArmTilt armTilt;
   private static DriveTrain driveTrain;
   private static Lidar lidar;
 
@@ -239,7 +243,9 @@ public class RobotContainer {
     transport = new Transport(transportMotor, transport_sensor);
     intake = new Intake(intakeMotor);
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
-    telescopicArm = new TelescopicArm(armLeftMotor, armRightMotor, armleftEncoder, armRightEncoder, armRightLimit, armLeftLimit, arm_left_piston, arm_right_piston);
+    teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
+    teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
+    armTilt = new ArmTilt(tilt_left_piston, tilt_right_piston);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
@@ -335,7 +341,9 @@ public class RobotContainer {
   public static Tilt getTilt() {return tilt;}
   public static Transport getTransport(){return transport;}
   public static Elevator getElevator(){return elevator;}
-  public static TelescopicArm getTelescopicArm(){return telescopicArm;}
+  public static TeleArmL getTeleArmL(){return teleArmL;}
+  public static TeleArmR getTeleArmR(){return teleArmR;}
+  public static ArmTilt getArmTilt(){return armTilt;}
   public static DriveTrain getDriveTrain(){return driveTrain;}
   public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}

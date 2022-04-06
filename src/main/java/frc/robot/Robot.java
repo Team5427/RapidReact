@@ -81,8 +81,6 @@ public class Robot extends TimedRobot
     
     SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
     SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
     SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("IntakeSpeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));

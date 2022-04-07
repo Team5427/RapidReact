@@ -5,16 +5,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class TimedTransport extends CommandBase{
+public class BumpTransport extends CommandBase{
     private double time;
-    private double shooterTime = .7;
     private Timer timer = new Timer();
+    private double speed;
 
-    public TimedTransport(double time)
+    public BumpTransport(double time, double speed)
     {
         addRequirements(RobotContainer.getTransport());
         this.time = time;
-        shooterTime = .7;
+        this.speed = speed;
 
     }
 
@@ -26,17 +26,12 @@ public class TimedTransport extends CommandBase{
 
     @Override
     public void execute(){
-        if(timer.get() >= shooterTime){
-            RobotContainer.getTransport().move(.4);
-        }
-        if(timer.get() >= time + shooterTime){
-            RobotContainer.getTransport().stop();
-        }
+        RobotContainer.getTransport().move(speed);
     }
 
     @Override 
     public boolean isFinished(){
-        return timer.get() >= time + shooterTime;
+        return timer.get() >= time;
     }
     
     @Override

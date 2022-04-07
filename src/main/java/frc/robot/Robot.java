@@ -9,6 +9,7 @@ package frc.robot;
 import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,6 +46,8 @@ public class Robot extends TimedRobot
   private static double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
   public static double distFromGoal = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
 
+  private static UsbCamera cam;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -62,7 +65,8 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
-    CameraServer.startAutomaticCapture();
+    cam = CameraServer.startAutomaticCapture();
+    cam.setFPS(15);
     m_robotContainer = new RobotContainer();
     
   }

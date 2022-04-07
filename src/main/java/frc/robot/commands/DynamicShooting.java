@@ -8,8 +8,8 @@ import frc.robot.RobotContainer;
 public class DynamicShooting extends CommandBase{
     private double pitch, yaw, dynamicSetPoint;
     private boolean hasTarget;
-    private double shootingConstant = -1.51;
-    private double yint = 75.46;
+    private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
+    private double yint = Constants.Y_INT_DYNAMIC;
 
     public DynamicShooting(){
         addRequirements(RobotContainer.getShooter());

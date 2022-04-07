@@ -280,7 +280,8 @@ public class RobotContainer {
     manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
 
     tiltToggleButton.whenPressed(new MoveTilt());
-    shooterButton.whileHeld(new DynamicShooting());
+    // shooterButton.whenPressed(new AutoShoot());
+    shooterButton.whenPressed(new DynamicShooting());
     visionTurn.whenPressed(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
@@ -303,7 +304,7 @@ public class RobotContainer {
     manual_extend_up_right_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_RIGHT_UP_BUTTON_2);
     manual_extend_down_right_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_RIGHT_DOWN_BUTTON_2);
 
-    tilt_in_button.whenPressed(new AutoTiltDown(false));
+    tilt_in_button.whenPressed(new MoveTilt());
     arm_extend_down_2.whileHeld(new MoveArm(Constants.ARM_SPEED));
     arm_extend_up_2.whileHeld(new MoveArm(-Constants.ARM_SPEED));
     arm_tilt_in_2.whenPressed(new TeleArmTilt());

@@ -10,16 +10,21 @@ public class ThreeBallAuton extends SequentialCommandGroup{
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new Wait(.1), 
-                    new IntakeStart(4, .20, false)), 
+                    new IntakeStart(4, 1, false)), 
                 new SequentialCommandGroup(
                     new ForwardTimer(2.1, -.17),
                     new Wait(1), 
-                    new PointTurn(160, 0.1, 0.25, 40), 
                     new TargetVision(true), 
                     new ShooterTransport()
                 )), 
-            new PointTurn(315, 0.1, 0.25, 30)
+            new AlsoPointTurn(215, 0.1, 0.25, 30),
+            new Wait(0.2),
+            new ParallelCommandGroup(
+                new IntakeStart(4, 1, false),
+                new ForwardTimer(4, -0.25)),
+            new ForwardTimer(1, 0.3),
+            new TargetVision(true),
+            new ShooterTransport()
         );
     }
-
 }

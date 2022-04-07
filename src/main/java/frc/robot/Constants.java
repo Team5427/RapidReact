@@ -126,6 +126,10 @@ public final class Constants {
     public static final double LL_LENS_HEIGHT_INCHES = 0;
     public static final double GOAL_HEIGHT_INCHES = 0;
 
+    //Dynamic Shooting
+    public static final double COEFFICIENT_DYNAMIC = -1.51;
+    public static final double Y_INT_DYNAMIC = 78;
+
     
 
 

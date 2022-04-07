@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class TimedShooter extends CommandBase{
@@ -11,21 +12,19 @@ public class TimedShooter extends CommandBase{
 
     private double pitch, yaw, dynamicSetPoint;
     private boolean hasTarget;
-    private double shootingConstant = -1.51;
-    private double yint = 75.46;
+    private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
+    private double yint = Constants.Y_INT_DYNAMIC;
 
-    public TimedShooter(double time, double setPoint)
+    public TimedShooter(double time)
     {
         addRequirements(RobotContainer.getShooter());
         this.time = time;
-        this.setPoint = setPoint;
     }
 
     @Override
     public void initialize(){
         timer.reset();
         timer.start();
-        RobotContainer.getShooter().movePercent(setPoint);
     }
 
     @Override

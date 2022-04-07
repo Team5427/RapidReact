@@ -31,11 +31,11 @@ public final class Constants {
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;
     public static final int TILT_BUTTON = 7;
-    public static final int MANUAL_SHOOT_BUTTON = 1;
-    public static final int SHOOTER_TELEOP_BUTTON = 11;
+    public static final int SHOOT_BUTTON = 1;
+    public static final int VISION_TURN = 11;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
     public static final int ELEVATOR_UP_BUTTON = 5;
-    public static final int ARM_DOWN_BUTTON = 6;
+    public static final int MANUAL_SHOOTER_BUTTON = 6;
     public static final int ARM_TILT_IN_BUTTON = 4;
     public static final int ARM_TILT_OUT_BUTTON = 12;
     public static final int TRANSPORT_MOVE_BUTTON = 10;

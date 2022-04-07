@@ -9,6 +9,11 @@ public class TimedShooter extends CommandBase{
     private double setPoint;
     private Timer timer = new Timer();
 
+    private double pitch, yaw, dynamicSetPoint;
+    private boolean hasTarget;
+    private double shootingConstant = -1.51;
+    private double yint = 75.46;
+
     public TimedShooter(double time, double setPoint)
     {
         addRequirements(RobotContainer.getShooter());
@@ -26,8 +31,24 @@ public class TimedShooter extends CommandBase{
     @Override
     public void execute()
     {
-        RobotContainer.getShooter().movePercent(setPoint);
-    }
+        
+        hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
+        if (hasTarget) {
+            pitch = RobotContainer.getLimeLight().getEntry("ty").getDouble(1000);
+            yaw = RobotContainer.getLimeLight().getEntry("tx").getDouble(1000);
+        } else {
+            pitch = 0;
+            yaw = 0;
+        }
+        if(pitch >= 7 || pitch < -17){
+            dynamicSetPoint = 0;
+        } else{
+            dynamicSetPoint = pitch * shootingConstant + yint;
+            dynamicSetPoint /= 100;
+
+        }
+
+        RobotContainer.getShooter().movePercent(dynamicSetPoint);    }
 
     @Override 
     public boolean isFinished(){

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DynamicShooting;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 // import frc.robot.commands.MoveArm;
 import frc.robot.commands.MoveShooterTeleop;
@@ -77,7 +78,7 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     
-    SmartDashboard.putNumber("Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
+    SmartDashboard.putNumber("x/Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
     
     // SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
     // SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
@@ -85,11 +86,19 @@ public class Robot extends TimedRobot
     // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
     // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
     // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
-    // SmartDashboard.putNumber("IntakeSpeed", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
+    SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
     // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
-    SmartDashboard.putBoolean("Has Shooter Target", hasTarget);
+    SmartDashboard.putBoolean("x/LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
+    SmartDashboard.putNumber("x/Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
+    SmartDashboard.putNumber("x/Shooter Percentage", RobotContainer.getShooter().getShooterMotorLeft().get());
 
-    SmartDashboard.putNumber("Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
+    if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= 7 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) < -17){
+      SmartDashboard.putBoolean("x/CAN SHOOT?", false);
+    } else{
+      SmartDashboard.putBoolean("x/CAN SHOOT?", true);
+    }
+
+
     CommandScheduler.getInstance().run();
     wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
     
@@ -156,9 +165,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
-      SmartDashboard.putNumber("Shooter Right Enc RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
-      SmartDashboard.putNumber("Shooter Left Enc RPM", RobotContainer.getShooter().getLeftEnc().getVelocity());
-      SmartDashboard.putNumber("Final_Setpoint", MoveShooterTeleop.setPointFinal);
   }
 
   @Override

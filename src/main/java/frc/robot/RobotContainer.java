@@ -36,7 +36,6 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.DriveToRange;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.DynamicShooting;
 import frc.robot.commands.MoveArm;
@@ -54,7 +53,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lidar;
 // import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.ShooterTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.ToggleRight;
 // import frc.robot.commands.TeleArmTilt;
@@ -62,14 +60,12 @@ import frc.robot.commands.ToggleRight;
 import frc.robot.commands.auto.AutoShoot;
 // import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
-import frc.robot.commands.auto.AutonThreeBallsAlpha;
-import frc.robot.commands.auto.AutonThreeBallsBeta;
-import frc.robot.commands.auto.AutonTwoBalls;
-import frc.robot.commands.auto.CoolAuto;
+import frc.robot.commands.auto.TwoBallAuton;
+import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
-import frc.robot.commands.auto.NoVisionAuton;
-import frc.robot.commands.auto.ScuffedAuto;
+import frc.robot.commands.auto.UnbelievablyScuffedAuto;
+import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleArmL;
@@ -89,8 +85,8 @@ public class RobotContainer {
   private static Joystick joy;
   private static Button intakeButton;
   private static Button tiltToggleButton;
+  private static Button shooterButton;
   private static Button visionTurn;
-  private static Button shooterTeleop;
   private static Button manualShoot;
 
   private static Button elevator_down;
@@ -254,10 +250,8 @@ public class RobotContainer {
     
     autonChooser = new SendableChooser<Command>();
 
-    autonChooser.setDefaultOption("Two Ball Auton", new AutonTwoBalls());
-    autonChooser.addOption("Far Ball Auton (3 balls)", new AutonThreeBallsBeta());
-    autonChooser.addOption("Close Ball Auton (3 balls)", new AutonThreeBallsAlpha());
-    autonChooser.addOption("No Vision Auton", new NoVisionAuton());
+    autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
+    autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -275,24 +269,20 @@ public class RobotContainer {
     // Joystick 1
     joy = new Joystick(0);
 
-    intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
-    visionTurn = new JoystickButton(joy, Constants.MANUAL_SHOOT_BUTTON);
-        // visionTurn = new JoystickButton(joy, 8);
-
-    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP_BUTTON);
+    shooterButton = new JoystickButton(joy, Constants.SHOOT_BUTTON);
+    visionTurn = new JoystickButton(joy, Constants.VISION_TURN);
+    intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
-    manualShoot = new JoystickButton(joy, 6);
+    manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
 
-    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     tiltToggleButton.whenPressed(new MoveTilt());
-    visionTurn.whileHeld(new DynamicShooting());
-    // visionTurn.whileHeld(new ToggleRight());
-
-    shooterTeleop.whenPressed(new TargetVision(true));
+    shooterButton.whileHeld(new DynamicShooting());
+    visionTurn.whenPressed(new TargetVision(true));
+    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
@@ -306,8 +296,8 @@ public class RobotContainer {
     arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
     arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
     arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);
-    elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
-    elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
+    // elevator_down_2 = new JoystickButton(joy2, Constants.ELEVATOR_DOWN_BUTTON_2);
+    // elevator_up_2 = new JoystickButton(joy2, Constants.ELEVATOR_UP_BUTTON_2);
     manual_extend_up_left_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_LEFT_UP_BUTTON_2);
     manual_extend_down_left_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_LEFT_DOWN_BUTTON_2);
     manual_extend_up_right_2 = new JoystickButton(joy2, Constants.MANUAL_ARM_RIGHT_UP_BUTTON_2);
@@ -332,7 +322,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
     // return new ScuffedAuto();
-    return new CoolAuto();
+    return new TwoBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

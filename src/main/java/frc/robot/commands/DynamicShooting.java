@@ -41,7 +41,7 @@ public class DynamicShooting extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOT_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.SHOOT_BUTTON);
     }
 
     @Override

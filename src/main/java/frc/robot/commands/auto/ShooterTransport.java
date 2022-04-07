@@ -1,8 +1,6 @@
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.auto.TimedShooter;
-import frc.robot.commands.auto.TimedTransport;
 
 public class ShooterTransport extends ParallelCommandGroup{
     public ShooterTransport(){

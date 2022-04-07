@@ -25,40 +25,16 @@ public class MoveShooterTeleop extends CommandBase
     @Override
     public void execute() {
 
-        // if (RobotContainer.getShooter().getRightEnc().getVelocity() >= -50 && RobotContainer.getShooter().getRightEnc().getVelocity() <= 50) {
-        //     //setPointFinal = ((-RobotContainer.getJoy().getAxisType(3) + 1) * 6000);
-        // }
-        
-
-        // if (RobotContainer.getShooter().getRightEnc().getVelocity() <= setPointFinal && RobotContainer.getJoy().getRawButton(1) && lsetPoint < setPointFinal) {
-        //     lsetPoint = lsetPoint + setPointFinal/75;
-        // } else if (lsetPoint >= setPointFinal && RobotContainer.getJoy().getRawButton(1)) {
-        //     lsetPoint = setPointFinal;
-        // } else if (!RobotContainer.getJoy().getRawButton(1)) {
-        //     lsetPoint = 0;
-        // }
-        // if (RobotContainer.getShooter().getLeftEnc().getVelocity() <= setPointFinal && RobotContainer.getJoy().getRawButton(1) && rsetPoint < setPointFinal) {
-        //     rsetPoint = rsetPoint + setPointFinal/75;
-        // } else if (rsetPoint >= setPointFinal && RobotContainer.getJoy().getRawButton(1)) {
-        //     rsetPoint = setPointFinal;
-        // } else if (!RobotContainer.getJoy().getRawButton(1)) {
-        //     rsetPoint = 0;
-        // }
-        
-        // VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        // RobotContainer.getShooter().moveShooter(RobotContainer.getLidar().getDistance());
-        
         // RobotContainer.getShooter().moveShooter(5000);
         
         RobotContainer.getShooter().movePercent((RobotContainer.getJoy().getRawAxis(3) + 1)/2);
-        SmartDashboard.putNumber("Shooter Speed", (RobotContainer.getJoy().getRawAxis(3) + 1)/2);
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }
 
     @Override
     public boolean isFinished() {
-        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOT_BUTTON) && !RobotContainer.getJoy().getRawButton(6);
+        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOTER_BUTTON);
     }
 
     @Override

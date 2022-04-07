@@ -170,7 +170,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steel");
+    limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steelta");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
@@ -242,7 +242,7 @@ public class RobotContainer {
     elevator = new Elevator(elevatorMotor, elevatorEncoder, elevatorLimit);
     teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
-    armTilt = new ArmTilt(tilt_left_piston, tilt_right_piston);
+    armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
     driveTrain = new DriveTrain(left, right, drive);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);

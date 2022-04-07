@@ -15,7 +15,7 @@ public class AutoTiltDown extends CommandBase {
 
     @Override
     public void initialize(){
-        RobotContainer.getTilt().setTilt(in);
+        RobotContainer.getTilt().toggleTilt();
     }
 
     @Override

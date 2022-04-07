@@ -26,7 +26,7 @@ public class TimedTransport extends CommandBase{
     @Override
     public void execute(){
         if(timer.get() >= shooterTime){
-            RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+            RobotContainer.getTransport().move(.4);
         }
         if(timer.get() >= time + shooterTime){
             RobotContainer.getTransport().stop();

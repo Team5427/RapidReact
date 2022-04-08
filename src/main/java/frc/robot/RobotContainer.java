@@ -65,6 +65,7 @@ import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
+import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
@@ -89,11 +90,12 @@ public class RobotContainer {
   private static Button shooterButton;
   private static Button visionTurn;
   private static Button manualShoot;
-  private static Button reverseIntake;
+
   private static Button elevator_down;
   private static Button elevator_up;
   private static Button transport_move;
   private static Button transport_back;
+  private static Button reverse_intake;
 
 
   // Joystick 2
@@ -279,13 +281,12 @@ public class RobotContainer {
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
     manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
-    reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
-
+    reverse_intake = new JoystickButton(joy, 4);
 
     tiltToggleButton.whenPressed(new MoveTilt());
-    reverseIntake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
-    shooterButton.whenPressed(new AutoShoot());
-    // shooterButton.whenPressed(new DynamicShooting());
+    reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
+    // shooterButton.whenPressed(new AutoShoot());
+    shooterButton.whenPressed(new DynamicShooting());
     visionTurn.whenPressed(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
@@ -320,15 +321,14 @@ public class RobotContainer {
     manual_extend_down_right_2.whileHeld(new MoveRightArm(Constants.ARM_SPEED));
   }
   
-  /**
+  /** 
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
     // return new ScuffedAuto();
-    return new AlsoPointTurn(215, 0.1, 0.25, 30);
-    // return new TwoBallAuton();
+    return new AlsoPointTurn(205, 0.1, 0.2, 60);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

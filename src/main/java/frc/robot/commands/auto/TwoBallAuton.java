@@ -13,7 +13,8 @@ public class TwoBallAuton extends SequentialCommandGroup{
                     new IntakeStart(4, 1, false)), 
                 new SequentialCommandGroup(
                     new ForwardTimer(2.1, -.17),
-                    new Wait(1),  
+                    new BumpTransport(.2, -.25),
+                    new Wait(.8),  
                     new TargetVision(true), 
                     new ShooterTransport()
                 )

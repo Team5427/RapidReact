@@ -22,7 +22,7 @@ public class ThreeBallAuton extends SequentialCommandGroup{
             new ParallelCommandGroup(
                 new IntakeStart(4, 1, false),
                 new SequentialCommandGroup(
-                    new ForwardTimer(1, -0.25),
+                    new ForwardTimer(1.5, -0.25),
                     new Wait(1)
                 )
             ),

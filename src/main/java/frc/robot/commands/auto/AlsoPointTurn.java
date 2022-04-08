@@ -57,8 +57,8 @@ public class AlsoPointTurn extends CommandBase{
             speed = slowSpeed;
         }
 
-        RobotContainer.getDriveTrain().moveRight(-speed);
-        RobotContainer.getDriveTrain().moveLeft(speed);
+        RobotContainer.getDriveTrain().moveRight(speed);
+        RobotContainer.getDriveTrain().moveLeft(-speed);
 
     }
   
@@ -71,7 +71,7 @@ public class AlsoPointTurn extends CommandBase{
     @Override
     public boolean isFinished()
     {
-        if (adj_err <= 1) {
+        if (adj_err <= 10) {
             counter++;
             if (counter >= 7) {
                 return true;

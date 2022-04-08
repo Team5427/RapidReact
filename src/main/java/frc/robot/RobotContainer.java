@@ -55,6 +55,7 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.ToggleRight;
+import frc.robot.commands.auto.AlsoPointTurn;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
@@ -88,7 +89,7 @@ public class RobotContainer {
   private static Button shooterButton;
   private static Button visionTurn;
   private static Button manualShoot;
-
+  private static Button reverseIntake;
   private static Button elevator_down;
   private static Button elevator_up;
   private static Button transport_move;
@@ -278,10 +279,13 @@ public class RobotContainer {
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
     manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
+    reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
+
 
     tiltToggleButton.whenPressed(new MoveTilt());
-    // shooterButton.whenPressed(new AutoShoot());
-    shooterButton.whenPressed(new DynamicShooting());
+    reverseIntake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
+    shooterButton.whenPressed(new AutoShoot());
+    // shooterButton.whenPressed(new DynamicShooting());
     visionTurn.whenPressed(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
@@ -323,7 +327,8 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
     // return new ScuffedAuto();
-    return new TwoBallAuton();
+    return new AlsoPointTurn(215, 0.1, 0.25, 30);
+    // return new TwoBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

@@ -43,9 +43,9 @@ public class AlsoPointTurn extends CommandBase{
         err = Math.abs(setPoint - curr_angle);
         adj_err = (err <= 180) ? (err) : (360 - err); // absolute distance from setpoint ; works over 0-line
 
-        if(setPoint > 180 && raw_angle <= 3){
+        if(setPoint > 180 && raw_angle <= 5){
             speed *= -1;
-        } else if (setPoint <= 180 && raw_angle >= 357) {
+        } else if (setPoint <= 180 && raw_angle >= 355) {
             speed *= 1;
         } else {
             speed *= Math.signum(setPoint - curr_angle); // accounts for overshoot
@@ -57,8 +57,8 @@ public class AlsoPointTurn extends CommandBase{
             speed = slowSpeed;
         }
 
-        RobotContainer.getDriveTrain().moveRight(-speed);
-        RobotContainer.getDriveTrain().moveLeft(speed);
+        RobotContainer.getDriveTrain().moveRight(speed);
+        RobotContainer.getDriveTrain().moveLeft(-speed);
 
     }
   
@@ -71,7 +71,7 @@ public class AlsoPointTurn extends CommandBase{
     @Override
     public boolean isFinished()
     {
-        if (adj_err <= 1) {
+        if (adj_err <= 10) {
             counter++;
             if (counter >= 7) {
                 return true;

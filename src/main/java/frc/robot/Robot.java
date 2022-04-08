@@ -89,7 +89,7 @@ public class Robot extends TimedRobot
     // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
     // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
     // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
+    SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
     // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
     SmartDashboard.putBoolean("x/LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);

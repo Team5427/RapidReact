@@ -40,6 +40,7 @@ public final class Constants {
     public static final int ARM_TILT_OUT_BUTTON = 12;
     public static final int TRANSPORT_MOVE_BUTTON = 10;
     public static final int TRANSPORT_BACK_BUTTON = 9;
+    public static final int REVERSE_INTAKE_BUTTON = 4;
 
 
     //Joystick 2 Buttons
@@ -128,7 +129,7 @@ public final class Constants {
 
     //Dynamic Shooting
     public static final double COEFFICIENT_DYNAMIC = -1.51;
-    public static final double Y_INT_DYNAMIC = 78;
+    public static final double Y_INT_DYNAMIC = 78.39;
 
     
 

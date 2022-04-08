@@ -69,6 +69,7 @@ import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleArmL;
 import frc.robot.subsystems.TeleArmR;
@@ -328,7 +329,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
     // return new ScuffedAuto();
-    return new AlsoPointTurn(205, 0.1, 0.2, 60);
+    return new ThreeBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

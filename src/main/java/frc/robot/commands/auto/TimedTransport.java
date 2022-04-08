@@ -7,14 +7,14 @@ import frc.robot.RobotContainer;
 
 public class TimedTransport extends CommandBase{
     private double time;
-    private double shooterTime = .7;
+    private double shooterTime = 1;
     private Timer timer = new Timer();
 
     public TimedTransport(double time)
     {
         addRequirements(RobotContainer.getTransport());
         this.time = time;
-        shooterTime = .7;
+        shooterTime = 1;
 
     }
 

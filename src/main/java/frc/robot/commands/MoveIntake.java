@@ -28,7 +28,7 @@ public class MoveIntake extends CommandBase
  
     @Override
     public boolean isFinished(){
-        return !RobotContainer.getJoy().getRawButton(Constants.INTAKE_IN_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.INTAKE_IN_BUTTON) && !RobotContainer.getJoy().getRawButton(4);
     }
  
     @Override

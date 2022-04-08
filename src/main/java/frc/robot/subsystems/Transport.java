@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Transport extends SubsystemBase {
     private MotorController transportMotor;
@@ -34,7 +35,7 @@ public class Transport extends SubsystemBase {
 
     @Override
     public void periodic(){
-        if(proxCovered()){
+        if(proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
             move(.6);
         }
         else{

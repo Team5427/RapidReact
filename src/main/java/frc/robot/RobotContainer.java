@@ -93,6 +93,7 @@ public class RobotContainer {
   private static Button elevator_up;
   private static Button transport_move;
   private static Button transport_back;
+  private static Button reverse_intake;
 
 
   // Joystick 2
@@ -278,8 +279,10 @@ public class RobotContainer {
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
     manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
+    reverse_intake = new JoystickButton(joy, 4);
 
     tiltToggleButton.whenPressed(new MoveTilt());
+    reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
     // shooterButton.whenPressed(new AutoShoot());
     shooterButton.whenPressed(new DynamicShooting());
     visionTurn.whenPressed(new TargetVision(true));

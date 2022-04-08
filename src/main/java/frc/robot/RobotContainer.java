@@ -55,12 +55,14 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.ToggleRight;
+import frc.robot.commands.auto.AlsoAutoShoot;
 import frc.robot.commands.auto.AlsoPointTurn;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
 // import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
+import frc.robot.commands.auto.BumpTransport;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
@@ -284,7 +286,8 @@ public class RobotContainer {
 
     tiltToggleButton.whenPressed(new MoveTilt());
     reverseIntake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
-    shooterButton.whenPressed(new AutoShoot());
+    shooterButton.whenPressed(new AlsoAutoShoot());
+    shooterButton.whenPressed(new BumpTransport(.05, -.25));
     // shooterButton.whenPressed(new DynamicShooting());
     visionTurn.whenPressed(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));

@@ -47,7 +47,8 @@ public class TimedShooter extends CommandBase{
 
         }
 
-        RobotContainer.getShooter().movePercent(dynamicSetPoint);    }
+        RobotContainer.getShooter().movePercent(dynamicSetPoint);    
+    }
 
     @Override 
     public boolean isFinished(){

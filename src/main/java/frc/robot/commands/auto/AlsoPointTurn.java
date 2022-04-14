@@ -71,7 +71,7 @@ public class AlsoPointTurn extends CommandBase{
     @Override
     public boolean isFinished()
     {
-        if (adj_err <= 10) {
+        if (adj_err <= 3) {
             counter++;
             if (counter >= 7) {
                 return true;

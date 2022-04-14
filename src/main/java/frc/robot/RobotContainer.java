@@ -55,6 +55,7 @@ import frc.robot.subsystems.Lidar;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.ToggleRight;
+import frc.robot.commands.auto.AlsoPointTurn;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
@@ -64,9 +65,11 @@ import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
+import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleArmL;
 import frc.robot.subsystems.TeleArmR;
@@ -319,14 +322,14 @@ public class RobotContainer {
     manual_extend_down_right_2.whileHeld(new MoveRightArm(Constants.ARM_SPEED));
   }
   
-  /**
+  /** 
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
     // return new ScuffedAuto();
-    return new TwoBallAuton();
+    return new ThreeBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

@@ -13,6 +13,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -255,7 +256,7 @@ public class RobotContainer {
     autonChooser = new SendableChooser<Command>();
 
     autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
-    autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
+    autonChooser.addOption("3 Ball Auto", new ThreeBallAuton());
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -287,7 +288,7 @@ public class RobotContainer {
     tiltToggleButton.whenPressed(new MoveTilt());
     reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
     // shooterButton.whenPressed(new AutoShoot());
-    shooterButton.whenPressed(new DynamicShooting());
+    shooterButton.whenPressed(new MoveShooterTeleop());
     visionTurn.whenPressed(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
@@ -295,7 +296,6 @@ public class RobotContainer {
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
     manualShoot.whileHeld(new MoveShooterTeleop());
-
     // Joystick 2
     joy2 = new Joystick(1);
 
@@ -328,8 +328,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
+    return autonChooser.getSelected();
     // return new ScuffedAuto();
-    return new ThreeBallAuton();
+    // return new ThreeBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

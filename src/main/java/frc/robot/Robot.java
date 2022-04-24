@@ -65,8 +65,8 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
-    cam = CameraServer.startAutomaticCapture();
-    cam.setFPS(15);
+    // cam = CameraServer.startAutomaticCapture();
+    // cam.setFPS(15);
     m_robotContainer = new RobotContainer();
     
   }

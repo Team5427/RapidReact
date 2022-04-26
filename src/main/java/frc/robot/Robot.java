@@ -67,6 +67,8 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
     // cam = CameraServer.startAutomaticCapture();
     // cam.setFPS(15);
+
+    SmartDashboard.putNumber("Balls intakened", 0);
     m_robotContainer = new RobotContainer();
     
   }

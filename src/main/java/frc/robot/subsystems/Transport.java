@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -10,6 +11,7 @@ import frc.robot.RobotContainer;
 public class Transport extends SubsystemBase {
     private MotorController transportMotor;
     private AnalogInput proximity;
+    private boolean ballAdded = false;
 
     public Transport(MotorController transportMotor, AnalogInput proximity){
         this.transportMotor = transportMotor;
@@ -37,8 +39,14 @@ public class Transport extends SubsystemBase {
     public void periodic(){
         if(proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
             move(.6);
+
+            if(!ballAdded && RobotContainer.getJoy().getRawButton(Constants.INTAKE_IN_BUTTON)){
+                SmartDashboard.putNumber("Balls intakened", SmartDashboard.getEntry("Balls intakened").getDouble(0) + 1);
+                ballAdded = true;
+            } 
         }
         else{
+            ballAdded = false;
             stop();
         }
     }

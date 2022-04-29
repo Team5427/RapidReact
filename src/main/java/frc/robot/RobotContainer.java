@@ -346,3 +346,7 @@ public class RobotContainer {
   public static NetworkTable getLimeLight(){return limelight_table;}
 
 }
+
+// if (codedoesnotwork)
+  // run
+// else (codeworkplz;)

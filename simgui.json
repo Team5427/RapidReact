@@ -1,0 +1,34 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ArmTilt": "Subsystem",
+      "/LiveWindow/DriveTrain": "Subsystem",
+      "/LiveWindow/Elevator": "Subsystem",
+      "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Lidar": "Subsystem",
+      "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/TeleArmL": "Subsystem",
+      "/LiveWindow/TeleArmR": "Subsystem",
+      "/LiveWindow/Tilt": "Subsystem",
+      "/LiveWindow/Transport": "Subsystem",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/DigitalInput[9]": "Digital Input",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Victor SPX [12]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [7]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [9]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Auton": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/Auton": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  }
+}

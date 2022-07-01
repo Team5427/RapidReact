@@ -19,6 +19,14 @@ public final class Main {
    *
    * <p>If you change your main robot class, change the parameter type.
    */
+
+  //Secret luck enchantment:
+  //Dear yellow ducky,
+  //Dont make this tournament unlucky,
+  //It make me very sad
+  //When the alliance is bad
+  //and it makes our matches sucky
+
   public static void main(String... args) {
     RobotBase.startRobot(Robot::new);
   }

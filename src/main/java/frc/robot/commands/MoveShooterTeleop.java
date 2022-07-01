@@ -12,7 +12,7 @@ public class MoveShooterTeleop extends CommandBase
     
     public MoveShooterTeleop()
     {
-        addRequirements();
+        addRequirements(RobotContainer.getShooter());
     }
 
     @Override
@@ -27,14 +27,14 @@ public class MoveShooterTeleop extends CommandBase
 
         // RobotContainer.getShooter().moveShooter(5000);
         
-        RobotContainer.getShooter().movePercent(.2);
+        RobotContainer.getShooter().movePercent(.5);
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }
 
     @Override
     public boolean isFinished() {
-        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOTER_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.SHOOT_BUTTON);
     }
 
     @Override

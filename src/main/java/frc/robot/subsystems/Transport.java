@@ -44,6 +44,8 @@ public class Transport extends SubsystemBase {
                 SmartDashboard.putNumber("Balls intakened", SmartDashboard.getEntry("Balls intakened").getDouble(0) + 1);
                 ballAdded = true;
             } 
+        } else if(getProxVal() < Constants.COVERED + .3){
+            move(-.2);
         }
         else{
             ballAdded = false;

@@ -37,8 +37,9 @@ public class Transport extends SubsystemBase {
     public void periodic(){
         if(proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
             move(.6);
-        }
-        else{
+        } else if(getProxVal() > Constants.COVERED + .3 && !RobotContainer.getJoy().getRawButton(Constants.INTAKE_IN_BUTTON)){
+            move(-.2);
+        } else{
             stop();
         }
     }

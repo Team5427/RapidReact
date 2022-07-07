@@ -20,7 +20,7 @@ public class TargetVision extends CommandBase
   private PhotonTrackedTarget target;
   private double fastSpeed = .25;
   private double medSpeed = .15;
-  private double slowSpeed = .07;
+  private double slowSpeed = .15;
   private double smallAdjustSpeed = .05;
   /**
    * Creates a new MoveStraight.
@@ -106,6 +106,7 @@ public class TargetVision extends CommandBase
         } 
       }
     }
+    System.out.println(err);
     
   }
 

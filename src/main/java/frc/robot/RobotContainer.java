@@ -285,7 +285,7 @@ public class RobotContainer {
     reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
     // shooterButton.whenPressed(new AutoShoot());
     shooterButton.whenPressed(new DynamicShooting());
-    visionTurn.whenPressed(new TargetVision(true));
+    visionTurn.whileHeld(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));

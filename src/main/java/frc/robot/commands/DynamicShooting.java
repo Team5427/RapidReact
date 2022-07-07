@@ -37,6 +37,8 @@ public class DynamicShooting extends CommandBase{
         }
 
         RobotContainer.getShooter().movePercent(dynamicSetPoint);
+        // RobotContainer.getShooter().movePercent(.2);
+
     }
 
     @Override

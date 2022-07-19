@@ -18,10 +18,10 @@ public class TargetVision extends CommandBase
   private boolean isCW;
   private PhotonCamera cam;
   private PhotonTrackedTarget target;
-  private double fastSpeed = .25;
+  private double fastSpeed = .35;
   private double medSpeed = .15;
-  private double slowSpeed = .15;
-  private double smallAdjustSpeed = .05;
+  private double slowSpeed = .125;
+  private double smallAdjustSpeed = .10;
   /**
    * Creates a new MoveStraight.
    */
@@ -52,7 +52,8 @@ public class TargetVision extends CommandBase
 
     hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
     if(hasTarget){
-        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0);
+        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0) + 2
+        ;
     }
 
 

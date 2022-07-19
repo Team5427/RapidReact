@@ -127,14 +127,14 @@ public final class Constants {
     public static final double GOAL_HEIGHT_INCHES = 0;
 
     //Dynamic Shooting
-    public static final double COEFFICIENT_DYNAMIC = -1.61;
-    public static final double Y_INT_DYNAMIC = 78;
+    public static final double COEFFICIENT_DYNAMIC = -.917;
+    public static final double Y_INT_DYNAMIC = 84;
 
     
 
 
 
-
+    
 
 
 }

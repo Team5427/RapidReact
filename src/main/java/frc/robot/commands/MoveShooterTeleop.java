@@ -12,7 +12,7 @@ public class MoveShooterTeleop extends CommandBase
     
     public MoveShooterTeleop()
     {
-        addRequirements();
+        addRequirements(RobotContainer.getShooter());
     }
 
     @Override

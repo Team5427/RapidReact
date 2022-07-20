@@ -25,7 +25,7 @@ public class DynamicShooting extends CommandBase{
             pitch = 0;
             yaw = 0;
         }
-        if(pitch >= 7 || pitch < -17){
+        if(pitch >= 4.5 || pitch < -12){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
         } else{

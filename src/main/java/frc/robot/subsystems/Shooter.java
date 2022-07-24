@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -16,6 +18,9 @@ public class Shooter extends SubsystemBase
     private RelativeEncoder shooterRightEnc;
     private RelativeEncoder shooterLeftEnc;
 
+    private PIDController SysIDTest;
+    private SimpleMotorFeedforward SysIDFFTest;
+    private double kp, ki, kd, ks, kv; 
     private SparkMaxPIDController pid_Right_ss;
     public double kP_Right, kI_Right, kD_Right, kIz_Right, kFF_Right, kMaxOutput_Right, kMinOutput_Right, maxRPM_Right;
     
@@ -26,6 +31,8 @@ public class Shooter extends SubsystemBase
         shooterRightEnc = Right;
         shooterLeftEnc = Left;
         pid_Right_ss = pid_Right;
+        SysIDTest = new PIDController(kp, ki, kd);
+        SysIDFFTest = new SimpleMotorFeedforward(ks, kv);
     }
 
     public CANSparkMax getShooterMotorRight()
@@ -50,21 +57,27 @@ public class Shooter extends SubsystemBase
 
     public void shooterInitRight() {
     
-        kP_Right = 0.00000; 
-        kI_Right = 0.000000;
-        kD_Right = 0.000; 
-        kIz_Right = 0; 
-        kFF_Right = 0.00002; 
-        kMaxOutput_Right = 1; 
-        kMinOutput_Right = -1;
-        maxRPM_Right = 5874;
+        // kP_Right = 0.00000; 
+        // kI_Right = 0.000000;
+        // kD_Right = 0.000; 
+        // kIz_Right = 0; 
+        // kFF_Right = 0.00002; 
+        // kMaxOutput_Right = 1; 
+        // kMinOutput_Right = -1;
+        // maxRPM_Right = 5874;
 
-        pid_Right_ss.setP(kP_Right);
-        pid_Right_ss.setI(kI_Right);
-        pid_Right_ss.setD(kD_Right);
-        pid_Right_ss.setIZone(kIz_Right);
-        pid_Right_ss.setFF(kFF_Right); //This is kV from SysID
-        pid_Right_ss.setOutputRange(kMinOutput_Right, kMaxOutput_Right);
+        // pid_Right_ss.setP(kP_Right);
+        // pid_Right_ss.setI(kI_Right);
+        // pid_Right_ss.setD(kD_Right);
+        // pid_Right_ss.setIZone(kIz_Right);
+        // pid_Right_ss.setFF(kFF_Right); //This is kV from SysID
+        // pid_Right_ss.setOutputRange(kMinOutput_Right, kMaxOutput_Right);
+
+        kp = 0.0;
+        ki = 0.0;
+        kd = 0.0;
+        ks = 0.0;
+        kv = 0.0;
 
     }
 
@@ -74,6 +87,10 @@ public class Shooter extends SubsystemBase
         // shooterMotorLeft.set(shooterMotorRight.get());
         SmartDashboard.putNumber("Shooter Voltage", shooterMotorRight.getAppliedOutput());
 
+    }
+
+    public void moveShooterSydID(double setPoint_RPS) {
+        shooterMotorRight.setVoltage(SysIDTest.calculate(shooterRightEnc.getVelocity()/60, setPoint_RPS) + SysIDFFTest.calculate(setPoint_RPS));
     }
 
     public void movePercent(double speed){

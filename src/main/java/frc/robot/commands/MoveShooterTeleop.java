@@ -27,7 +27,10 @@ public class MoveShooterTeleop extends CommandBase
 
         // RobotContainer.getShooter().moveShooter(5000);
         
-        RobotContainer.getShooter().movePercent((RobotContainer.getJoy().getRawAxis(3) + 1)/2);
+        // RobotContainer.getShooter().movePercent((RobotContainer.getJoy().getRawAxis(3) + 1)/2);
+
+        RobotContainer.getShooter().moveShooterSydID(3000/60);
+        SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }

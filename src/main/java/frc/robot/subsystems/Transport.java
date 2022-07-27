@@ -36,7 +36,7 @@ public class Transport extends SubsystemBase {
     @Override
     public void periodic(){
         if(proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
-            move(.6);
+            move(.3);
         }
         else{
             stop();

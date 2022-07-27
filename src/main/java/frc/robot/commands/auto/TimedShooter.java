@@ -43,11 +43,10 @@ public class TimedShooter extends CommandBase{
             dynamicSetPoint = 0;
         } else{
             dynamicSetPoint = pitch * shootingConstant + yint;
-            dynamicSetPoint /= 100;
 
         }
 
-        RobotContainer.getShooter().movePercent(dynamicSetPoint);    }
+        RobotContainer.getShooter().movePercent(dynamicSetPoint/60);    }
 
     @Override 
     public boolean isFinished(){

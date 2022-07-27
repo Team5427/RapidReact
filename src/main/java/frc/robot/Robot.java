@@ -68,6 +68,7 @@ public class Robot extends TimedRobot
     cam = CameraServer.startAutomaticCapture();
     cam.setFPS(15);
     m_robotContainer = new RobotContainer();
+    RobotContainer.getShooter().shooterInitRight();
     
   }
 

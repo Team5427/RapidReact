@@ -19,9 +19,9 @@ public class TargetVision extends CommandBase
   private PhotonCamera cam;
   private PhotonTrackedTarget target;
   private double fastSpeed = .35;
-  private double medSpeed = .15;
-  private double slowSpeed = .125;
-  private double smallAdjustSpeed = .10;
+  private double medSpeed = .25;
+  private double slowSpeed = .2;
+  private double smallAdjustSpeed = .15;
   /**
    * Creates a new MoveStraight.
    */
@@ -52,7 +52,7 @@ public class TargetVision extends CommandBase
 
     hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
     if(hasTarget){
-        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0) + 2
+        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0)
         ;
     }
 
@@ -77,10 +77,10 @@ public class TargetVision extends CommandBase
         } else if (err >= 12) {
           driveTrain.moveRight(-slowSpeed);
           driveTrain.moveLeft(slowSpeed);
-        } else if (err >= 4) {
+        } else if (err >= 7) {
           driveTrain.moveRight(-slowSpeed);
           driveTrain.moveLeft(slowSpeed); 
-        } else if(err >= 1.5){
+        } else if(err >= 3){
           driveTrain.moveRight(-smallAdjustSpeed);
           driveTrain.moveLeft(smallAdjustSpeed);      
         }  else if(err > 1){
@@ -93,10 +93,10 @@ public class TargetVision extends CommandBase
         } else if (err <= -12) {
           driveTrain.moveRight(slowSpeed);
           driveTrain.moveLeft(-slowSpeed);
-        } else if (err <= -4) {
+        } else if (err <= -7) {
           driveTrain.moveRight(slowSpeed);
           driveTrain.moveLeft(-slowSpeed);    
-        } else if(err <= -1.5){
+        } else if(err <= -3){
           driveTrain.moveRight(smallAdjustSpeed);
           driveTrain.moveLeft(-smallAdjustSpeed);
 

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -120,6 +121,7 @@ public final class Constants {
     public static final int ARM_LEFT_ENCODER_LIMIT = 0;
     public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
     public static final int ARM_TILT_ENCODER_LIMIT = 0;
+    public static final double WHEEL_DIAMETER = 6; //Inches
 
     //Limelight Shi
     public static final double LL_MOUNT_ANGLE_DEG = 0;
@@ -130,7 +132,24 @@ public final class Constants {
     public static final double COEFFICIENT_DYNAMIC = -108.7;
     public static final double Y_INT_DYNAMIC = 4597;
 
-    
+    //Trajectory Info
+    public static final double kTrackwidthMeters = 0.69; //FIXME
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+    public static final double ksVolts = 0.22; //FIXME
+    public static final double kvVoltSecondsPerMeter = 1.98; //FIXME
+    public static final double kaVoltSecondsSquaredPerMeter = 0.2; //FIXME
+
+    // Example value only - as above, this must be tuned for your drive!
+    public static final double kPDriveVel = 8.5; //FIXME
+
+    //Auton Exclusive
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+
+    public static final double kRamseteB = 2; //DO NOT CHANGE
+    public static final double kRamseteZeta = 0.7; //DO NOT CHANGE
 
 
 

@@ -65,6 +65,7 @@ import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
+import frc.robot.commands.auto.Trajectory.RamseteClass;
 import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.subsystems.Shooter;
@@ -115,6 +116,7 @@ public class RobotContainer {
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
+  public static RelativeEncoder topLeftEnc, topRightEnc;
   public static MotorControllerGroup left, right;
   public static MotorController intakeMotor;
   public static MotorController transportMotor;
@@ -168,15 +170,19 @@ public class RobotContainer {
 
   private static NetworkTable limelight_table;
 
+  private static RamseteClass ramClass;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
     limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steelta");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topLeftEnc = topLeft.getEncoder();
     // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    topRightEnc = topRight.getEncoder();
     // topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     // topRight.setInverted(true);
@@ -244,7 +250,7 @@ public class RobotContainer {
     teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
     armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
-    driveTrain = new DriveTrain(left, right, drive);
+    driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
@@ -253,6 +259,7 @@ public class RobotContainer {
 
     autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
     autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
+    ramClass = new RamseteClass();
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -325,8 +332,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public static Command getAutonomousCommand() {
+
+    return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
-    return new TwoBallAuton();
+    // return new TwoBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

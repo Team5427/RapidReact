@@ -39,7 +39,7 @@ public class TargetVision extends CommandBase
   @Override
   public void initialize()
   {
-    System.out.println("Target Tracking Started");
+    // System.out.println("Target Tracking Started");
     cam = new PhotonCamera("photoncam");
     counter = 0;
     hasTarget = false;
@@ -80,7 +80,7 @@ public class TargetVision extends CommandBase
         } else if (err >= 7) {
           driveTrain.moveRight(-slowSpeed);
           driveTrain.moveLeft(slowSpeed); 
-        } else if(err >= 3){
+        } else if(err >= 5){
           driveTrain.moveRight(-smallAdjustSpeed);
           driveTrain.moveLeft(smallAdjustSpeed);      
         }  else if(err > 1){
@@ -96,7 +96,7 @@ public class TargetVision extends CommandBase
         } else if (err <= -7) {
           driveTrain.moveRight(slowSpeed);
           driveTrain.moveLeft(-slowSpeed);    
-        } else if(err <= -3){
+        } else if(err <= -5){
           driveTrain.moveRight(smallAdjustSpeed);
           driveTrain.moveLeft(-smallAdjustSpeed);
 
@@ -107,7 +107,7 @@ public class TargetVision extends CommandBase
         } 
       }
     }
-    System.out.println(err);
+    // System.out.println(err);
     
   }
 
@@ -117,7 +117,7 @@ public class TargetVision extends CommandBase
   @Override
   public void end(boolean interrupted)
   {
-    System.out.println("Target Tracking Finished");
+    // System.out.println("Target Tracking Finished");
     driveTrain.stop();
   }
 
@@ -128,7 +128,7 @@ public class TargetVision extends CommandBase
     if(RobotContainer.getJoy().getRawButton(12)){
       return true;
     }
-    if(err > -1 && err < 1 && hasTarget) 
+    if(err > -2 && err < 2 && hasTarget) 
     {
       counter++;
       if(counter > 6){

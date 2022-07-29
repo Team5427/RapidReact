@@ -22,19 +22,20 @@ public class DriveTrain extends SubsystemBase{
     private AHRS gyro;
     private DifferentialDriveOdometry m_odometry;
 
-    public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive drive, RelativeEncoder leftEnc, RelativeEncoder rightEnc){
+    public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive drive, RelativeEncoder leftEnc, RelativeEncoder rightEnc, AHRS gyro){
         this.left = left;
         this.right = right;
         this.drive = drive;
         this.leftEnc = leftEnc;
         this.rightEnc = rightEnc;
-        leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50)); //Converts rotation to meters vvv FIXME
-        rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50));
-        leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60); //Converts RPM to m/s vvv
-        rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60);
-        gyro = RobotContainer.getAHRS();
-        resetEncoders();
-        m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+        // leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50)); //Converts rotation to meters vvv FIXME
+        // rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50));
+        // leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60); //Converts RPM to m/s vvv
+        // rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60);
+        this.gyro = gyro;
+        // gyro = RobotContainer.getAHRS();
+        // resetEncoders();
+        // m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
     public void moveLeft(double speed){
@@ -88,15 +89,15 @@ public class DriveTrain extends SubsystemBase{
         drive.setMaxOutput(maxOutput);
     }
 
-    @Override
-    public void periodic() {
-      // Update the odometry in the periodic block
-        m_odometry.update(
-            gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
+    // @Override
+    // public void periodic() {
+    //   // Update the odometry in the periodic block
+    //     m_odometry.update(
+    //         gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
 
 
-        SmartDashboard.putString("CurPose", m_odometry.getPoseMeters().toString());
-    }
+    //     SmartDashboard.putString("CurPose", m_odometry.getPoseMeters().toString());
+    // }
   
     public Pose2d getPose() {
       return m_odometry.getPoseMeters();

@@ -68,6 +68,7 @@ import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
 import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleArmL;
 import frc.robot.subsystems.TeleArmR;
@@ -178,11 +179,11 @@ public class RobotContainer {
     limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steelta");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
-    topLeftEnc = topLeft.getEncoder();
+    // topLeftEnc = topLeft.getEncoder();
     // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
-    topRightEnc = topRight.getEncoder();
+    // topRightEnc = topRight.getEncoder();
     // topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     // topRight.setInverted(true);
@@ -250,7 +251,7 @@ public class RobotContainer {
     teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
     armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
-    driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc);
+    driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
     lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
@@ -259,7 +260,7 @@ public class RobotContainer {
 
     autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
     autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
-    ramClass = new RamseteClass();
+    // ramClass = new RamseteClass();
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -298,7 +299,7 @@ public class RobotContainer {
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
-    manualShoot.whileHeld(new MoveShooterTeleop());
+    manualShoot.whenPressed(new AutoShoot(false));
 
     // Joystick 2
     joy2 = new Joystick(1);
@@ -333,9 +334,9 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
 
-    return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
+    // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
-    // return new TwoBallAuton();
+    return new ThreeBallAuton();
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

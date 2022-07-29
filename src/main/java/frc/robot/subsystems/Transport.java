@@ -1,8 +1,12 @@
 package frc.robot.subsystems;
 
 
+// import javax.management.timer.Timer;
+
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -10,10 +14,13 @@ import frc.robot.RobotContainer;
 public class Transport extends SubsystemBase {
     private MotorController transportMotor;
     private AnalogInput proximity;
+    private boolean b;
+    private Timer timer = new Timer();
 
     public Transport(MotorController transportMotor, AnalogInput proximity){
         this.transportMotor = transportMotor;
         this.proximity = proximity;
+        timer.reset();
 
     }
     public void move(double speed) {
@@ -35,11 +42,22 @@ public class Transport extends SubsystemBase {
 
     @Override
     public void periodic(){
-        if(proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
-            move(.3);
-        }
-        else{
+        if (proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
+            move(.5);
+            b = true;
+        } else {
+            if (b) {
+                timer.start();
+                move(.4);
+                if (timer.get() > 2.75) {
+                    stop();
+                    timer.reset();
+                    b = false;
+                }
+            }
             stop();
+
+            
         }
     }
     

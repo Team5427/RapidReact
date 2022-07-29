@@ -37,6 +37,7 @@ public class BumpTransport extends CommandBase{
     @Override
     public void end(boolean interrupted){
         RobotContainer.getTransport().stop();
+        System.out.println("x");
         timer.stop();
         timer.reset();
     }

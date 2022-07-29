@@ -37,8 +37,8 @@ public class DynamicShooting extends CommandBase{
 
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
-        SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
-        SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
+        // SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
+        // SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
         // RobotContainer.getShooter().movePercent(.2);
 
     }

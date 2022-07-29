@@ -11,9 +11,12 @@ public class DynamicShooterTransport extends CommandBase{
     private boolean hasTarget;
     private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
     private double yint = Constants.Y_INT_DYNAMIC;
+    private Timer timer = new Timer();
+    private Timer timer2 = new Timer();
     
 
     //For auton
+    private boolean bru;
     private double startTime = -1;
     private double transportTime = 1;
     private boolean isAuto;
@@ -22,8 +25,15 @@ public class DynamicShooterTransport extends CommandBase{
         addRequirements(RobotContainer.getShooter(), RobotContainer.getTransport());
 
         this.isAuto = isAuto;
+        bru = false;
     }
 
+    @Override
+    public void initialize() {
+        timer.reset();
+        timer2.reset();
+        timer2.start();
+    }
 
     @Override
     public void execute(){
@@ -38,7 +48,9 @@ public class DynamicShooterTransport extends CommandBase{
         if(pitch >= 4.5 || pitch < -12){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
+            bru = true;
         } else{
+            bru = false;
             SmartDashboard.putBoolean("CAN SHOOT???", true);
 
             dynamicSetPoint = pitch * shootingConstant + yint;
@@ -47,12 +59,18 @@ public class DynamicShooterTransport extends CommandBase{
 
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
-        SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
-        SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
+
+        // System.out.println("doing thing");
+        // SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
+        // SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
         // RobotContainer.getShooter().movePercent(.2);
 
-        if(Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 50){
-            RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && !bru){
+            timer.start();
+            if (timer.get() > 0.33) {
+                RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+            }
+
 
             if(startTime == -1){
                 startTime = Timer.getFPGATimestamp();
@@ -63,9 +81,9 @@ public class DynamicShooterTransport extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        if(isAuto && Timer.getFPGATimestamp() - startTime >= transportTime){
+        if(isAuto && (timer2.get() > 3)){
             return true;
-        } else if(!isAuto && !RobotContainer.getJoy().getRawButton(Constants.SHOOT_BUTTON)){
+        } else if(!isAuto && !RobotContainer.getJoy().getRawButton(6)){
             return true;
         }
 
@@ -74,6 +92,7 @@ public class DynamicShooterTransport extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
+        System.out.println("x2");
         RobotContainer.getShooter().stop();
         RobotContainer.getTransport().stop();
     }

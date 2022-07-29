@@ -54,10 +54,9 @@ public class Transport extends SubsystemBase {
                     timer.reset();
                     b = false;
                 }
+            } else {
+                stop();
             }
-            stop();
-
-            
         }
     }
     

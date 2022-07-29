@@ -16,16 +16,14 @@ public class DynamicShooterTransport extends CommandBase{
     
 
     //For auton
-    private boolean bru;
-    private double startTime = -1;
-    private double transportTime = 1;
+    private boolean inRange;
     private boolean isAuto;
 
     public DynamicShooterTransport(boolean isAuto){
         addRequirements(RobotContainer.getShooter(), RobotContainer.getTransport());
 
         this.isAuto = isAuto;
-        bru = false;
+        inRange = true;
     }
 
     @Override
@@ -48,9 +46,9 @@ public class DynamicShooterTransport extends CommandBase{
         if(pitch >= 4.5 || pitch < -12){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
-            bru = true;
+            inRange = false;
         } else{
-            bru = false;
+            inRange = true;
             SmartDashboard.putBoolean("CAN SHOOT???", true);
 
             dynamicSetPoint = pitch * shootingConstant + yint;
@@ -60,20 +58,10 @@ public class DynamicShooterTransport extends CommandBase{
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
-        // System.out.println("doing thing");
-        // SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
-        // SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
-        // RobotContainer.getShooter().movePercent(.2);
-
-        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && !bru){
+        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange){
             timer.start();
             if (timer.get() > 0.33) {
                 RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
-            }
-
-
-            if(startTime == -1){
-                startTime = Timer.getFPGATimestamp();
             }
         }
 
@@ -92,7 +80,6 @@ public class DynamicShooterTransport extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        System.out.println("x2");
         RobotContainer.getShooter().stop();
         RobotContainer.getTransport().stop();
     }

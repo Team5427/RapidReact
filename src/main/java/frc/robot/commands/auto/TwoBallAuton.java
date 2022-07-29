@@ -14,8 +14,7 @@ public class TwoBallAuton extends SequentialCommandGroup{
                 new SequentialCommandGroup(
                     new ForwardTimer(2.1, -.17),
                     new Wait(1),  
-                    new TargetVision(true), 
-                    new ShooterTransport()
+                    new AutoShoot(true)
                 )
             )
         );

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
-public class AlsoPointTurn extends CommandBase{
+public class StablePointTurn extends CommandBase{
 
     private DriveTrain driveTrain = RobotContainer.getDriveTrain();
     private double setPoint;
@@ -19,7 +19,7 @@ public class AlsoPointTurn extends CommandBase{
     private double speed;
     private double counter;
 
-    public AlsoPointTurn(double setPoint, double slowSpeed, double fastSpeed, double slowDist) {
+    public StablePointTurn(double setPoint, double slowSpeed, double fastSpeed, double slowDist) {
         addRequirements(RobotContainer.getDriveTrain());
         this.setPoint = setPoint;
         this.slowSpeed = slowSpeed;
@@ -43,18 +43,18 @@ public class AlsoPointTurn extends CommandBase{
         err = Math.abs(setPoint - curr_angle);
         adj_err = (err <= 180) ? (err) : (360 - err); // absolute distance from setpoint ; works over 0-line
 
+        if (adj_err > slowDist) {
+            speed = fastSpeed;
+        } else if (adj_err <= slowDist) {
+            speed = slowSpeed;
+        }
+
         if(setPoint > 180 && raw_angle <= 3){
             speed *= -1;
         } else if (setPoint <= 180 && raw_angle >= 357) {
             speed *= 1;
         } else {
             speed *= Math.signum(setPoint - curr_angle); // accounts for overshoot
-        }
-
-        if (adj_err > slowDist) {
-            speed = fastSpeed;
-        } else if (adj_err <= slowDist) {
-            speed = slowSpeed;
         }
 
         RobotContainer.getDriveTrain().moveRight(speed);

@@ -50,7 +50,6 @@ import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Lidar;
 // import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.TeleArmTilt;
@@ -61,12 +60,10 @@ import frc.robot.commands.auto.AutoShoot;
 // import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.TwoBallAuton;
-import frc.robot.commands.auto.DriveToRange;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
-import frc.robot.commands.auto.ShooterTransport;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.subsystems.Shooter;
@@ -157,7 +154,6 @@ public class RobotContainer {
   private static TeleArmR teleArmR;
   private static ArmTilt armTilt;
   private static DriveTrain driveTrain;
-  private static Lidar lidar;
 
   // PID controllers
   private static SparkMaxPIDController pidcontrol_shooter_Right;
@@ -252,7 +248,6 @@ public class RobotContainer {
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
     armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
     driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
-    lidar = new Lidar(lidar_sensor);
     ahrs = new AHRS(SPI.Port.kMXP);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
@@ -350,7 +345,6 @@ public class RobotContainer {
   public static TeleArmR getTeleArmR(){return teleArmR;}
   public static ArmTilt getArmTilt(){return armTilt;}
   public static DriveTrain getDriveTrain(){return driveTrain;}
-  public static Lidar getLidar(){return lidar;}
   public static AHRS getAHRS(){return ahrs;}
   public static Joystick getSecondJoy(){return joy2;}
   public static NetworkTable getLimeLight(){return limelight_table;}

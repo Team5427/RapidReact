@@ -69,7 +69,7 @@ public class DynamicShooterTransport extends CommandBase{
 
     @Override
     public boolean isFinished(){
-        if(isAuto && (timer2.get() > 3)){
+        if(isAuto && (timer2.get() > 2)){
             return true;
         } else if(!isAuto && !RobotContainer.getJoy().getRawButton(6)){
             return true;

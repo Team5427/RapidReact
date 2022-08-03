@@ -17,11 +17,13 @@ public class TargetVision extends CommandBase
   private int counter;
   private boolean isCW;
   private PhotonCamera cam;
-  private PhotonTrackedTarget target;
-  private double fastSpeed = .35;
-  private double medSpeed = .25;
+  private PhotonTrackedTarget
+   target;
+  private double fastSpeed = .5;
+  private double medSpeed = .35;
   private double slowSpeed = .2;
-  private double smallAdjustSpeed = .15;
+  private double smallAdjustSpeed = .17
+  ;
   /**
    * Creates a new MoveStraight.
    */
@@ -101,8 +103,8 @@ public class TargetVision extends CommandBase
           driveTrain.moveLeft(-smallAdjustSpeed);
 
         } else if(err < -1){
-          driveTrain.moveRight(smallAdjustSpeed / 2);
-          driveTrain.moveLeft(-smallAdjustSpeed / 2);
+          driveTrain.moveRight(smallAdjustSpeed / 1.5);
+          driveTrain.moveLeft(-smallAdjustSpeed / 1.5);
 
         } 
       }
@@ -131,7 +133,7 @@ public class TargetVision extends CommandBase
     if(err > -2 && err < 2 && hasTarget) 
     {
       counter++;
-      if(counter > 6){
+      if(counter > 8){
         return true;
       }
     }

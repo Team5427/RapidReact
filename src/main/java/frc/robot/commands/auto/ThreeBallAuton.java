@@ -7,26 +7,25 @@ public class ThreeBallAuton extends SequentialCommandGroup{
     public ThreeBallAuton() {
         addCommands(
             new AutoTiltDown(true), 
-            // new BumpTransport(.5, .25),
+            new BumpTransport(.25, .3),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new Wait(.1), 
                     new IntakeStart(4, 1, false)), 
                 new SequentialCommandGroup(
-                    new ForwardTimer(2.1, -.17),
-                    new Wait(1), 
+                    new ForwardTimer(1, -.5),
+                    new Wait(.1), 
                     new TargetVision(true),
-                    new AutoShoot(true)
+                    new AutoAutoShoot(true)
                 )), 
-            new StablePointTurn(195, 0.1, 0.25, 30),
-            new Wait(0.2),
+            new StablePointTurn(203, 0.15, 0.6, 30),
             new ParallelCommandGroup(
                 new IntakeStart(4, 1, false),
-                new ForwardTimer(1.76, -0.25)),
-            new ForwardTimer(1, 0.3),
-            new Wait(1),
+                new ForwardTimer(1.5, -0.4)),
+            new ForwardTimer(0.4, 0.8),
+            new Wait(.1),
             new TargetVision(true),
-            new AutoShoot(true)
+            new AutoAutoShoot(true)
         );
     }
 }

@@ -112,4 +112,10 @@ public class DriveTrain extends SubsystemBase{
         left.stopMotor();
         right.stopMotor();
     }
+
+    @Override
+    public void periodic() {
+        // SmartDashboard.putNumber("dt speed", getRightEnc().getVelocity());
+        //Uncomment when testing
+    }
 }

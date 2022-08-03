@@ -46,17 +46,18 @@ public class Transport extends SubsystemBase {
             move(.5);
             b = true;
         } else {
-            if (b) {
-                timer.start();
-                move(.4);
-                if (timer.get() > 2.75) {
-                    stop();
-                    timer.reset();
-                    b = false;
-                }
-            } else {
-                stop();
-            }
+            // if (b) {
+            //     timer.start();
+            //     move(.4);
+            //     if (timer.get() > 2.75) {
+            //         stop();
+            //         timer.reset();
+            //         b = false;
+            //     }
+            // } else {
+            //     stop();
+            // }
+            stop();
         }
     }
     

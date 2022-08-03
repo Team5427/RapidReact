@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -40,8 +41,11 @@ public class StablePointTurn extends CommandBase{
         raw_angle = Math.abs(RobotContainer.getAHRS().getAngle()) % 360; //215 +- 10
         raw_angle_sign = Math.signum(RobotContainer.getAHRS().getAngle());
         curr_angle = (raw_angle_sign > 0) ? (raw_angle) : (360 - raw_angle); // works in the same range of motion as the setpoint (1 - 360 repeating), even backwards
+        
         err = Math.abs(setPoint - curr_angle);
         adj_err = (err <= 180) ? (err) : (360 - err); // absolute distance from setpoint ; works over 0-line
+
+        SmartDashboard.putNumber("angle calculation", curr_angle);
 
         if (adj_err > slowDist) {
             speed = fastSpeed;
@@ -50,11 +54,11 @@ public class StablePointTurn extends CommandBase{
         }
 
         if(setPoint > 180 && raw_angle <= 3){
-            speed *= -1;
-        } else if (setPoint <= 180 && raw_angle >= 357) {
             speed *= 1;
+        } else if (setPoint <= 180 && raw_angle >= 357) {
+            speed *= -1;
         } else {
-            speed *= Math.signum(setPoint - curr_angle); // accounts for overshoot
+            speed *= -Math.signum(setPoint - curr_angle); // accounts for overshoot
         }
 
         RobotContainer.getDriveTrain().moveRight(speed);
@@ -71,7 +75,7 @@ public class StablePointTurn extends CommandBase{
     @Override
     public boolean isFinished()
     {
-        if (adj_err <= 10) {
+        if (adj_err <= 5) {
             counter++;
             if (counter >= 7) {
                 return true;

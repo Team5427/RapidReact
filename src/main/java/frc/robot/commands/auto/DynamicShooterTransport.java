@@ -59,17 +59,15 @@ public class DynamicShooterTransport extends CommandBase{
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
         if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange){
-            timer.start();
-            if (timer.get() > 0.33) {
+
                 RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
-            }
         }
 
     }
 
     @Override
     public boolean isFinished(){
-        if(isAuto && (timer2.get() > 2)){
+        if(isAuto && (timer2.get() > 1.75)){
             return true;
         } else if(!isAuto && !RobotContainer.getJoy().getRawButton(6)){
             return true;

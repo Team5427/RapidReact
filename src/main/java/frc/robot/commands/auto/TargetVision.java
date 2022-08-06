@@ -19,11 +19,10 @@ public class TargetVision extends CommandBase
   private PhotonCamera cam;
   private PhotonTrackedTarget
    target;
-  private double fastSpeed = .5;
-  private double medSpeed = .35;
-  private double slowSpeed = .2;
-  private double smallAdjustSpeed = .17
-  ;
+  private double fastSpeed = .3;
+  private double medSpeed = .20;
+  private double slowSpeed = .10;
+  private double smallAdjustSpeed = .07;
   /**
    * Creates a new MoveStraight.
    */

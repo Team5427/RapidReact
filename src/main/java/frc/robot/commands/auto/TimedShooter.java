@@ -7,7 +7,7 @@ import frc.robot.RobotContainer;
 
 public class TimedShooter extends CommandBase{
     private double time;
-    private double setPoint;
+    private int setPoint;
     private Timer timer = new Timer();
 
     private double pitch, yaw, dynamicSetPoint;
@@ -15,10 +15,11 @@ public class TimedShooter extends CommandBase{
     private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
     private double yint = Constants.Y_INT_DYNAMIC;
 
-    public TimedShooter(double time)
+    public TimedShooter(double time, int setPoint)
     {
         addRequirements(RobotContainer.getShooter());
         this.time = time;
+        this.setPoint = setPoint;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class TimedShooter extends CommandBase{
 
         }
 
-        RobotContainer.getShooter().movePercent(dynamicSetPoint/60);    }
+        RobotContainer.getShooter().moveShooterSydID(setPoint);    }
 
     @Override 
     public boolean isFinished(){

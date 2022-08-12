@@ -24,6 +24,7 @@ public class DynamicShooting extends CommandBase{
         } else {
             pitch = 0;
             yaw = 0;
+            RobotContainer.getShooter().moveShooterSydID(5500);
         }
         if(pitch >= 4.5 || pitch < -12){
             SmartDashboard.putBoolean("CAN SHOOT???", false);

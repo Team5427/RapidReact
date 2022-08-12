@@ -30,7 +30,6 @@ public class DynamicShooterTransport extends CommandBase{
     public void initialize() {
         timer.reset();
         timer2.reset();
-        timer2.start();
     }
 
     @Override
@@ -42,12 +41,13 @@ public class DynamicShooterTransport extends CommandBase{
         } else {
             pitch = 0;
             yaw = 0;
+            dynamicSetPoint = 5590;
         }
-        if(pitch >= 4.5 || pitch < -12){
+        if((pitch >= 4.5 || pitch < -12) && hasTarget){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
             inRange = false;
-        } else{
+        } else if (hasTarget) {
             inRange = true;
             SmartDashboard.putBoolean("CAN SHOOT???", true);
 
@@ -58,9 +58,11 @@ public class DynamicShooterTransport extends CommandBase{
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
-        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange){
+        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange && (Math.abs(yaw) < 2)){
 
                 RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+                timer2.start();
+
         }
 
     }

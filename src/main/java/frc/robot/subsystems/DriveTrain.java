@@ -28,14 +28,14 @@ public class DriveTrain extends SubsystemBase{
         this.drive = drive;
         this.leftEnc = leftEnc;
         this.rightEnc = rightEnc;
-        // leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50)); //Converts rotation to meters vvv FIXME
-        // rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50));
-        // leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60); //Converts RPM to m/s vvv
-        // rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (12/50) / 60);
+        leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07)); //Converts rotation to meters vvv FIXME
+        rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07));
+        leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60); //Converts RPM to m/s vvv
+        rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60);
         this.gyro = gyro;
-        // gyro = RobotContainer.getAHRS();
-        // resetEncoders();
-        // m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+        gyro = RobotContainer.getAHRS();
+        resetEncoders();
+        m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
     public void moveLeft(double speed){
@@ -52,7 +52,7 @@ public class DriveTrain extends SubsystemBase{
 
     public void driveWithJoystick(Joystick joy){
 
-        drive.arcadeDrive(-joy.getZ() * .75, joy.getY()*.95555666);
+        drive.arcadeDrive(-joy.getZ() * .955555666, joy.getY()* .76);
     }
 
     public void getHeading() {
@@ -89,15 +89,15 @@ public class DriveTrain extends SubsystemBase{
         drive.setMaxOutput(maxOutput);
     }
 
-    // @Override
-    // public void periodic() {
-    //   // Update the odometry in the periodic block
-    //     m_odometry.update(
-    //         gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
+    @Override
+    public void periodic() {
+      // Update the odometry in the periodic block
+        m_odometry.update(
+            gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
 
 
-    //     SmartDashboard.putString("CurPose", m_odometry.getPoseMeters().toString());
-    // }
+        SmartDashboard.putString("CurPose", m_odometry.getPoseMeters().toString());
+    }
   
     public Pose2d getPose() {
       return m_odometry.getPoseMeters();
@@ -113,9 +113,9 @@ public class DriveTrain extends SubsystemBase{
         right.stopMotor();
     }
 
-    @Override
-    public void periodic() {
-        // SmartDashboard.putNumber("dt speed", getRightEnc().getVelocity());
-        //Uncomment when testing
-    }
+    // @Override
+    // public void periodic() {
+    //     // SmartDashboard.putNumber("dt speed", getRightEnc().getVelocity());
+    //     //Uncomment when testing
+    // }
 }

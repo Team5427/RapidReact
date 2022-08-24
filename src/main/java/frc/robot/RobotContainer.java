@@ -115,7 +115,7 @@ public class RobotContainer {
   public static CANSparkMax shooterMotorRight;
   public static CANSparkMax shooterMotorLeft;
   public static CANSparkMax topRight, topLeft, bottomRight, bottomLeft;
-  public static RelativeEncoder topLeftEnc, topRightEnc;
+  public static RelativeEncoder topLeftEnc, topRightEnc, bottomRightEnc, bottomLeftEnc;
   public static MotorControllerGroup left, right;
   public static MotorController intakeMotor;
   public static MotorController transportMotor;
@@ -198,6 +198,10 @@ public class RobotContainer {
     drive.setSafetyEnabled(false);
 
     topLeftEnc = topLeft.getEncoder();
+    topRightEnc = topRight.getEncoder();
+    bottomLeftEnc = bottomLeft.getEncoder();
+    topRightEnc = topRight.getEncoder();
+    
 
     compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
@@ -250,15 +254,16 @@ public class RobotContainer {
     teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
     armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
-    driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
     ahrs = new AHRS(SPI.Port.kMXP);
+
+    driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
     autonChooser = new SendableChooser<Command>();
 
     autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
     autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
-    // ramClass = new RamseteClass();
+    ramClass = new RamseteClass();
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -332,10 +337,10 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
 
-    // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
+    return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
     // return new ThreeBallAuton();
-    return new StablePointTurn(180, 0.1, 0.4, 40);
+    // return new StablePointTurn(180, 0.1, 0.4, 40);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

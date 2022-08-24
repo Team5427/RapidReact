@@ -19,14 +19,15 @@ public class ThreeBallAuton extends ParallelCommandGroup{
                         new AutoTransport()
                     )
                 ),
-                new StablePointTurn(218, 0.05, 0.20, 25),
+                new StablePointTurn(235, 0.1, 0.30, 30),
                 new ParallelCommandGroup(
                     new IntakeStart(4, 1, false),
-                    new ForwardTimer(.35, -0.6)),
+                    new ForwardTimer(.35, -0.7)),
                 new ForwardTimer(0.7, 0.8),
                 new Wait(.1),
-                new StablePointTurn(181, 0.05, 0.3, 30),
-                new AutoShoot(true)
+                new StablePointTurn(160, 0.1, 0.3, 30),
+                new TargetVision(true),
+                new AutoTransport()
             ),
             new AutoDynamicShooter()
         

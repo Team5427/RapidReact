@@ -39,25 +39,24 @@ public class Transport extends SubsystemBase {
         // return true if covered
         return getProxVal() < Constants.COVERED;
     }
-
     @Override
     public void periodic(){
         if (proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
             move(.5);
             b = true;
         } else {
-            // if (b) {
-            //     timer.start();
-            //     move(.4);
-            //     if (timer.get() > 2.75) {
-            //         stop();
-            //         timer.reset();
-            //         b = false;
-            //     }
-            // } else {
-            //     stop();
-            // }
-            stop();
+            if (b) {
+                timer.start();
+                move(.4);
+                if (timer.get() > .2) {
+                    stop();
+                    timer.reset();
+                    b = false;
+                }
+            } else {
+                stop();
+            }
+            
         }
     }
     

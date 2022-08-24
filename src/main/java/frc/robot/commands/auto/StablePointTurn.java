@@ -54,7 +54,7 @@ public class StablePointTurn extends CommandBase{
         }
 
         if(setPoint > 180 && raw_angle <= 3){
-            speed *= 1;
+            speed *= -1;
         } else if (setPoint <= 180 && raw_angle >= 357) {
             speed *= -1;
         } else {
@@ -77,7 +77,7 @@ public class StablePointTurn extends CommandBase{
     {
         if (adj_err <= 5) {
             counter++;
-            if (counter >= 7) {
+            if (counter >= 0) {
                 return true;
             }
         }

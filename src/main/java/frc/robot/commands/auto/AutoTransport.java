@@ -42,21 +42,36 @@ public class AutoTransport extends CommandBase{
             dynamicSetPoint = 5590;
         }
 
-
-        if((Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && (Math.abs(yaw) < 2)){
-
-                RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
-                timer2.start();
+        if(pitch >= 7 || pitch < -17){
+            dynamicSetPoint = 0;
+            inRange = false;
+        } else{
+            dynamicSetPoint = pitch * shootingConstant + yint;
+            inRange = true;
 
         }
+
+        SmartDashboard.putBoolean("Has Target", hasTarget);
+        SmartDashboard.putBoolean("Velocity", (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500));
+        SmartDashboard.putBoolean("In Range", inRange);
+        SmartDashboard.putBoolean("Target", (Math.abs(yaw) < 2));
+
+        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange && (Math.abs(yaw) < 2)){
+
+            RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+            timer2.start();
+
+    }
 
     }
 
     @Override
     public boolean isFinished(){
         if((timer2.get() > 1.75)){
+            SmartDashboard.putBoolean("Running Transport", false);
             return true;
         }
+        SmartDashboard.putBoolean("Running Transport", true);
 
         return false;
     }

@@ -62,6 +62,7 @@ import frc.robot.commands.auto.AutoTiltDown;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.ForwardTimer;
 import frc.robot.commands.auto.IntakeStart;
+import frc.robot.commands.auto.StablePointTurn;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
 import frc.robot.commands.auto.TargetVision;
@@ -195,6 +196,8 @@ public class RobotContainer {
     right.setInverted(false);
     drive = new DifferentialDrive(left, right);
     drive.setSafetyEnabled(false);
+
+    topLeftEnc = topLeft.getEncoder();
 
     compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
@@ -331,7 +334,8 @@ public class RobotContainer {
 
     // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
-    return new ThreeBallAuton();
+    // return new ThreeBallAuton();
+    return new StablePointTurn(180, 0.1, 0.4, 40);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }
 

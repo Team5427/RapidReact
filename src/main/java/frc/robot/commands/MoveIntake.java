@@ -18,7 +18,6 @@ public class MoveIntake extends CommandBase
     public void initialize()
     {
         RobotContainer.getIntake().moveIntake(speed);
-        RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);
     }
  
     @Override

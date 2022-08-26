@@ -28,12 +28,13 @@ public class DriveTrain extends SubsystemBase{
         this.drive = drive;
         this.leftEnc = leftEnc;
         this.rightEnc = rightEnc;
+        // leftEnc.setInverted(true);
         leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07)); //Converts rotation to meters vvv FIXME
         rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07));
         leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60); //Converts RPM to m/s vvv
         rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60);
-        this.gyro = gyro;
-        gyro = RobotContainer.getAHRS();
+        // this.gyro = gyro;
+        this.gyro = RobotContainer.getAHRS();
         resetEncoders();
         m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
@@ -52,11 +53,12 @@ public class DriveTrain extends SubsystemBase{
 
     public void driveWithJoystick(Joystick joy){
 
-        drive.arcadeDrive(-joy.getZ() * .955555666, joy.getY()* .76);
+        drive.arcadeDrive(-joy.getY()* .96, joy.getZ() * .75);
     }
 
     public void getHeading() {
         gyro.getRotation2d().getDegrees();
+
     }
 
     public void zeroHeading() {
@@ -66,7 +68,10 @@ public class DriveTrain extends SubsystemBase{
     public void setVolts(double leftV, double rightV) {
         left.setVoltage(leftV);
         right.setVoltage(rightV);
+        SmartDashboard.putNumber("leftVolt", leftV);
+        SmartDashboard.putNumber("rightVolt", rightV);
     }
+
 
     public void resetEncoders() {
         leftEnc.setPosition(0);
@@ -97,6 +102,11 @@ public class DriveTrain extends SubsystemBase{
 
 
         SmartDashboard.putString("CurPose", m_odometry.getPoseMeters().toString());
+        // SmartDashboard.putString("gyroRot", gyro.getRotation2d().toString());
+        // SmartDashboard.putNumber("leftEnc", leftEnc.getPosition());
+        // SmartDashboard.putNumber("rightEnc", rightEnc.getPosition());
+        // SmartDashboard.putNumber("leftPerc", left.get());
+        // SmartDashboard.putNumber("rightPerc", right.get());
     }
   
     public Pose2d getPose() {

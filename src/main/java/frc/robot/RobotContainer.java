@@ -176,6 +176,7 @@ public class RobotContainer {
     limelight_table = NetworkTableInstance.getDefault().getTable("limelight-steelta");
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
+    topLeft.setInverted(true);
     // topLeftEnc = topLeft.getEncoder();
     // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
@@ -185,21 +186,24 @@ public class RobotContainer {
 
     // topRight.setInverted(true);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
+    bottomLeft.setInverted(true);
     // bottomLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
     // bottomRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     left = new MotorControllerGroup(topLeft, bottomLeft);
-    left.setInverted(true);
+    // left.setInverted(true);
     right = new MotorControllerGroup(topRight, bottomRight);
-    right.setInverted(false);
+    // right.setInverted(false);
     drive = new DifferentialDrive(left, right);
     drive.setSafetyEnabled(false);
 
     topLeftEnc = topLeft.getEncoder();
+    // topLeftEnc.setInverted(true);
     topRightEnc = topRight.getEncoder();
     bottomLeftEnc = bottomLeft.getEncoder();
+    // bottomLeftEnc.setInverted(true);
     topRightEnc = topRight.getEncoder();
     
 
@@ -263,7 +267,6 @@ public class RobotContainer {
 
     autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
     autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
-    ramClass = new RamseteClass();
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -337,6 +340,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
 
+    ramClass = new RamseteClass();
     return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
     // return new ThreeBallAuton();

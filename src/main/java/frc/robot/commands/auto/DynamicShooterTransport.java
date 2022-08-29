@@ -43,7 +43,7 @@ public class DynamicShooterTransport extends CommandBase{
             yaw = 0;
             dynamicSetPoint = 5590;
         }
-        if((pitch >= 4.5 || pitch < -12) && hasTarget){
+        if((pitch >= 6.5 || pitch < -12) && hasTarget){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
             inRange = false;

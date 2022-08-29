@@ -7,13 +7,11 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 // import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -21,7 +19,7 @@ import frc.robot.subsystems.DriveTrain;
 public class RamseteClass {
 
     private DriveTrain m_robotDrive;
-    private RamseteCommand command;
+    private PratsRamseteCommand command;
     
     public RamseteClass() {
         m_robotDrive = RobotContainer.getDriveTrain();
@@ -33,7 +31,7 @@ public class RamseteClass {
                 Constants.kvVoltSecondsPerMeter,
                 Constants.kaVoltSecondsSquaredPerMeter),
             Constants.kDriveKinematics,
-            10);
+            8);
 
         // Create config for trajectory
         TrajectoryConfig config =
@@ -57,7 +55,7 @@ public class RamseteClass {
                 config);
 
         command =
-            new RamseteCommand(
+            new PratsRamseteCommand(
                 exampleTrajectory,
                 m_robotDrive::getPose,
                 new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
@@ -69,7 +67,7 @@ public class RamseteClass {
                 m_robotDrive::getWheelSpeeds,
                 new PIDController(Constants.kPDriveVel, 0, 0),
                 new PIDController(Constants.kPDriveVel, 0, 0),
-                // RamseteCommand passes volts to the callback
+                // PratsRamseteCommand passes volts to the callback
                 m_robotDrive::setVolts,
                 m_robotDrive);
 
@@ -78,7 +76,7 @@ public class RamseteClass {
     }
 
 
-    public RamseteCommand getRamCom() {
+    public PratsRamseteCommand getRamCom() {
         return command;
     }
 

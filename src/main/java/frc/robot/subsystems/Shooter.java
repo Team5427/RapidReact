@@ -96,8 +96,8 @@ public class Shooter extends SubsystemBase
 
     public void moveShooterSydID(double setPoint_RPS) {
         shooterMotorRight.setVoltage(SysIDTest.calculate(shooterRightEnc.getVelocity()/60, setPoint_RPS) + SysIDFFTest.calculate(setPoint_RPS));
-        SmartDashboard.putNumber("SysID output", SysIDTest.calculate(shooterRightEnc.getVelocity()/60, setPoint_RPS) + SysIDFFTest.calculate(setPoint_RPS));
-        SmartDashboard.putString("PID FF values", SysIDTest.getP() + " " + SysIDTest.getI() + " " + SysIDTest.getD() + " " + SysIDFFTest.ks + " " + SysIDFFTest.kv + " ");
+        // SmartDashboard.putNumber("SysID output", SysIDTest.calculate(shooterRightEnc.getVelocity()/60, setPoint_RPS) + SysIDFFTest.calculate(setPoint_RPS));
+        // SmartDashboard.putString("PID FF values", SysIDTest.getP() + " " + SysIDTest.getI() + " " + SysIDTest.getD() + " " + SysIDFFTest.ks + " " + SysIDFFTest.kv + " ");
         // shooterMotorRight.setVoltage(3);
     }
 

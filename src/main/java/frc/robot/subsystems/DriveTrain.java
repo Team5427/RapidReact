@@ -30,10 +30,10 @@ public class DriveTrain extends SubsystemBase{
         this.leftEnc = leftEnc;
         this.rightEnc = rightEnc;
         // leftEnc.setInverted(true);
-        leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07)); //Converts rotation to meters vvv FIXME
-        rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07));
-        leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60); //Converts RPM to m/s vvv
-        rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.07) / 60);
+        leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01)); //Converts rotation to meters vvv FIXME
+        rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01));
+        leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01) / 60); //Converts RPM to m/s vvv
+        rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01) / 60);
         // this.gyro = gyro;
         this.gyro = RobotContainer.getAHRS();
         resetEncoders();

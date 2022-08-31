@@ -224,7 +224,7 @@ public class PratsRamseteCommand extends CommandBase {
       m_output.accept(0.0, 0.0);
     }
   }
-
+//kill
   @Override
   public boolean isFinished() {
     return m_timer.hasElapsed(m_trajectory.getTotalTimeSeconds());

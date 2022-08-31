@@ -43,7 +43,9 @@ public class DynamicShooterTransport extends CommandBase{
             yaw = 0;
             dynamicSetPoint = 5590;
         }
-        if((pitch >= 6.5 || pitch < -12) && hasTarget){
+        if(
+            //(pitch >= 6.5 || pitch < -12) && 
+            hasTarget){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
             inRange = false;
@@ -58,7 +60,7 @@ public class DynamicShooterTransport extends CommandBase{
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
-        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange && (Math.abs(yaw) < 2)){
+        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange && (Math.abs(yaw) < 5)){
 
                 RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
                 timer2.start();

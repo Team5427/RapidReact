@@ -30,7 +30,7 @@ public class RamseteClass {
                 Constants.kvVoltSecondsPerMeter,
                 Constants.kaVoltSecondsSquaredPerMeter),
             Constants.kDriveKinematics,
-            8);
+            10);
 
         // Create config for trajectory
         TrajectoryConfig config =
@@ -47,7 +47,7 @@ public class RamseteClass {
             TrajectoryGenerator.generateTrajectory(
                     List.of(
                         new Pose2d(0, 0, new Rotation2d(0)),
-                        new Pose2d(5, 0, new Rotation2d(0))
+                        new Pose2d(3, 0, new Rotation2d(0))
                         // new Pose2d(2.938, 1.414, Rotation2d.fromDegrees(-45)),
                         // new Pose2d(4.352, 0, Rotation2d.fromDegrees(-45))
                         ),

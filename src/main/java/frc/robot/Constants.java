@@ -137,12 +137,12 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double ksVolts = 0.22881; //FIXME
-    public static final double kvVoltSecondsPerMeter = 2.2878; //FIXME
-    public static final double kaVoltSecondsSquaredPerMeter = .48097; //FIXME
+    public static final double ksVolts = 0.23149; //FIXME
+    public static final double kvVoltSecondsPerMeter = 2.3413; //FIXME
+    public static final double kaVoltSecondsSquaredPerMeter = .48852; //FIXME
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 3.1895; //FIXME still have to tune
+    public static final double kPDriveVel = 3.2; //FIXME still have to tune
 
     //Auton Exclusive
     public static final double kMaxSpeedMetersPerSecond = 3;
@@ -153,6 +153,7 @@ public final class Constants {
 
 
 
+    
     
 
 

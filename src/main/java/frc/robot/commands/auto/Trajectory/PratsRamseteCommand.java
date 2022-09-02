@@ -200,11 +200,11 @@ public class PratsRamseteCommand extends CommandBase {
       // );
 
       SmartDashboard.putNumber("left total output", leftOutput);
-      SmartDashboard.putNumber("right total output", rightOutput);
+      // SmartDashboard.putNumber("right total output", rightOutput);
       SmartDashboard.putNumber("left ff", leftFeedforward);
-      SmartDashboard.putNumber("right ff", rightFeedforward);
+      // SmartDashboard.putNumber("right ff", rightFeedforward);
       SmartDashboard.putNumber("left PID", m_leftController.calculate(m_speeds.get().leftMetersPerSecond, leftSpeedSetpoint));
-      SmartDashboard.putNumber("right PID", m_rightController.calculate(m_speeds.get().rightMetersPerSecond, rightSpeedSetpoint));
+      // SmartDashboard.putNumber("right PID", m_rightController.calculate(m_speeds.get().rightMetersPerSecond, rightSpeedSetpoint));
 
     } else {
       leftOutput = leftSpeedSetpoint;

@@ -69,6 +69,7 @@ public class DriveTrain extends SubsystemBase{
     public void setVolts(double leftV, double rightV) {
         left.setVoltage(leftV);
         right.setVoltage(rightV);
+        drive.feed();
         SmartDashboard.putNumber("leftVolt", leftV);
         SmartDashboard.putNumber("rightVolt", rightV);
     }
@@ -112,6 +113,18 @@ public class DriveTrain extends SubsystemBase{
         if (RobotContainer.getJoy().getPOV() == 0) {
             RobotContainer.getDriveTrain().resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
         }
+
+        // if (RobotContainer.getJoy().getRawButton(10)) {
+        //     left.set(.3);
+        //     right.set(.3);
+        // } else if (RobotContainer.getJoy().getRawButton(9)) {
+        //     left.set(-.3);
+        //     right.set(-.3);
+        // } else {
+        //     stop();
+        // }
+        SmartDashboard.putNumber("enc output", rightEnc.getPosition());
+        SmartDashboard.putNumber("enc outputv", rightEnc.getVelocity());
     }
   
     public Pose2d getPose() {

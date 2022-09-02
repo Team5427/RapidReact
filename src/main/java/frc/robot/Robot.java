@@ -86,28 +86,28 @@ public class Robot extends TimedRobot
 
     // double 
     
-    SmartDashboard.putNumber("x/Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
-    // SmartDashboard.putNumber("dt speed", RobotContainer.getDriveTrain().get)
-    // 
+    // SmartDashboard.putNumber("x/Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
+    // // SmartDashboard.putNumber("dt speed", RobotContainer.getDriveTrain().get)
+    // // 
 
-    SmartDashboard.putNumber("Drivetrain encoder", RobotContainer.getDriveTrain().getLeftEnc().getPosition());
-    // SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
-    // SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
-    // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
-    SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getYaw());
-    SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
-    // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
-    SmartDashboard.putBoolean("x/LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
-    SmartDashboard.putNumber("x/Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
-    SmartDashboard.putNumber("x/Shooter Percentage", RobotContainer.getShooter().getShooterMotorLeft().get());
+    // SmartDashboard.putNumber("Drivetrain encoder", RobotContainer.getDriveTrain().getLeftEnc().getPosition());
+    // // SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
+    // // SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
+    // // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
+    // // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
+    // // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
+    SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getRotation2d().getDegrees());
+    // SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
+    // // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
+    // SmartDashboard.putBoolean("x/LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
+    // SmartDashboard.putNumber("x/Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
+    // SmartDashboard.putNumber("x/Shooter Percentage", RobotContainer.getShooter().getShooterMotorLeft().get());
 
-    if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= 7 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) < -17){
-      SmartDashboard.putBoolean("x/CAN SHOOT?", false);
-    } else{
-      SmartDashboard.putBoolean("x/CAN SHOOT?", true);
-    }
+    // if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= 7 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) < -17){
+    //   SmartDashboard.putBoolean("x/CAN SHOOT?", false);
+    // } else{
+    //   SmartDashboard.putBoolean("x/CAN SHOOT?", true);
+    // }
 
 
     CommandScheduler.getInstance().run();

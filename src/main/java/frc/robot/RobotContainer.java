@@ -49,6 +49,7 @@ import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
+import frc.robot.commands.auto.OldThreeBall;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.commands.auto.TwoBallAuton;
@@ -239,8 +240,9 @@ public class RobotContainer {
     
     autonChooser = new SendableChooser<Command>();
 
-    autonChooser.setDefaultOption("Two Ball Auto", new TwoBallAuton());
-    autonChooser.addOption("One Ball No Vision Auto", new UnbelievablyScuffedAuto());
+    autonChooser.setDefaultOption("3 Ball", new OldThreeBall());
+    autonChooser.addOption("2 Ball", new TwoBallAuton());
+    autonChooser.addOption("1 Ball", new UnbelievablyScuffedAuto());
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -317,7 +319,7 @@ public class RobotContainer {
     ramClass = new RamseteClass();
     // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
-    return new ThreeBallAuton();
+    return (autonChooser.getSelected());
     // return new StablePointTurn(180, 0.1, 0.4, 40);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }

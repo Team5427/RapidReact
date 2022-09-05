@@ -50,6 +50,7 @@ import frc.robot.commands.TeleArmTilt;
 // import frc.robot.commands.auto.ArmAutoTiltOut;
 import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
@@ -314,9 +315,9 @@ public class RobotContainer {
   public static Command getAutonomousCommand() {
 
     ramClass = new RamseteClass();
-    return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
+    // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
     // return new ScuffedAuto();
-    // return new ThreeBallAuton();
+    return new ThreeBallAuton();
     // return new StablePointTurn(180, 0.1, 0.4, 40);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }

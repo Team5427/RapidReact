@@ -1,8 +1,5 @@
 package frc.robot.commands.auto;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -16,9 +13,6 @@ public class TargetVision extends CommandBase
   private double err;
   private int counter;
   private boolean isCW;
-  private PhotonCamera cam;
-  private PhotonTrackedTarget
-   target;
   private double fastSpeed = .3;
   private double medSpeed = .20;
   private double slowSpeed = .10;
@@ -40,8 +34,6 @@ public class TargetVision extends CommandBase
   @Override
   public void initialize()
   {
-    // System.out.println("Target Tracking Started");
-    cam = new PhotonCamera("photoncam");
     counter = 0;
     hasTarget = false;
   }
@@ -53,8 +45,7 @@ public class TargetVision extends CommandBase
 
     hasTarget = (RobotContainer.getLimeLight().getEntry("tv").getDouble(0) == 0)?false:true;
     if(hasTarget){
-        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0)
-        ;
+        err = RobotContainer.getLimeLight().getEntry("tx").getDouble(0);
     }
 
 

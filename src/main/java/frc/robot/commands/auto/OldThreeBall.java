@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class OldThreeBall extends SequentialCommandGroup{
     public OldThreeBall() {
         addCommands(
-            new AutoTiltDown(true), 
-            new BumpTransport(.25, .3),
+            new ParallelCommandGroup(
+                new AutoTiltDown(true), 
+                new BumpTransport(.25, .3)),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new Wait(.1), 

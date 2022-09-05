@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -122,6 +123,9 @@ public final class Constants {
     public static final int ARM_RIGHT_ENCODER_LIMIT = 0;
     public static final int ARM_TILT_ENCODER_LIMIT = 0;
     public static final double WHEEL_DIAMETER = 6; //Inches
+    public static final double DRIVE_TRAIN_GEAR_RATIO = (1/9.01);
+    public static final double DT_ROTATIONS_TO_METERS_FACTOR = Units.inchesToMeters(WHEEL_DIAMETER) * Math.PI * DRIVE_TRAIN_GEAR_RATIO;
+    public static final double DT_RPM_TO_MPS_FACTOR = DT_ROTATIONS_TO_METERS_FACTOR / 60;
 
     //Limelight Shi
     public static final double LL_MOUNT_ANGLE_DEG = 0;

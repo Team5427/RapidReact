@@ -7,12 +7,12 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase{
@@ -23,20 +23,21 @@ public class DriveTrain extends SubsystemBase{
     private AHRS gyro;
     private DifferentialDriveOdometry m_odometry;
 
-    public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive drive, RelativeEncoder leftEnc, RelativeEncoder rightEnc, AHRS gyro){
+    public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive drive, RelativeEncoder leftEnc, RelativeEncoder rightEnc, AHRS m_gyro){
         this.left = left;
         this.right = right;
         this.drive = drive;
         this.leftEnc = leftEnc;
         this.rightEnc = rightEnc;
         // leftEnc.setInverted(true);
-        leftEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01)); //Converts rotation to meters vvv FIXME
-        rightEnc.setPositionConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01));
-        leftEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01) / 60); //Converts RPM to m/s vvv
-        rightEnc.setVelocityConversionFactor(Units.inchesToMeters(6) * Math.PI * (1/9.01) / 60);
+        leftEnc.setPositionConversionFactor(Constants.DT_ROTATIONS_TO_METERS_FACTOR); //Converts rotation to meters vvv
+        rightEnc.setPositionConversionFactor(Constants.DT_ROTATIONS_TO_METERS_FACTOR);
+        leftEnc.setVelocityConversionFactor(Constants.DT_RPM_TO_MPS_FACTOR); //Converts RPM to m/s vvv
+        rightEnc.setVelocityConversionFactor(Constants.DT_RPM_TO_MPS_FACTOR);
         // this.gyro = gyro;
-        this.gyro = RobotContainer.getAHRS();
+        this.gyro = m_gyro;
         resetEncoders();
+        zeroHeading();
         m_odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
@@ -114,15 +115,6 @@ public class DriveTrain extends SubsystemBase{
             RobotContainer.getDriveTrain().resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
         }
 
-        // if (RobotContainer.getJoy().getRawButton(10)) {
-        //     left.set(.3);
-        //     right.set(.3);
-        // } else if (RobotContainer.getJoy().getRawButton(9)) {
-        //     left.set(-.3);
-        //     right.set(-.3);
-        // } else {
-        //     stop();
-        // }
         SmartDashboard.putNumber("enc output", rightEnc.getPosition());
         SmartDashboard.putNumber("enc outputv", rightEnc.getVelocity());
     }
@@ -140,10 +132,4 @@ public class DriveTrain extends SubsystemBase{
         left.stopMotor();
         right.stopMotor();
     }
-
-    // @Override
-    // public void periodic() {
-    //     // SmartDashboard.putNumber("dt speed", getRightEnc().getVelocity());
-    //     //Uncomment when testing
-    // }
 }

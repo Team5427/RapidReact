@@ -8,11 +8,9 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -20,23 +18,22 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.DynamicShooting;
 import frc.robot.commands.MoveArm;
@@ -45,29 +42,21 @@ import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MoveLeftArm;
 import frc.robot.commands.MoveRightArm;
-import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTilt;
+// import frc.robot.commands.MoveTilt;
+import frc.robot.commands.MoveTransport;
+import frc.robot.commands.TeleArmTilt;
+// import frc.robot.commands.TeleArmTilt;
+// import frc.robot.commands.auto.ArmAutoTiltOut;
+import frc.robot.commands.auto.AutoShoot;
+import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.TwoBallAuton;
+import frc.robot.commands.auto.UnbelievablyScuffedAuto;
+import frc.robot.commands.auto.Trajectory.RamseteClass;
 import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
-// import frc.robot.commands.MoveTilt;
-import frc.robot.commands.MoveTransport;
-import frc.robot.commands.TeleArmTilt;
-import frc.robot.commands.ToggleRight;
-// import frc.robot.commands.TeleArmTilt;
-// import frc.robot.commands.auto.ArmAutoTiltOut;
-import frc.robot.commands.auto.AutoShoot;
-// import frc.robot.commands.auto.AutoShoot;
-import frc.robot.commands.auto.AutoTiltDown;
-import frc.robot.commands.auto.TwoBallAuton;
-import frc.robot.commands.auto.ForwardTimer;
-import frc.robot.commands.auto.IntakeStart;
-import frc.robot.commands.auto.StablePointTurn;
-import frc.robot.commands.auto.UnbelievablyScuffedAuto;
-import frc.robot.commands.auto.Trajectory.RamseteClass;
-import frc.robot.commands.auto.TargetVision;
-import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TeleArmL;
 import frc.robot.subsystems.TeleArmR;
@@ -178,36 +167,19 @@ public class RobotContainer {
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topLeft.setInverted(true);
-    // topLeftEnc = topLeft.getEncoder();
-    // topLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
-
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
-    // topRightEnc = topRight.getEncoder();
-    // topRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
-
-    // topRight.setInverted(true);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
     bottomLeft.setInverted(true);
-    // bottomLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
-
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
-    // bottomRight.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 10);
 
     left = new MotorControllerGroup(topLeft, bottomLeft);
-    // left.setInverted(true);
     right = new MotorControllerGroup(topRight, bottomRight);
-    // right.setInverted(false);
     drive = new DifferentialDrive(left, right);
     drive.setSafetyEnabled(false);
 
     topLeftEnc = topLeft.getEncoder();
-    // topLeftEnc.setInverted(true);
-    topRightEnc = topRight.getEncoder();
-    bottomLeftEnc = bottomLeft.getEncoder();
-    // bottomLeftEnc.setInverted(true);
     topRightEnc = topRight.getEncoder();
     
-
     compressor = new Compressor(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
 

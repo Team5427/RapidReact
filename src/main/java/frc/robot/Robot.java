@@ -6,10 +6,17 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import java.io.IOException;
+import java.nio.file.Path;
+
 import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -48,6 +55,10 @@ public class Robot extends TimedRobot
 
   private static UsbCamera cam;
 
+  public static Trajectory pathTraj;
+  String trajectoryJSON = "output/TestTwoBall.wpilib.json";
+  Trajectory trajectory = new Trajectory();
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -65,11 +76,22 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
+
+    try{
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      pathTraj = trajectory;
+      System.out.println(trajectory.toString());
+    }catch(IOException ex){
+      DriverStation.reportError("Unable to open trajectory" + trajectoryJSON, ex.getStackTrace());
+    }
+
     cam = CameraServer.startAutomaticCapture();
     cam.setFPS(15);
     m_robotContainer = new RobotContainer();
     RobotContainer.getShooter().shooterInitRight();
     RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);
+    RobotContainer.getDriveTrain().getRightEnc().setPosition(0);
     
   }
 
@@ -137,6 +159,9 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);
+    RobotContainer.getDriveTrain().getRightEnc().setPosition(0);
+
 
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
@@ -144,6 +169,7 @@ public class Robot extends TimedRobot
     {
       m_autonomousCommand.schedule();
     }
+    
   }
 
   /**

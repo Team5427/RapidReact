@@ -31,8 +31,8 @@ public class DynamicShooting extends CommandBase{
                 dynamicSetPoint = pitch * shootingConstant + yint;
     
             }
-
-            RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
+            RobotContainer.getShooter().movePercent(1);
+            // RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
             SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
         } else {
             pitch = 0;

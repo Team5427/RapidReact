@@ -53,14 +53,14 @@ public class DynamicShooterTransport extends CommandBase{
             inRange = true;
             SmartDashboard.putBoolean("CAN SHOOT???", true);
 
-            dynamicSetPoint = pitch * shootingConstant + yint;
 
         }
+        dynamicSetPoint = pitch * shootingConstant + yint;
 
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
-        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500) && inRange && (Math.abs(yaw) < 5)){
+        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 500)){
 
                 RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
                 timer2.start();
@@ -73,7 +73,7 @@ public class DynamicShooterTransport extends CommandBase{
     public boolean isFinished(){
         if(isAuto && (timer2.get() > 1.75)){
             return true;
-        } else if(!isAuto && !RobotContainer.getJoy().getRawButton(6)){
+        } else if(!isAuto && !RobotContainer.getJoy().getRawButton(1)){
             return true;
         }
 

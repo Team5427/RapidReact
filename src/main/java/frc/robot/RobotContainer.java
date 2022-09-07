@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -23,7 +24,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -51,7 +52,6 @@ import frc.robot.commands.TeleArmTilt;
 import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.OldThreeBall;
 import frc.robot.commands.auto.TargetVision;
-import frc.robot.commands.auto.ThreeBallAuton;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
@@ -169,10 +169,14 @@ public class RobotContainer {
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topLeft.setInverted(true);
+    topLeft.setIdleMode(IdleMode.kCoast);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
+    topRight.setIdleMode(IdleMode.kCoast);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
     bottomLeft.setInverted(true);
+    bottomLeft.setIdleMode(IdleMode.kCoast);
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
+    bottomRight.setIdleMode(IdleMode.kCoast);
 
     left = new MotorControllerGroup(topLeft, bottomLeft);
     right = new MotorControllerGroup(topRight, bottomRight);
@@ -233,16 +237,18 @@ public class RobotContainer {
     teleArmL = new TeleArmL(armLeftMotor, armleftEncoder, armLeftLimit);
     teleArmR = new TeleArmR(armRightMotor, armRightEncoder, armRightLimit);
     armTilt = new ArmTilt(arm_left_piston, arm_right_piston);
-    ahrs = new AHRS(SPI.Port.kMXP);
+    ahrs = new AHRS(SerialPort.Port.kMXP);
 
     driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
     autonChooser = new SendableChooser<Command>();
+    ramClass = new RamseteClass();
 
     autonChooser.setDefaultOption("3 Ball", new OldThreeBall());
     autonChooser.addOption("2 Ball", new TwoBallAuton());
     autonChooser.addOption("1 Ball", new UnbelievablyScuffedAuto());
+    autonChooser.addOption("Pathweaver 3 Ball", ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0)));
 
     SmartDashboard.putData("Auton", autonChooser);
     configureButtonBindings();
@@ -261,14 +267,14 @@ public class RobotContainer {
     joy = new Joystick(0);
 
     tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
-    shooterButton = new JoystickButton(joy, Constants.SHOOT_BUTTON);
+    shooterButton = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
     visionTurn = new JoystickButton(joy, Constants.VISION_TURN);
     intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     transport_move = new JoystickButton(joy, Constants.TRANSPORT_MOVE_BUTTON);
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
-    manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
+    manualShoot = new JoystickButton(joy, Constants.SHOOT_BUTTON);
     reverse_intake = new JoystickButton(joy, 4);
 
     tiltToggleButton.whenPressed(new MoveTilt());
@@ -317,9 +323,13 @@ public class RobotContainer {
   public static Command getAutonomousCommand() {
 
     ramClass = new RamseteClass();
-    // return ramClass.getRamCom().andThen(() -> driveTrain.setVolts(0, 0));
+    return ramClass.getRamCom().andThen(() -> {
+      getDriveTrain().setVolts(0, 0);
+    }).beforeStarting(() -> {
+      getDriveTrain().resetEncoders();
+    }, getDriveTrain());
     // return new ScuffedAuto();
-    return (autonChooser.getSelected());
+    // return (autonChooser.getSelected());
     // return new StablePointTurn(180, 0.1, 0.4, 40);
     // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
   }

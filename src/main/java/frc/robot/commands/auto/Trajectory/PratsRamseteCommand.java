@@ -168,12 +168,21 @@ public class PratsRamseteCommand extends CommandBase {
     var targetWheelSpeeds =
         m_kinematics.toWheelSpeeds(
             m_follower.calculate(m_pose.get(), m_trajectory.sample(curTime)));
+            // m_follower.calculate(m_trajectory.sample(curTime).poseMeters, m_trajectory.sample(curTime)));
 
     var leftSpeedSetpoint = targetWheelSpeeds.leftMetersPerSecond;
     var rightSpeedSetpoint = targetWheelSpeeds.rightMetersPerSecond;
+    SmartDashboard.putNumber("Traj inputX", m_trajectory.sample(curTime).poseMeters.getX());
+    SmartDashboard.putNumber("Traj inputY", m_trajectory.sample(curTime).poseMeters.getY());
+    SmartDashboard.putNumber("Traj inputTHeta", m_trajectory.sample(curTime).poseMeters.getRotation().getDegrees());
+    SmartDashboard.putNumber("Ramsete inputX", m_pose.get().getX());
+    SmartDashboard.putNumber("Ramsete inputY", m_pose.get().getY());
+    SmartDashboard.putNumber("Ramsete inputTHeta", m_pose.get().getRotation().getDegrees());
+    SmartDashboard.putNumber("setpoints", leftSpeedSetpoint);
 
     double leftOutput;
     double rightOutput;
+
 
     if (m_usePID) {
       double leftFeedforward =

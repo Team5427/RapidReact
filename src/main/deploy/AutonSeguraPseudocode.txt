@@ -1,0 +1,7 @@
+Against wall
+Straight 10 feet
+45 to right
+3 feet forward
+90 left
+forward 5 ft
+end()

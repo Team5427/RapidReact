@@ -146,7 +146,7 @@ public final class Constants {
     public static final double kaVoltSecondsSquaredPerMeter = .48852; //FIXME
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 3.2; //FIXME still have to tune
+    public static final double kPDriveVel = 3.2168; //FIXME still have to tune
 
     //Auton Exclusive
     public static final double kMaxSpeedMetersPerSecond = 3;

@@ -18,6 +18,7 @@ import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -56,7 +57,7 @@ public class Robot extends TimedRobot
   private static UsbCamera cam;
 
   public static Trajectory pathTraj;
-  String trajectoryJSON = "output/TestTwoBall.wpilib.json";
+  String trajectoryJSON = "TalonOutput/output/SeguraPath.wpilib.json";
   Trajectory trajectory = new Trajectory();
 
 
@@ -92,7 +93,7 @@ public class Robot extends TimedRobot
     RobotContainer.getShooter().shooterInitRight();
     RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);
     RobotContainer.getDriveTrain().getRightEnc().setPosition(0);
-    
+
   }
 
   /**

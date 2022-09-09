@@ -136,6 +136,7 @@ public final class Constants {
     public static final double COEFFICIENT_DYNAMIC = -108.7;
     public static final double Y_INT_DYNAMIC = 4597;
 
+
     //Trajectory Info
     public static final double kTrackwidthMeters = 0.69; //FIXME
     public static final DifferentialDriveKinematics kDriveKinematics =
@@ -149,8 +150,8 @@ public final class Constants {
     public static final double kPDriveVel = 3.2168; //FIXME still have to tune
 
     //Auton Exclusive
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+    public static final double kMaxSpeedMetersPerSecond = .305;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.3048/2;
 
     public static final double kRamseteB = 2; //DO NOT CHANGE
     public static final double kRamseteZeta = 0.7; //DO NOT CHANGE

@@ -289,7 +289,7 @@ public class RobotContainer {
     transport_back.whileHeld(new MoveTransport(-.25));
     manualShoot.whenPressed(new AutoShoot(false));
 
-    // Joystick 2
+    // Joystick 2ca
     joy2 = new Joystick(1);
 
     tilt_in_button = new JoystickButton(joy2, Constants.AUTO_TILT_OUT_BUTTON_2);

@@ -54,8 +54,11 @@ public class DriveTrain extends SubsystemBase{
     }
 
     public void driveWithJoystick(Joystick joy){
-
-        drive.arcadeDrive(-joy.getY()* .96, joy.getZ() * .75);
+        if (joy.getRawButton(1)) {
+            stop();
+        } else {
+            drive.arcadeDrive(-joy.getY()* .96, joy.getZ() * .75);
+        }
     }
 
     public void getHeading() {

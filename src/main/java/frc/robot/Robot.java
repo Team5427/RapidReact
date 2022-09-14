@@ -56,9 +56,12 @@ public class Robot extends TimedRobot
 
   private static UsbCamera cam;
 
-  public static Trajectory pathTraj;
-  String trajectoryJSON = "TalonOutput/output/SeguraPath.wpilib.json";
-  Trajectory trajectory = new Trajectory();
+  public static Trajectory pathTraj1;
+  public static Trajectory pathTraj2;
+  String trajectoryJSON1 = "TalonOutput/output/balls1.wpilib.json";
+  Trajectory trajectory1 = new Trajectory();
+  String trajectoryJSON2 = "TalonOutput/output/balls2.wpilib.json";
+  Trajectory trajectory2 = new Trajectory();
 
 
   /**
@@ -79,12 +82,18 @@ public class Robot extends TimedRobot
     // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
 
     try{
-      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-      pathTraj = trajectory;
-      System.out.println(trajectory.toString());
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON1);
+      trajectory1 = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      pathTraj1 = trajectory1;
     }catch(IOException ex){
-      DriverStation.reportError("Unable to open trajectory" + trajectoryJSON, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory" + trajectoryJSON1, ex.getStackTrace());
+    }
+    try{
+      Path trajectoryPath2 = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON2);
+      trajectory2 = TrajectoryUtil.fromPathweaverJson(trajectoryPath2);
+      pathTraj2 = trajectory2;
+    }catch(IOException ex){
+      DriverStation.reportError("Unable to open trajectory" + trajectoryJSON2, ex.getStackTrace());
     }
 
     cam = CameraServer.startAutomaticCapture();

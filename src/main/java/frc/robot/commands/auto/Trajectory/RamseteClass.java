@@ -22,7 +22,7 @@ public class RamseteClass {
     private DriveTrain m_robotDrive;
     private PratsRamseteCommand command;
     
-    public RamseteClass() {
+    public RamseteClass(Trajectory exampleTrajectory) {
         m_robotDrive = RobotContainer.getDriveTrain();
 
         var autoVoltageConstraint =
@@ -56,9 +56,6 @@ public class RamseteClass {
         //                 // new Pose2d(4.352, 0, Rotation2d.fromDegrees(-45))
         //                 ,
         //         config);
-
-        Trajectory exampleTrajectory = Robot.pathTraj;
-
         command =
             new PratsRamseteCommand(
                 exampleTrajectory,

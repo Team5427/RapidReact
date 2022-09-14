@@ -54,6 +54,7 @@ import frc.robot.commands.auto.OldThreeBall;
 import frc.robot.commands.auto.TargetVision;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
+import frc.robot.commands.auto.Trajectory.FourBallAuton;
 import frc.robot.commands.auto.Trajectory.RamseteClass;
 import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.DriveTrain;
@@ -243,7 +244,6 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(new DriveWithJoystick());
     
     autonChooser = new SendableChooser<Command>();
-    ramClass = new RamseteClass();
 
     autonChooser.setDefaultOption("3 Ball", new OldThreeBall());
     autonChooser.addOption("2 Ball", new TwoBallAuton());
@@ -322,16 +322,7 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
 
-    ramClass = new RamseteClass();
-    return ramClass.getRamCom().andThen(() -> {
-      getDriveTrain().setVolts(0, 0);
-    }).beforeStarting(() -> {
-      getDriveTrain().resetEncoders();
-    }, getDriveTrain());
-    // return new ScuffedAuto();
-    // return (autonChooser.getSelected());
-    // return new StablePointTurn(180, 0.1, 0.4, 40);
-    // return new ParallelCommandGroup(autonChooser.getSelected(), new IntakeStart(1, 0.7, true));
+    return new FourBallAuton();
   }
 
   public static Shooter getShooter(){return shooter;}

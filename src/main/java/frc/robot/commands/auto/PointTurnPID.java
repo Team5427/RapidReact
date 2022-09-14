@@ -11,7 +11,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class PointTurnPID extends CommandBase {
 
-    ProfiledPIDController pid = new ProfiledPIDController(0, 0, 0, new Constraints(360, 180));
+    ProfiledPIDController pid = new ProfiledPIDController(0, 0, 0, new Constraints(180, 90));
     double curRot;
     DriveTrain dt = RobotContainer.getDriveTrain();
     double m_setPointDeg;
@@ -23,28 +23,29 @@ public class PointTurnPID extends CommandBase {
 
     @Override
     public void initialize() {
-        pid.enableContinuousInput(0, 360);
-        curRot = RobotContainer.getAHRS().getRotation2d().getDegrees();
+        pid.enableContinuousInput(-180, 180);
+        pid.setTolerance(5);
     }
 
     @Override
     public void execute() {
-        curRot = RobotContainer.getAHRS().getRotation2d().getDegrees();
-        curRot = curRot >= 0 ? (curRot % 360) : (360 - (curRot % 360));
-        dt.moveLeft(pid.calculate((curRot), m_setPointDeg));
-        dt.moveRight(-pid.calculate((curRot), m_setPointDeg));
+        curRot = dt.getPose().getRotation().getDegrees();
+        dt.moveLeft(pid.calculate(curRot, m_setPointDeg));
+        dt.moveRight(-pid.calculate(curRot, m_setPointDeg));
     }
 
     @Override
     public boolean isFinished() {
-        if (Math.abs(pid.getPositionError()) < 5) { 
+        if (pid.atSetpoint()) { 
             return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 
     @Override
     public void end(boolean interruptible) {
-        pid.reset(new State(0, 0));
+        pid.reset(0);
     }
 }

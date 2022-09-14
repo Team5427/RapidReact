@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -32,5 +33,18 @@ public class PointTurnPID extends CommandBase {
         curRot = curRot >= 0 ? (curRot % 360) : (360 - (curRot % 360));
         dt.moveLeft(pid.calculate((curRot), m_setPointDeg));
         dt.moveRight(-pid.calculate((curRot), m_setPointDeg));
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (Math.abs(pid.getPositionError()) < 5) { 
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void end(boolean interruptible) {
+        pid.reset(new State(0, 0));
     }
 }

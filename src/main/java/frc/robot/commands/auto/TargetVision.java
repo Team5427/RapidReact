@@ -13,7 +13,7 @@ public class TargetVision extends CommandBase
   private double err;
   private int counter;
   private boolean isCW;
-  private double fastSpeed = .3;
+  private double fastSpeed = .2;
   private double medSpeed = .20;
   private double slowSpeed = .10;
   private double smallAdjustSpeed = .07;

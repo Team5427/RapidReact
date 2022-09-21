@@ -8,8 +8,9 @@ import frc.robot.RobotContainer;
 public class DynamicShooting extends CommandBase{
     private double pitch, yaw, dynamicSetPoint;
     private boolean hasTarget;
-    private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
-    private double yint = Constants.Y_INT_DYNAMIC;
+    private double A = Constants.DISTANCE_CURVE_A;
+    private double B = Constants.DISTANCE_CURVE_B;
+    private double C = Constants.DISTANCE_CURVE_C;
 
     public DynamicShooting(){
         addRequirements(RobotContainer.getShooter());
@@ -22,13 +23,13 @@ public class DynamicShooting extends CommandBase{
             pitch = RobotContainer.getLimeLight().getEntry("ty").getDouble(1000);
             yaw = RobotContainer.getLimeLight().getEntry("tx").getDouble(1000);
 
-            if(pitch >= 4.5 || pitch < -12){
+            if(pitch >= -7.5 || pitch < 12.54){
                 SmartDashboard.putBoolean("CAN SHOOT???", false);
                 dynamicSetPoint = 0;
             } else{
                 SmartDashboard.putBoolean("CAN SHOOT???", true);
     
-                dynamicSetPoint = pitch * shootingConstant + yint;
+                dynamicSetPoint = (A * pitch * pitch) + (B * pitch) + C;
     
             }
             RobotContainer.getShooter().movePercent(1);

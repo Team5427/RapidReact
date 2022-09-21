@@ -116,6 +116,11 @@ public final class Constants {
 
 
     //Constants (numbers, limits, etc.)
+    public static final double DISTANCE_CURVE_A = 4.517;
+    public static final double DISTANCE_CURVE_B = -123.8;
+    public static final double DISTANCE_CURVE_C = 4704;
+
+
     public static final int LIDAR_MIN = 0;
     public static final int LIDAR_MAX = 0;
     public static final int ELEVATOR_ENCODER_LIMIT = 0;

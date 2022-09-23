@@ -7,7 +7,7 @@ public class AutoShoot extends SequentialCommandGroup{
     public AutoShoot(boolean isAuto){
         addCommands(
                 new ParallelCommandGroup(
-                    new TargetVisionAutoShoot(true), 
+                    new TargetVisionAutoShoot(true, isAuto), 
                     new SequentialCommandGroup(
                         new BumpTransport(.25, -.25),
                         new DynamicShooterTransport(isAuto)
@@ -15,6 +15,7 @@ public class AutoShoot extends SequentialCommandGroup{
                 )
         );
     }
+
 
         
 }

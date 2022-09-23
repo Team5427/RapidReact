@@ -15,17 +15,19 @@ public class TargetVisionAutoShoot extends CommandBase
   private boolean isCW;
   private double fastSpeed = .3;
   private double medSpeed = .20;
-  private double slowSpeed = .10;
+  private double slowSpeed = .07;
   private double smallAdjustSpeed = .07;
+  private boolean isAuto = false;
   /**
    * Creates a new MoveStraight.
    */
 
   //bias based on distance model in case it is needed
-  public TargetVisionAutoShoot(boolean isCW)
+  public TargetVisionAutoShoot(boolean isCW, boolean isAuto)
   {
     addRequirements(RobotContainer.getDriveTrain());
     this.isCW = isCW;
+    this.isAuto = isAuto;
 
 
   }
@@ -117,7 +119,7 @@ public class TargetVisionAutoShoot extends CommandBase
   @Override
   public boolean isFinished()
   {
-    if (!RobotContainer.getJoy().getRawButton(1)) {
+    if (!RobotContainer.getJoy().getRawButton(1) && !isAuto) {
       return true;
     }
   return false;

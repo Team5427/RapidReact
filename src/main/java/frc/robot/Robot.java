@@ -58,9 +58,9 @@ public class Robot extends TimedRobot
 
   public static Trajectory pathTraj1;
   public static Trajectory pathTraj2;
-  String trajectoryJSON1 = "TalonOutput/output/balls1.wpilib.json";
+  String trajectoryJSON1 = "PathOutput/output/huh.wpilib.json";
   Trajectory trajectory1 = new Trajectory();
-  String trajectoryJSON2 = "TalonOutput/output/balls2.wpilib.json";
+  String trajectoryJSON2 = "PathOutput/output/yes.wpilib.json";
   Trajectory trajectory2 = new Trajectory();
 
 

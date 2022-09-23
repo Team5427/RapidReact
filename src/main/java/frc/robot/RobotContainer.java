@@ -54,6 +54,7 @@ import frc.robot.commands.auto.AutoShoot;
 import frc.robot.commands.auto.OldThreeBall;
 import frc.robot.commands.auto.PointTurnPID;
 import frc.robot.commands.auto.TargetVision;
+import frc.robot.commands.auto.TargetVisionAutoShoot;
 import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.auto.UnbelievablyScuffedAuto;
 import frc.robot.commands.auto.Trajectory.FourBallAuton;
@@ -163,7 +164,7 @@ public class RobotContainer {
 
   private static NetworkTable limelight_table;
 
-  private static RamseteClass ramClass;
+  // private static RamseteClass ramClass;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -326,9 +327,13 @@ public class RobotContainer {
    */
   public static Command getAutonomousCommand() {
 
-    return new PointTurnPID(90);
-
+    // return new PointTurnPID(90);
+    RamseteClass ramClass = new RamseteClass();
+    // return ramClass.getRamCom();
     // return new FourBallAuton();
+    return new TwoBallAuton();
+    // return                     new TargetVisionAutoShoot(true, true); 
+
   }
 
   public static Shooter getShooter(){return shooter;}

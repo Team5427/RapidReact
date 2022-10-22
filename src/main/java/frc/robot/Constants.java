@@ -116,9 +116,9 @@ public final class Constants {
 
 
     //Constants (numbers, limits, etc.)
-    public static final double DISTANCE_CURVE_A = 4.517;
-    public static final double DISTANCE_CURVE_B = -123.8;
-    public static final double DISTANCE_CURVE_C = 4704;
+    public static final double DISTANCE_CURVE_A = 3.95;
+    public static final double DISTANCE_CURVE_B = -133.3;
+    public static final double DISTANCE_CURVE_C = 4848;
 
 
     public static final int LIDAR_MIN = 0;

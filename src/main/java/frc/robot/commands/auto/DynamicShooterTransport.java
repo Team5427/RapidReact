@@ -11,6 +11,9 @@ public class DynamicShooterTransport extends CommandBase{
     private boolean hasTarget;
     private double shootingConstant = Constants.COEFFICIENT_DYNAMIC;
     private double yint = Constants.Y_INT_DYNAMIC;
+    private double A = Constants.DISTANCE_CURVE_A;
+    private double B = Constants.DISTANCE_CURVE_B;
+    private double C = Constants.DISTANCE_CURVE_C;
     private Timer timer = new Timer();
     private Timer timer2 = new Timer();
     
@@ -43,7 +46,7 @@ public class DynamicShooterTransport extends CommandBase{
             yaw = 0;
         }
         if(
-            //(pitch >= 6.5 || pitch < -12) && 
+            (pitch >= 7.5 || pitch < -12.54) && 
             hasTarget){
             SmartDashboard.putBoolean("CAN SHOOT???", false);
             dynamicSetPoint = 0;
@@ -54,16 +57,15 @@ public class DynamicShooterTransport extends CommandBase{
 
 
         }
-        dynamicSetPoint = pitch * shootingConstant + yint;
+        
+        dynamicSetPoint = (A * pitch * pitch) + (B * pitch) + C;
 
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
         SmartDashboard.putNumber("dynamic Setpoint", dynamicSetPoint);
 
         if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 100)){
-
-                RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
-                timer2.start();
-
+            RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
+            timer2.start();
         }
 
     }

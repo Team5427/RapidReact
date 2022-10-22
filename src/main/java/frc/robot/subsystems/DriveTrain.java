@@ -57,7 +57,7 @@ public class DriveTrain extends SubsystemBase{
         if (joy.getRawButton(1)) {
             stop();
         } else {
-            drive.arcadeDrive(-joy.getY()* .96, joy.getZ() * .75);
+            drive.arcadeDrive(-joy.getY() * .96, joy.getZ() * .75);
             
         }
     }

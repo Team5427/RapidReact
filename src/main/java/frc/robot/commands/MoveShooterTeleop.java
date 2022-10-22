@@ -18,7 +18,7 @@ public class MoveShooterTeleop extends CommandBase
     @Override
     public void initialize() {
 
-        setPointFinal = SmartDashboard.getNumber("Change RPI", 4560);
+        // setPointFinal = SmartDashboard.getNumber("Change RPI", 4560);
         RobotContainer.getShooter().shooterInitRight();
     }
 
@@ -33,16 +33,16 @@ public class MoveShooterTeleop extends CommandBase
         SmartDashboard.putNumber("SETPOINT NEW", dial/60);
 
         RobotContainer.getShooter().moveShooterSydID(dial/60);
-        
-        SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
-        SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
+        // RobotContainer.getShooter().movePercent(1);
+        // SmartDashboard.putNumber("Shooter RPM SysID", RobotContainer.getShooter().getRightEnc().getVelocity());
+        // SmartDashboard.putNumber("Shooter RPM SysID NUM", RobotContainer.getShooter().getRightEnc().getVelocity());
 
         // System.out.println("Shooter is running " + RobotContainer.getJoy().getRawButton(1));
     }
 
     @Override
     public boolean isFinished() {
-        return !RobotContainer.getJoy().getRawButton(Constants.SHOOT_BUTTON);
+        return !RobotContainer.getJoy().getRawButton(Constants.MANUAL_SHOOTER_BUTTON);
     }
 
     @Override

@@ -267,7 +267,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // Joystick 1
-    joy = new Joystick(0);
+    joy = new Joystick(1);
 
     tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
     shooterButton = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
@@ -282,8 +282,8 @@ public class RobotContainer {
 
     tiltToggleButton.whenPressed(new MoveTilt());
     reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
-    // shooterButton.whenPressed(new AutoShoot());
-    shooterButton.whenPressed(new DynamicShooting());
+    shooterButton.whenPressed(new MoveShooterTeleop());
+    // shooterButton.whenPressed(new DynamicShooting());
     // shooterButton.whenPressed(new MoveShooterTeleop());
     visionTurn.whileHeld(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
@@ -292,10 +292,10 @@ public class RobotContainer {
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
     manualShoot.whenPressed(new AutoShoot(false));
-    // manualShoot.whileHeld(new MoveShooterTeleop());
+    // shooterButton.whileHeld(new MoveShooterTeleop());
 
     // Joystick 2ca
-    joy2 = new Joystick(1);
+    joy2 = new Joystick(0);
 
     tilt_in_button = new JoystickButton(joy2, Constants.AUTO_TILT_OUT_BUTTON_2);
     arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);

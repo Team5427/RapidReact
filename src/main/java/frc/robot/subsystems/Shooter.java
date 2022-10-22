@@ -20,24 +20,26 @@ public class Shooter extends SubsystemBase
 
     private PIDController SysIDTest;
     private SimpleMotorFeedforward SysIDFFTest;
-    private double kp, ki, kd, ks, kv; 
+    private double kp, ki, kd, ks, kv, ka; 
     private SparkMaxPIDController pid_Right_ss;
     public double kP_Right, kI_Right, kD_Right, kIz_Right, kFF_Right, kMaxOutput_Right, kMinOutput_Right, maxRPM_Right;
     
     public Shooter(CANSparkMax shooterMotorRight, CANSparkMax shooterMotorLeft, RelativeEncoder Right, RelativeEncoder Left, SparkMaxPIDController pid_Right, SparkMaxPIDController pid_btm)
     {
-        kp = 0.061118;
+        kp = 0.068442;
         ki = 0.0;
         kd = 0.0;
-        ks = 0.071977;
-        kv = 0.12174;
+        ks = .11899;
+        kv = 0.12235;
+        ka = 0.0032466;
+
         this.shooterMotorRight = shooterMotorRight;
         this.shooterMotorLeft = shooterMotorLeft;
         shooterRightEnc = Right;
         shooterLeftEnc = Left;
         pid_Right_ss = pid_Right;
         SysIDTest = new PIDController(kp, ki, kd);
-        SysIDFFTest = new SimpleMotorFeedforward(ks, kv);
+        SysIDFFTest = new SimpleMotorFeedforward(ks, kv, ka);
     }
 
     public CANSparkMax getShooterMotorRight()
@@ -78,11 +80,12 @@ public class Shooter extends SubsystemBase
         // pid_Right_ss.setFF(kFF_Right); //This is kV from SysID
         // pid_Right_ss.setOutputRange(kMinOutput_Right, kMaxOutput_Right);
 
-        kp = 0.061118;
+        kp = 0.068442;
         ki = 0.0;
         kd = 0.0;
-        ks = 0.071977;
-        kv = 0.12174;
+        ks = .11899;
+        kv = 0.12235;
+        ka = 0.0032466;
 
     }
 

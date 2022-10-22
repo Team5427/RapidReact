@@ -16,7 +16,7 @@ public class TargetVision extends CommandBase
   private double fastSpeed = .2;
   private double medSpeed = .20;
   private double slowSpeed = .10;
-  private double smallAdjustSpeed = .07;
+  private double smallAdjustSpeed = .7;
   /**
    * Creates a new MoveStraight.
    */

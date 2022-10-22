@@ -131,15 +131,15 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getRotation2d().getDegrees());
     SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
     // // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
-    // SmartDashboard.putBoolean("x/LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
+    SmartDashboard.putBoolean("LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
     // SmartDashboard.putNumber("x/Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
     // SmartDashboard.putNumber("x/Shooter Percentage", RobotContainer.getShooter().getShooterMotorLeft().get());
 
-    // if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= 7 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) < -17){
-    //   SmartDashboard.putBoolean("x/CAN SHOOT?", false);
-    // } else{
-    //   SmartDashboard.putBoolean("x/CAN SHOOT?", true);
-    // }
+    if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= -7.5 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) <= 12.5427){
+      SmartDashboard.putBoolean("CAN SHOOT?", false);
+    } else{
+      SmartDashboard.putBoolean("CAN SHOOT?", true);
+    }
 
 
     CommandScheduler.getInstance().run();

@@ -33,7 +33,7 @@ public class MoveArm extends CommandBase{
         //     RobotContainer.getTeleArmR().stopExtend();
         // }
         RobotContainer.getTeleArmR().extendRight(speed);
-        RobotContainer.getTeleArmL().extendLeft(speed);
+        RobotContainer.getTeleArmL().extendLeft((speed < 0)? speed + .2 : speed - .2);
 
         
 

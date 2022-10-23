@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
-public class TargetVisionAutoShoot extends CommandBase
+public class Target extends CommandBase
 {
 
   private DriveTrain driveTrain = RobotContainer.getDriveTrain();
@@ -22,7 +22,7 @@ public class TargetVisionAutoShoot extends CommandBase
    */
 
   //bias based on distance model in case it is needed
-  public TargetVisionAutoShoot(boolean isCW, boolean isAuto)
+  public Target(boolean isCW, boolean isAuto)
   {
     addRequirements(RobotContainer.getDriveTrain());
     this.isCW = isCW;

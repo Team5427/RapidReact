@@ -131,6 +131,7 @@ public final class Constants {
     public static final double DRIVE_TRAIN_GEAR_RATIO = (1/9.01);
     public static final double DT_ROTATIONS_TO_METERS_FACTOR = Units.inchesToMeters(WHEEL_DIAMETER) * Math.PI * DRIVE_TRAIN_GEAR_RATIO;
     public static final double DT_RPM_TO_MPS_FACTOR = DT_ROTATIONS_TO_METERS_FACTOR / 60;
+    public static final double TARGETING_P = 1;
 
     //Limelight Shi
     public static final double LL_MOUNT_ANGLE_DEG = 0;

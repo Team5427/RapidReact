@@ -6,7 +6,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Limelight;
 
-public class DynamicShooterTransport extends CommandBase{
+public class ShootDynamic extends CommandBase{
     private double pitch, yaw, dynamicSetPoint;
     private boolean hasTarget;
     private double A = Constants.DISTANCE_CURVE_A;
@@ -18,7 +18,7 @@ public class DynamicShooterTransport extends CommandBase{
     
     private boolean isAuto;
 
-    public DynamicShooterTransport(boolean isAuto){
+    public ShootDynamic(boolean isAuto){
         addRequirements(RobotContainer.getShooter(), RobotContainer.getTransport());
         this.isAuto = isAuto;
         ll = RobotContainer.getLimeLight();

@@ -1,7 +1,5 @@
 package frc.robot.commands.auton.Trajectory;
 
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -17,7 +15,7 @@ public class FourBallAuton extends SequentialCommandGroup {
         
         RamseteClass balls2 = new RamseteClass(Robot.pathTraj2);
         addCommands(
-            new AutoTiltDown(false),
+            new AutoTiltDown(),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     balls1.getRamCom(),

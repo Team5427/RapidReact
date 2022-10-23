@@ -7,13 +7,13 @@ import frc.robot.commands.auton.TimedTransport;
 public class AutoShoot extends SequentialCommandGroup{
     public AutoShoot(boolean isAuto){
         addCommands(
-                new ParallelCommandGroup(
-                    new Target(true, isAuto), 
-                    new SequentialCommandGroup(
-                        new TimedTransport(.25, -.25),
-                        new ShootDynamic(isAuto)
-                    )
+            new ParallelCommandGroup(
+                new Target(true, isAuto), 
+                new SequentialCommandGroup(
+                    new TimedTransport(.25, -.25),
+                    new ShootDynamic(isAuto)
                 )
+            )
         );
     }
 

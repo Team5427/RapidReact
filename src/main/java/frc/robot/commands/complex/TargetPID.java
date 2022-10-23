@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -17,13 +18,18 @@ public class TargetPID extends CommandBase{
     private ProfiledPIDController pid;
     private double yaw;
     private double maxOutput = Constants.TARGETING_MAX_SPEED;
-    public TargetPID(boolean CW, double toleranceDeg) {
+    private boolean isAuto;
+    private Button boundBtn;
+    public TargetPID(boolean CW, double toleranceDeg, boolean isAuto, Button boundBtn) {
         dt = RobotContainer.getDriveTrain();
         ll = RobotContainer.getLimeLight();
         addRequirements(dt);
         this.CW = CW;
         this.tolerance = toleranceDeg;
         pid = new ProfiledPIDController(0.04, 0, 0, new Constraints(480, 700)); //TUNE WITH THIS
+        this.isAuto = isAuto;
+        this.boundBtn = boundBtn;
+
     }
 
     @Override

@@ -266,7 +266,7 @@ public class RobotContainer {
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
     shooterButton.whenPressed(new AutoShoot(false));
-    visionTurn.whenPressed(new TargetPID(true, 3));
+    visionTurn.whenPressed(new TargetPID(true, 3, false, visionTurn));
 
     // Joystick 2ca
     joy2 = new Joystick(1);

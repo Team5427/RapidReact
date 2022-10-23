@@ -1,6 +1,8 @@
 package frc.robot.commands.complex;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -12,22 +14,22 @@ public class TargetPID extends CommandBase{
     private double tolerance;
     private DriveTrain dt;
     private Limelight ll;
-    private PIDController pid;
+    private ProfiledPIDController pid;
     private double yaw;
+    private double maxOutput = Constants.TARGETING_MAX_SPEED;
     public TargetPID(boolean CW, double toleranceDeg) {
         dt = RobotContainer.getDriveTrain();
         ll = RobotContainer.getLimeLight();
         addRequirements(dt);
         this.CW = CW;
         this.tolerance = toleranceDeg;
-        // pid = new PIDController(Constants.TARGETING_P, 0, 0);
-        pid = new PIDController(Constants.TARGETING_P, 0, 0); //TUNE WITH THIS
+        pid = new ProfiledPIDController(0.04, 0, 0, new Constraints(480, 700)); //TUNE WITH THIS
     }
 
     @Override
     public void initialize() {
-        pid.setSetpoint(0);
-        pid.setTolerance(tolerance, 0.5);
+        pid.setGoal(new State(0, 0));
+        pid.setTolerance(tolerance, 0);
     }
 
     @Override
@@ -37,8 +39,9 @@ public class TargetPID extends CommandBase{
             yaw = ll.targetX();
             calc = pid.calculate(yaw);
         } else {
-            calc = CW ? -0.8 : 0.8;
+            calc = CW ? -maxOutput : maxOutput;
         }
+        calc = Math.abs(calc) >= maxOutput ? maxOutput * Math.signum(calc) : calc; //limits max output to .8
         dt.moveRight(calc);
         dt.moveLeft(-calc);
     }
@@ -46,7 +49,7 @@ public class TargetPID extends CommandBase{
     @Override
     public boolean isFinished() {
         if (ll.targetVisible()) {
-            return pid.atSetpoint();
+            return pid.atGoal();
         } else {
             return false;
         }
@@ -54,7 +57,7 @@ public class TargetPID extends CommandBase{
 
     @Override
     public void end(boolean interrupted) {
-        pid.reset();
+        pid.reset(yaw);
     }
 
 }

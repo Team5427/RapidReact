@@ -46,6 +46,7 @@ import frc.robot.commands.basic.MoveTilt;
 import frc.robot.commands.basic.MoveTransport;
 import frc.robot.commands.basic.TeleArmTilt;
 import frc.robot.commands.complex.AutoShoot;
+import frc.robot.commands.complex.TargetPID;
 import frc.robot.subsystems.ArmTilt;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -71,6 +72,7 @@ public class RobotContainer {
   private static Button tiltToggleButton;
   private static Button shooterButton;
   private static Button manualShoot;
+  private static Button visionTurn;
 
   private static Button elevator_down;
   private static Button elevator_up;
@@ -153,14 +155,14 @@ public class RobotContainer {
 
     topLeft = new CANSparkMax(Constants.TOP_LEFT_MOTOR, MotorType.kBrushless);
     topLeft.setInverted(true);
-    topLeft.setIdleMode(IdleMode.kCoast);
+    topLeft.setIdleMode(IdleMode.kBrake);
     topRight = new CANSparkMax(Constants.TOP_RIGHT_MOTOR, MotorType.kBrushless);
-    topRight.setIdleMode(IdleMode.kCoast);
+    topRight.setIdleMode(IdleMode.kBrake);
     bottomLeft = new CANSparkMax(Constants.BOTTOM_LEFT_MOTOR, MotorType.kBrushless);
     bottomLeft.setInverted(true);
-    bottomLeft.setIdleMode(IdleMode.kCoast);
+    bottomLeft.setIdleMode(IdleMode.kBrake);
     bottomRight = new CANSparkMax(Constants.BOTTOM_RIGHT_MOTOR, MotorType.kBrushless);
-    bottomRight.setIdleMode(IdleMode.kCoast);
+    bottomRight.setIdleMode(IdleMode.kBrake);
 
     left = new MotorControllerGroup(topLeft, bottomLeft);
     right = new MotorControllerGroup(topRight, bottomRight);
@@ -253,6 +255,7 @@ public class RobotContainer {
     transport_back = new JoystickButton(joy, Constants.TRANSPORT_BACK_BUTTON);
     shooterButton = new JoystickButton(joy, Constants.SHOOT_BUTTON);
     reverse_intake = new JoystickButton(joy, 4);
+    visionTurn = new JoystickButton(joy, Constants.VISION_TURN);
 
     tiltToggleButton.whenPressed(new MoveTilt());
     reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
@@ -263,6 +266,7 @@ public class RobotContainer {
     transport_move.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
     transport_back.whileHeld(new MoveTransport(-.25));
     shooterButton.whenPressed(new AutoShoot(false));
+    visionTurn.whenPressed(new TargetPID(true, 3));
 
     // Joystick 2ca
     joy2 = new Joystick(1);

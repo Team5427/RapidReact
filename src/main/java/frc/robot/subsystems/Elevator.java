@@ -9,12 +9,10 @@ import frc.robot.Constants;
 public class Elevator extends SubsystemBase{
     private MotorController elevatorMotor;
     private Encoder elevatorEncoder;
-    private DigitalInput limit;
 
     public Elevator(MotorController elevatorMotor, Encoder elevatorEncoder, DigitalInput limit){
         this.elevatorMotor = elevatorMotor;
         this.elevatorEncoder = elevatorEncoder;
-        this.limit = limit;
         elevatorEncoder.reset();
     }
 
@@ -38,6 +36,7 @@ public class Elevator extends SubsystemBase{
         // return true if at limit
         return getDistance() < Constants.ELEVATOR_ENCODER_LIMIT;
     }
+
     
     
 }

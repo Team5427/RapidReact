@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -71,7 +70,6 @@ public class RobotContainer {
   private static Button intakeButton;
   private static Button tiltToggleButton;
   private static Button shooterButton;
-  private static Button visionTurn;
   private static Button manualShoot;
 
   private static Button elevator_down;
@@ -89,8 +87,6 @@ public class RobotContainer {
   private static Button arm_extend_down_2;
   private static Button arm_extend_up_2;  
   private static Button arm_tilt_in_2;
-  private static Button elevator_down_2;
-  private static Button elevator_up_2;
   private static Button manual_extend_up_right_2;
   private static Button manual_extend_up_left_2;
   private static Button manual_extend_down_right_2;
@@ -123,12 +119,10 @@ public class RobotContainer {
   private static AnalogInput transport_sensor;
   private static DigitalInput armRightLimit;
   private static DigitalInput armLeftLimit;
-  // private static DigitalInput armTiltLimit;
   private static DigitalInput elevatorLimit;
   private static Encoder elevatorEncoder;
   private static Encoder armleftEncoder;
   private static Encoder armRightEncoder;
-  private static I2C lidar_sensor;
 
   // Subsystems
   private static Shooter shooter;
@@ -252,7 +246,6 @@ public class RobotContainer {
 
     tiltToggleButton = new JoystickButton(joy, Constants.TILT_BUTTON);
     manualShoot = new JoystickButton(joy, Constants.MANUAL_SHOOTER_BUTTON);
-    visionTurn = new JoystickButton(joy, Constants.VISION_TURN);
     intakeButton = new JoystickButton(joy, Constants.INTAKE_IN_BUTTON);
     elevator_down = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     elevator_up = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
@@ -264,7 +257,6 @@ public class RobotContainer {
     tiltToggleButton.whenPressed(new MoveTilt());
     reverse_intake.whenPressed(new MoveIntake(-Constants.INTAKE_IN_SPEED));
     manualShoot.whenPressed(new MoveShooterTeleop());
-    // visionTurn.whileHeld(new TargetVision(true));
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_IN_SPEED));
     elevator_down.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     elevator_up.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));

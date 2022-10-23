@@ -22,13 +22,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.DynamicShooting;
-// import frc.robot.commands.auto.ArmAutoTiltOut;
-// import frc.robot.commands.MoveArm;
-import frc.robot.commands.MoveShooterTeleop;
-import frc.robot.commands.MoveTransport;
-// import frc.robot.commands.auto.AutoArmExtend;
-
+import frc.robot.commands.basic.MoveShooterTeleop;
+import frc.robot.commands.basic.MoveTransport;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -116,38 +111,10 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
 
-    // double 
-    
-    // SmartDashboard.putNumber("x/Shooter RPM", RobotContainer.getShooter().getRightEnc().getVelocity());
-    // // SmartDashboard.putNumber("dt speed", RobotContainer.getDriveTrain().get)
-    // // 
-
-    // SmartDashboard.putNumber("Drivetrain encoder", RobotContainer.getDriveTrain().getLeftEnc().getPosition());
-    // // SmartDashboard.putBoolean("Elevator limit switch", RobotContainer.getElevator().getElevatorLimit());
-    // // SmartDashboard.putNumber("Elevator Encoder", RobotContainer.getElevator().getDistance());
-    // // SmartDashboard.putNumber("Arm Left Encoder", RobotContainer.getTelescopicArm().getLeftEncoder());
-    // // SmartDashboard.putNumber("Arm Right Encoder", RobotContainer.getTelescopicArm().getRightEncoder());
-    // // SmartDashboard.putNumber("Proximity", RobotContainer.getTransport().getProxVal());
     SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getRotation2d().getDegrees());
     SmartDashboard.putNumber("x/Slider thing", ((1 + RobotContainer.getJoy().getRawAxis(3)) / 2));
-    // // SmartDashboard.putNumber("Shooter Voltage", RobotContainer.getShooter().shooterMotorRight.get());
-    SmartDashboard.putBoolean("LimeLight Working?", RobotContainer.getLimeLight().getEntry("tv").getDouble(3) != 3);
-    // SmartDashboard.putNumber("x/Pitch", RobotContainer.getLimeLight().getEntry("ty").getDouble(10000));
-    // SmartDashboard.putNumber("x/Shooter Percentage", RobotContainer.getShooter().getShooterMotorLeft().get());
-
-    if(RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) >= -7.5 || RobotContainer.getLimeLight().getEntry("ty").getDouble(1000) <= 12.5427){
-      SmartDashboard.putBoolean("CAN SHOOT?", false);
-    } else{
-      SmartDashboard.putBoolean("CAN SHOOT?", true);
-    }
-
 
     CommandScheduler.getInstance().run();
-    wantedSetPoint = ((RobotContainer.getJoy().getRawAxis(3) * 3000) + 3000);
-    
-    // dynamicSetPoint = distToRPM(distFromGoal);
-    //We will see which is better ^^^ prolly distance but wtv smh smh :|
-    SmartDashboard.putNumber("SetPoint", wantedSetPoint);
   }
 
   /**

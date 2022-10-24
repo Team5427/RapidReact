@@ -53,13 +53,18 @@ public class DriveTrain extends SubsystemBase{
         return new DifferentialDriveWheelSpeeds(leftEnc.getVelocity(), rightEnc.getVelocity());
     }
 
+    public double getAvgAbsoluteWheelSpeeds() {
+        double x = Math.abs(getWheelSpeeds().leftMetersPerSecond) + Math.abs(getWheelSpeeds().leftMetersPerSecond);
+        return x/2;
+    }
+
     public void driveWithJoystick(Joystick joy){
         if (joy.getRawButton(1)) {
             stop();
         } else {
             drive.arcadeDrive(-joy.getY() * .96, joy.getZ() * .75);
-            
         }
+        drive.feed();
     }
 
     public void getHeading() {

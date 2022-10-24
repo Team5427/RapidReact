@@ -36,17 +36,19 @@ public class ShootDynamic extends CommandBase{
         if (hasTarget) {
             pitch = ll.targetY();
             yaw = ll.targetX();
+            dynamicSetPoint = (A * Math.pow(pitch, 2)) + (B * pitch) + C;
         } else {
-            pitch = 0;
-            yaw = 0;
+            dynamicSetPoint = 5000; //revs up as soon as button pressed
         }
-
-        
-        dynamicSetPoint = (A * Math.pow(pitch, 2)) + (B * pitch) + C;
 
         RobotContainer.getShooter().moveShooterSydID(dynamicSetPoint/60);
 
-        if(hasTarget && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 200) && Math.abs(yaw - 0) < 3){
+        if(
+            hasTarget //target on screen
+            && (Math.abs(RobotContainer.getShooter().getRightEnc().getVelocity() - dynamicSetPoint) < 225) //shooter up to speed
+            && Math.abs(yaw) < 2 //aimed at target
+            && RobotContainer.getDriveTrain().getAvgAbsoluteWheelSpeeds() < 0.5 //needs to be tuned too //FIXME
+        ){
             RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
             timer2.start();
         }

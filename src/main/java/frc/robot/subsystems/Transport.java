@@ -10,7 +10,6 @@ import frc.robot.RobotContainer;
 public class Transport extends SubsystemBase {
     private MotorController transportMotor;
     private AnalogInput proximity;
-    private boolean b;
     private Timer timer = new Timer();
 
     public Transport(MotorController transportMotor, AnalogInput proximity){
@@ -32,27 +31,21 @@ public class Transport extends SubsystemBase {
     }
 
     public boolean proxCovered(){
-        // return true if covered
-        return getProxVal() < Constants.COVERED;
+        return getProxVal() < Constants.COVERED; //2.23
     }
+
+    public boolean ballTooHigh() { //so that it is constantly pushing balls down
+        return getProxVal() >= 2.5; //tune this (less is better, more means sensor is fluctuating) //FIXME
+    }
+
     @Override
     public void periodic(){
         if (proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
-            move(.5);
-            b = true;
+            move(.4); //tune this
+        } else if (ballTooHigh() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)) {
+            move(-.2);
         } else {
-            if (b) {
-                timer.start();
-                move(.4);
-                if (timer.get() > .2) {
-                    stop();
-                    timer.reset();
-                    b = false;
-                }
-            } else {
-                stop();
-            }
-            
+            stop();
         }
     }
     

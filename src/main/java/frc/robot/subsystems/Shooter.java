@@ -62,22 +62,6 @@ public class Shooter extends SubsystemBase
     }
 
     public void shooterInitRight() {
-    
-        // kP_Right = 0.00000; 
-        // kI_Right = 0.000000;
-        // kD_Right = 0.000; 
-        // kIz_Right = 0; 
-        // kFF_Right = 0.00002; 
-        // kMaxOutput_Right = 1; 
-        // kMinOutput_Right = -1;
-        // maxRPM_Right = 5874;
-
-        // pid_Right_ss.setP(kP_Right);
-        // pid_Right_ss.setI(kI_Right);
-        // pid_Right_ss.setD(kD_Right);
-        // pid_Right_ss.setIZone(kIz_Right);
-        // pid_Right_ss.setFF(kFF_Right); //This is kV from SysID
-        // pid_Right_ss.setOutputRange(kMinOutput_Right, kMaxOutput_Right);
 
         kp = 0.068442;
         ki = 0.0;

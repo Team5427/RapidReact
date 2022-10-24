@@ -9,14 +9,9 @@ public class AutoShoot extends SequentialCommandGroup{
         addCommands(
             new ParallelCommandGroup(
                 new Target(true, isAuto), 
-                new SequentialCommandGroup(
-                    new TimedTransport(.25, -.25),
-                    new ShootDynamic(isAuto)
-                )
+                new TimedTransport(.3, -.2),
+                new ShootDynamic(isAuto)
             )
         );
-    }
-
-
-        
+    }        
 }

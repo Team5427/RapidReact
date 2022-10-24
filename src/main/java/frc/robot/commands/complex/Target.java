@@ -17,9 +17,6 @@ public class Target extends CommandBase
   private double slowSpeed = .1;
   private double smallAdjustSpeed = .07;
   private boolean isAuto = false;
-  /**
-   * Creates a new MoveStraight.
-   */
 
   //bias based on distance model in case it is needed
   public Target(boolean isCW, boolean isAuto)

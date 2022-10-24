@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Limelight;
 
-public class TargetPID extends CommandBase{
+public class TargetPID extends CommandBase{ //FIXME
     private boolean CW;
     private double tolerance;
     private DriveTrain dt;
@@ -56,6 +56,8 @@ public class TargetPID extends CommandBase{
     public boolean isFinished() {
         if (ll.targetVisible()) {
             return pid.atGoal();
+        } else if (!boundBtn.get() && !isAuto) {
+            return true;
         } else {
             return false;
         }

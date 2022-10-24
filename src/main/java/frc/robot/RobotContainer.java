@@ -223,6 +223,8 @@ public class RobotContainer {
 
     driveTrain = new DriveTrain(left, right, drive, topLeftEnc, topRightEnc, ahrs);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
+
+    shooter.setDefaultCommand(new MoveShooterTeleop());
     
     autonChooser = new SendableChooser<Command>();
 

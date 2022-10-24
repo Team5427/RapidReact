@@ -1,28 +1,30 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class Transport extends SubsystemBase {
-    private MotorController transportMotor;
+    private VictorSPX transportMotor;
     private AnalogInput proximity;
     private Timer timer = new Timer();
 
-    public Transport(MotorController transportMotor, AnalogInput proximity){
+    public Transport(VictorSPX transportMotor, AnalogInput proximity){
         this.transportMotor = transportMotor;
         this.proximity = proximity;
         timer.reset();
 
     }
     public void move(double speed) {
-        transportMotor.set(speed);
+        transportMotor.set(ControlMode.PercentOutput, speed);
     }
     public void stop(){
-        transportMotor.stopMotor();
+        transportMotor.neutralOutput();
     }
 
     
@@ -42,7 +44,7 @@ public class Transport extends SubsystemBase {
     public void periodic(){
         if (proxCovered() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)){
             move(.4); //tune this
-        } else if (ballTooHigh() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON)) {
+        } else if (ballTooHigh() && !RobotContainer.getJoy().getRawButton(Constants.TRANSPORT_BACK_BUTTON) && !RobotContainer.getJoy().getRawButton(1)) {
             move(-.2);
         } else {
             stop();

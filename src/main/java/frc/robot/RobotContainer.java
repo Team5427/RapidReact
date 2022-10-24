@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
@@ -101,7 +103,7 @@ public class RobotContainer {
   public static RelativeEncoder topLeftEnc, topRightEnc, bottomRightEnc, bottomLeftEnc;
   public static MotorControllerGroup left, right;
   public static MotorController intakeMotor;
-  public static MotorController transportMotor;
+  public static VictorSPX transportMotor;
   public static MotorController elevatorMotor;
   public static MotorController armLeftMotor;
   public static MotorController armRightMotor;
@@ -182,7 +184,10 @@ public class RobotContainer {
     arm_right_piston = new Solenoid(Constants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM, Constants.ARM_PISTON_RIGHT);
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
+    transportMotor.configFactoryDefault();
+    transportMotor.setNeutralMode(NeutralMode.Brake);
     transportMotor.setInverted(true);
+
     transport_sensor = new AnalogInput(Constants.TRANSPORT_SENSOR);
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);

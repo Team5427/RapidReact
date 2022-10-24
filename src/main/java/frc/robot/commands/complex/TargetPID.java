@@ -54,8 +54,8 @@ public class TargetPID extends CommandBase{ //FIXME
 
     @Override
     public boolean isFinished() {
-        if (ll.targetVisible()) {
-            return pid.atGoal();
+        if (ll.targetVisible() && pid.atGoal()) {
+            return true;
         } else if (!boundBtn.get() && !isAuto) {
             return true;
         } else {

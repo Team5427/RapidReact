@@ -47,6 +47,7 @@ import frc.robot.commands.basic.MoveShooterTeleop;
 import frc.robot.commands.basic.MoveTilt;
 import frc.robot.commands.basic.MoveTransport;
 import frc.robot.commands.basic.TeleArmTilt;
+import frc.robot.commands.basic.TransportIdle;
 import frc.robot.commands.complex.AutoShoot;
 import frc.robot.commands.complex.TargetPID;
 import frc.robot.subsystems.ArmTilt;
@@ -230,6 +231,7 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     shooter.setDefaultCommand(new MoveShooterTeleop());
+    transport.setDefaultCommand(new TransportIdle());
     
     autonChooser = new SendableChooser<Command>();
 

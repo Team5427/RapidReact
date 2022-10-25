@@ -11,6 +11,8 @@ import java.nio.file.Path;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,19 +33,6 @@ public class Robot extends TimedRobot
   private Command m_autonomousCommand;
 
   public static RobotContainer m_robotContainer;
-  public static double wantedSetPoint;
-  public static double dynamicSetPoint;
-
-  public static double pitch;
-  public static double yaw;
-  public static boolean hasTarget;
-  private static double limelightMountAngleDegrees = Constants.LL_MOUNT_ANGLE_DEG;
-  private static double limelightLensHeightInches = Constants.LL_LENS_HEIGHT_INCHES;
-  private static double goalHeightInches = Constants.GOAL_HEIGHT_INCHES;
-  private static double angleToGoalDegrees = limelightMountAngleDegrees + pitch;
-  private static double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
-  public static double distFromGoal = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
-
   private static UsbCamera cam;
 
   public static Trajectory pathTraj1;
@@ -61,15 +50,6 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
-    // PRAT STOP DELETING COMMENTS!!!!
-    // THEY EXIST FOR A REASON
-    // SmartDashboard.putNumber("Change RPM", 4560);
-    // SmartDashboard.putData("Auto Tilt Arm Out", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    // SmartDashboard.putData("Teleop Tilt Arm Out", new MoveArm(Constants.ARM_TILT_SPEED));
-    // SmartDashboard.putData("Teleop Tilt Arm in", new ArmAutoTiltOut(Constants.ARM_TILT_SPEED));
-    // SmartDashboard.putData("Auto Extend Arm", new AutoArmExtend(Constants.ARM_SPEED));
-    // SmartDashboard.putData("Manual Retract Arm", new AutoArmExtend(-Constants.ARM_SPEED));
-    // SmartDashboard.putData("Manual Transport", new MoveTransport(Constants.TRANSPORT_SPEED));
 
     try{
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON1);
@@ -87,9 +67,9 @@ public class Robot extends TimedRobot
     }
 
     cam = CameraServer.startAutomaticCapture();
-    cam.setFPS(15);
+    cam.setVideoMode(new VideoMode(PixelFormat.kBGR, 650, 320, 30));
+    
     m_robotContainer = new RobotContainer();
-    RobotContainer.getShooter().shooterInitRight();
     RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);
     RobotContainer.getDriveTrain().getRightEnc().setPosition(0);
 

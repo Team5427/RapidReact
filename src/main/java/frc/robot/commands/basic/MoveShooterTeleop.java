@@ -11,11 +11,6 @@ public class MoveShooterTeleop extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        RobotContainer.getShooter().shooterInitRight();
-    }
-
-    @Override
     public void execute() {
         double dial = RobotContainer.getJoy().getRawAxis(3);
         dial = (dial * 3000) + 3000;
@@ -23,7 +18,7 @@ public class MoveShooterTeleop extends CommandBase {
         if (RobotContainer.getJoy().getRawButton(6)) {
             RobotContainer.getShooter().moveShooterSydID(dial / 60);
         } else {
-            RobotContainer.getShooter().moveShooterSydID(1500 / 60);
+            RobotContainer.getShooter().moveShooterSydID(1500 / 60); //idle mode for shooter is 1500 rpm
         }
 
     }

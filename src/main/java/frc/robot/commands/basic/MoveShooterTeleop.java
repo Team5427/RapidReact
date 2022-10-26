@@ -14,11 +14,12 @@ public class MoveShooterTeleop extends CommandBase {
     public void execute() {
         double dial = RobotContainer.getJoy().getRawAxis(3);
         dial = (dial * 3000) + 3000;
+        SmartDashboard.putNumber("dial", dial);
         SmartDashboard.putNumber("DIAL", dial / 60);
         if (RobotContainer.getJoy().getRawButton(6)) {
             RobotContainer.getShooter().moveShooterSydID(dial / 60);
         } else {
-            RobotContainer.getShooter().moveShooterSydID(1500 / 60); //idle mode for shooter is 1500 rpm
+            RobotContainer.getShooter().stop();
         }
 
     }

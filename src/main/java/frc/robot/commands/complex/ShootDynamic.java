@@ -45,9 +45,9 @@ public class ShootDynamic extends CommandBase {
 
         if(
             hasTarget //target on screen
-            && (Math.abs(RobotContainer.getShooter().getSpeedRPM() - dynamicSetPoint) < 225) //shooter up to speed
-            && Math.abs(yaw) < 2 //aimed at target
-            && RobotContainer.getDriveTrain().getAvgAbsoluteWheelSpeeds() < 0.5 //needs to be tuned too //FIXME
+            && (Math.abs(RobotContainer.getShooter().getSpeedRPM() - dynamicSetPoint) < 200) //shooter up to speed
+            && Math.abs(yaw) < 4 //aimed at target
+            // && RobotContainer.getDriveTrain().getAvgAbsoluteWheelSpeeds() < 0.5 //needs to be tuned too //FIXME
         ){
             RobotContainer.getTransport().move(Constants.TRANSPORT_SPEED);
             timer2.start();

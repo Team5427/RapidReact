@@ -280,7 +280,7 @@ public class RobotContainer {
     // Joystick 2ca
     joy2 = new Joystick(1);
 
-    tilt_in_button = new JoystickButton(joy2, Constants.AUTO_TILT_OUT_BUTTON_2);
+    tilt_in_button = new JoystickButton(joy2, 6);
     arm_extend_down_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_DOWN_BUTTON_2);
     arm_extend_up_2 = new JoystickButton(joy2, Constants.ARM_EXTEND_UP_BUTTON_2);
     arm_tilt_in_2 = new JoystickButton(joy2, Constants.ARM_TILT_IN_BUTTON_2);

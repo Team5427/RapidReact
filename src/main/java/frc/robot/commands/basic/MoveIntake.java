@@ -1,8 +1,10 @@
 package frc.robot.commands.basic;
  
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.auton.TimedTransport;
  
 public class MoveIntake extends CommandBase
 {
@@ -18,6 +20,7 @@ public class MoveIntake extends CommandBase
     public void initialize()
     {
         RobotContainer.getIntake().moveIntake(speed);
+        CommandScheduler.getInstance().schedule(new TimedTransport(0.5, 0.2));
     }
  
     @Override

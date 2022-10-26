@@ -67,7 +67,7 @@ public class Robot extends TimedRobot
     }
 
     cam = CameraServer.startAutomaticCapture();
-    cam.setVideoMode(new VideoMode(PixelFormat.kBGR, 650, 320, 30));
+    // cam.setVideoMode(new VideoMode(PixelFormat.kBGR, 650, 320, 30));
     
     m_robotContainer = new RobotContainer();
     RobotContainer.getDriveTrain().getLeftEnc().setPosition(0);

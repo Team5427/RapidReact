@@ -28,7 +28,7 @@ public final class Constants {
 
     public static final double ELEVATOR_SPEED = 1;
     public static final double ARM_SPEED = 1;
-    public static final double TRANSPORT_SPEED = .5;
+    public static final double TRANSPORT_SPEED = .3;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;
@@ -91,11 +91,12 @@ public final class Constants {
     public static final int COMPRESSOR_ID = 14;
 
 
+
     //Sensor Ports
     public static final int TILT_SWITCH = 2;
 
     public static final double COVERED = 2.23;
-    public static final double BALL_TOO_FAR = 2.4;
+    public static final double BALL_TOO_FAR = 5;
     public static final int TRANSPORT_SENSOR = 1;
 
     public static final int ELEVATOR_ENCODER_1 = 0;

@@ -47,11 +47,11 @@ public class Target extends CommandBase
 
 
     if(!hasTarget && isCW){
-      driveTrain.moveRight(-fastSpeed * 2.5);
-      driveTrain.moveLeft(fastSpeed * 2.5);   
+      driveTrain.moveRight(-fastSpeed * 1.75);
+      driveTrain.moveLeft(fastSpeed * 1.75);   
     } else if (!hasTarget && !isCW) {
-      driveTrain.moveRight(fastSpeed * 2.5);
-      driveTrain.moveLeft(-fastSpeed * 2.5);
+      driveTrain.moveRight(fastSpeed * 1.75);
+      driveTrain.moveLeft(-fastSpeed * 1.75);
     } else {
       if(err >= 20){
         driveTrain.moveRight(-fastSpeed);

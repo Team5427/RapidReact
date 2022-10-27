@@ -28,7 +28,7 @@ public final class Constants {
 
     public static final double ELEVATOR_SPEED = 1;
     public static final double ARM_SPEED = 1;
-    public static final double TRANSPORT_SPEED = .3;
+    public static final double TRANSPORT_SPEED = .4;
 
     //Buttons
     public static final int INTAKE_IN_BUTTON = 2;

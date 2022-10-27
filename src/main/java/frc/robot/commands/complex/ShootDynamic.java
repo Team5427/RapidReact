@@ -57,7 +57,7 @@ public class ShootDynamic extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(isAuto && (timer2.get() > 2)){
+        if(isAuto && (timer2.get() > 3)){
             return true;
         } else if(!isAuto && !RobotContainer.getJoy().getRawButton(1)){
             return true;

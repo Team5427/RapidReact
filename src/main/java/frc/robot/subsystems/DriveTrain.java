@@ -64,7 +64,7 @@ public class DriveTrain extends SubsystemBase{
         } else {
             drive.arcadeDrive(-joy.getY() * .96, joy.getZ() * .75);
         }
-        drive.feed();
+        // drive.feed();
     }
 
     public void getHeading() {

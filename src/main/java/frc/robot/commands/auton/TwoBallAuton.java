@@ -7,13 +7,14 @@ import frc.robot.commands.complex.AutoShoot;
 public class TwoBallAuton extends SequentialCommandGroup{
     public TwoBallAuton() {
         addCommands(
-            new AutoTiltDown(), 
+            new AutoTiltDown(),
+            new TimedTransport(.3, .4),
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
-                    new Wait(.1), 
+                    new Wait(.1),
                     new IntakeStart(4, 1, false)), 
                 new SequentialCommandGroup(
-                    new ForwardTimer(1.25, -.2),
+                    new ForwardTimer(2, -.2),
                     new Wait(0.3),
                     new AutoShoot(true)
                 )

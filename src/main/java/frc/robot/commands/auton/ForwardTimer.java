@@ -22,6 +22,8 @@ public class ForwardTimer extends CommandBase {
         System.out.println("Started Moving Forward at " + (int)speed * 100 + "% for " + ctimer + "s");
         timer.reset();
         timer.start();
+
+        
     }
 
     @Override

@@ -20,7 +20,7 @@ public class MoveIntake extends CommandBase
     public void initialize()
     {
         RobotContainer.getIntake().moveIntake(speed);
-        CommandScheduler.getInstance().schedule(new TimedTransport(0.3, 0.4));
+        CommandScheduler.getInstance().schedule(new TimedTransport(0.2, 0.4));
     }
  
     @Override

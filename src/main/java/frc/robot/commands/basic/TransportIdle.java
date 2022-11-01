@@ -27,7 +27,7 @@ public class TransportIdle extends CommandBase {
                 transport.move(.3);
             }
         } else if (proxVal > Constants.BALL_TOO_FAR) { //tune this, most likely by raising it
-            transport.move(-.3);
+            transport.move(-.2);
             timer.stop();
             timer.reset();
         } else {
